@@ -25,7 +25,7 @@ class SelectRicette {
 	private lateinit var db: RicettarioDatabase
 	private lateinit var dao: RicettarioDao
 
-	private var ricette: MutableList<Ricetta> = mutableListOf<Ricetta>()
+	private var ricette: MutableList<Ricetta> = mutableListOf()
 
 	@Before
 	fun createDb() {
@@ -146,5 +146,63 @@ class SelectRicette {
 		res = dao.getRicette(Filters())
 		assertTrue("Test ingredienti Quantita",
 		           res.size == 2 && res[0].ingredientiList[0].quantita == 1 && res[1].ingredientiList[0].quantita == 1000)
+	}
+
+	@Test
+	@Throws(Exception::class)
+	fun deleteRicette() {
+		ricette.add(Ricetta("Pollo con patate",
+		                    Portata.SECONDO,
+		                    1,
+		                    "Cucinare bene",
+		                    List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+		                    false,
+		                    TempoPreparazione.CINQUE_MIN,
+		                    true))
+
+		ricette.add(Ricetta("Pesce con patate",
+		                    Portata.ANTIPASTO,
+		                    1,
+		                    "Friggere bene",
+		                    List(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
+		                    false,
+		                    TempoPreparazione.TRENTA_MIN,
+		                    true))
+
+		dao.insertRicetta(ricette[0])
+		dao.insertRicetta(ricette[1])
+
+		var res = dao.getRicette(Filters("pesce"))
+		ricette[0].id = res[0].id
+
+		dao.deleteRicetta(ricette[0])
+
+		res = dao.getRicette(Filters())
+		assertTrue("Test delete1", res.size == 1)
+		assertTrue("Test delete2", res[0].nome == "Pollo con patate")
+	}
+
+	@Test
+	@Throws(Exception::class)
+	fun updateRicetta() {
+		ricette.add(Ricetta("Pollo con patate",
+		                    Portata.SECONDO,
+		                    1,
+		                    "Cucinare bene",
+		                    List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+		                    false,
+		                    TempoPreparazione.CINQUE_MIN,
+		                    true))
+
+		dao.insertRicetta(ricette[0])
+
+		var res = dao.getRicette(Filters("Pollo"))
+		ricette[0].id = res[0].id
+		ricette[0].nome = "Amatriciana"
+
+		dao.updateRicetta(ricette[0])
+
+		res = dao.getRicette(Filters())
+		assertTrue("Test update", res[0].nome == "Amatriciana")
 	}
 }

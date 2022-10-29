@@ -1,8 +1,6 @@
 package com.projects.android.ricettario.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.RawQuery
+import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.projects.android.ricettario.model.Ricetta
 
@@ -46,4 +44,10 @@ interface RicettarioDao {
 
 	@Insert
 	fun insertRicetta(ricetta: Ricetta)
+
+	@Delete
+	fun deleteRicetta(ricetta: Ricetta)
+
+	@Update
+	fun updateRicetta(ricetta: Ricetta)
 }

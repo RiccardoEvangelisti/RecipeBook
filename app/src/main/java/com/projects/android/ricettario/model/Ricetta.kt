@@ -8,7 +8,7 @@ import com.projects.android.ricettario.model.enums.TempoPreparazione
 
 @Entity(tableName = "ricettario")
 data class Ricetta(
-	val nome: String,
+	var nome: String,
 	val portata: Portata,
 	val porzioni: Int,
 	val preparazione: String,
