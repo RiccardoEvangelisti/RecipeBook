@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 
 @Fts4(contentEntity = Ricetta::class)
 @Entity(tableName = "ricettario_fts")
+@Suppress("unused")
 class RicettaFTS(
 	val nome: String, val preparazione: String, val ingredientiList: List<Ingrediente>) {
 
-	@PrimaryKey()
+	@PrimaryKey
 	var rowid: Int = 0
 }
