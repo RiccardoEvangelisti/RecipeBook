@@ -12,6 +12,7 @@ import com.projects.android.ricettario.model.enums.Portata
 import com.projects.android.ricettario.model.enums.TempoPreparazione
 import com.projects.android.ricettario.model.enums.UnitaDiMisura
 import com.projects.android.ricettario.utils.Utils
+import kotlinx.coroutines.flow.toList
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -42,8 +43,9 @@ class SelectRicette {
 
 	@Test
 	@Throws(Exception::class)
-	fun test_Scrivi_e_Leggi_Singola() {
-		val ricetta = Ricetta("Pollo con patate",
+	suspend fun test_Scrivi_e_Leggi_Singola() {
+		val ricetta = Ricetta(0,
+		                      "Pollo con patate",
 		                      Portata.SECONDO,
 		                      1,
 		                      "Cucinare bene",
@@ -59,8 +61,9 @@ class SelectRicette {
 
 	@Test
 	@Throws(Exception::class)
-	fun test_Scrivi_e_Leggi() {
-		val ricetta = Ricetta("Pollo con patate",
+	suspend fun test_Scrivi_e_Leggi() {
+		val ricetta = Ricetta(0,
+		                      "Pollo con patate",
 		                      Portata.SECONDO,
 		                      1,
 		                      "Cucinare bene",
@@ -73,79 +76,79 @@ class SelectRicette {
 
 		var filtro = Filters()
 		filtro.string = "pollo"
-		var res = dao.getRicette(filtro)
-		assertTrue("Test base nome", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		var res = dao.getRicette(filtro).toList()
+		assertTrue("Test base nome", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "pollo "
-		res = dao.getRicette(filtro)
-		assertTrue("Test1 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test1 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "pollo co"
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test2 formattazione di Fts4", res.isEmpty())
 
 		filtro = Filters()
 		filtro.string = "patate"
-		res = dao.getRicette(filtro)
-		assertTrue("Test3 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test3 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "PaTaTe"
-		res = dao.getRicette(filtro)
-		assertTrue("Test4 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test4 formattazione di Fts4", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "Cucinare"
-		res = dao.getRicette(filtro)
-		assertTrue("Test base preparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test base preparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "pollo Cucinare BeNe"
-		res = dao.getRicette(filtro)
-		assertTrue("Test search in nome e preparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test search in nome e preparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "'"
-		res = dao.getRicette(filtro)
-		assertFalse("Test robustezza", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertFalse("Test robustezza", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "petto"
-		res = dao.getRicette(filtro)
-		assertTrue("Test ingredienti", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test ingredienti", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = ""
-		res = dao.getRicette(filtro)
-		assertTrue("Test seleziona tutto", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test seleziona tutto", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.portata = Portata.SECONDO
-		res = dao.getRicette(filtro)
-		assertTrue("Test solo portata", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test solo portata", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "pollo"
 		filtro.portata = Portata.SECONDO
-		res = dao.getRicette(filtro)
-		assertTrue("Test nome e portata", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test nome e portata", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.isVegetariana = false
-		res = dao.getRicette(filtro)
-		assertTrue("Test isVegetariana", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test isVegetariana", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.tempoPreparazione = TempoPreparazione.TRENTA_MIN
-		res = dao.getRicette(filtro)
-		assertTrue("Test tempoPreparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test tempoPreparazione", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.serveCottura = true
-		res = dao.getRicette(filtro)
-		assertTrue("Test serveCottura", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test serveCottura", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 
 		filtro = Filters()
 		filtro.string = "pollo"
@@ -153,14 +156,15 @@ class SelectRicette {
 		filtro.isVegetariana = false
 		filtro.tempoPreparazione = TempoPreparazione.TRENTA_MIN
 		filtro.serveCottura = true
-		res = dao.getRicette(filtro)
-		assertTrue("Test TUTTE INSIEME", res.isNotEmpty() && Utils.equals(ricetta, res[0]))
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test TUTTE INSIEME", res.isNotEmpty() && Utils.equals(ricetta, res[0][0]))
 	}
 
 	@Test
 	@Throws(Exception::class)
-	fun insertRicette() {
-		ricette.add(Ricetta("Pollo con patate",
+	suspend fun insertRicette() {
+		ricette.add(Ricetta(0,
+		                    "Pollo con patate",
 		                    Portata.SECONDO,
 		                    1,
 		                    "Cucinare bene",
@@ -169,7 +173,8 @@ class SelectRicette {
 		                    TempoPreparazione.CINQUE_MIN,
 		                    true))
 
-		ricette.add(Ricetta("Pesce con patate",
+		ricette.add(Ricetta(0,
+		                    "Pesce con patate",
 		                    Portata.ANTIPASTO,
 		                    1,
 		                    "Friggere bene",
@@ -183,39 +188,40 @@ class SelectRicette {
 
 		var filtro = Filters()
 		filtro.string = "bene"
-		var res = dao.getRicette(filtro)
+		var res = dao.getRicette(filtro).toList()
 		assertTrue("Test due preparazioni", res.size == 2)
 
 		filtro = Filters()
 		filtro.string = "Pollo pesce"
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertFalse("Test due nomi diversi", res.size == 2)
 
 		filtro = Filters()
 		filtro.portata = Portata.ANTIPASTO
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test due nomi diversi", res.size == 1)
 
 		filtro = Filters()
 		filtro.tempoPreparazione = TempoPreparazione.ILLIMITATO_TEMPO
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test due nomi diversi", res.size == 2)
 
 		filtro = Filters()
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test ingredienti UnitaDiMisura",
-		           res.size == 2 && res[0].ingredientiList[0].unitaDiMisura == UnitaDiMisura.CHILOGRAMMO && res[1].ingredientiList[0].unitaDiMisura == UnitaDiMisura.GRAMMO)
+		           res.size == 2 && res[0][0].ingredientiList[0].unitaDiMisura == UnitaDiMisura.CHILOGRAMMO && res[0][1].ingredientiList[0].unitaDiMisura == UnitaDiMisura.GRAMMO)
 
 		filtro = Filters()
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test ingredienti Quantita",
-		           res.size == 2 && res[0].ingredientiList[0].quantita == 1 && res[1].ingredientiList[0].quantita == 1000)
+		           res.size == 2 && res[0][0].ingredientiList[0].quantita == 1 && res[0][1].ingredientiList[0].quantita == 1000)
 	}
 
 	@Test
 	@Throws(Exception::class)
-	fun deleteRicette() {
-		ricette.add(Ricetta("Pollo con patate",
+	suspend fun deleteRicette() {
+		ricette.add(Ricetta(0,
+		                    "Pollo con patate",
 		                    Portata.SECONDO,
 		                    1,
 		                    "Cucinare bene",
@@ -224,7 +230,8 @@ class SelectRicette {
 		                    TempoPreparazione.CINQUE_MIN,
 		                    true))
 
-		ricette.add(Ricetta("Pesce con patate",
+		ricette.add(Ricetta(0,
+		                    "Pesce con patate",
 		                    Portata.ANTIPASTO,
 		                    1,
 		                    "Friggere bene",
@@ -238,21 +245,22 @@ class SelectRicette {
 
 		var filtro = Filters()
 		filtro.string = "pesce"
-		var res = dao.getRicette(filtro)
-		ricette[0].id = res[0].id
+		var res = dao.getRicette(filtro).toList()
+		ricette[0].id = res[0][0].id
 
 		dao.deleteRicetta(ricette[0])
 
 		filtro = Filters()
-		res = dao.getRicette(filtro)
+		res = dao.getRicette(filtro).toList()
 		assertTrue("Test delete1", res.size == 1)
-		assertTrue("Test delete2", res[0].nome == "Pollo con patate")
+		assertTrue("Test delete2", res[0][0].nome == "Pollo con patate")
 	}
 
 	@Test
 	@Throws(Exception::class)
-	fun updateRicetta() {
-		ricette.add(Ricetta("Pollo con patate",
+	suspend fun updateRicetta() {
+		ricette.add(Ricetta(0,
+		                    "Pollo con patate",
 		                    Portata.SECONDO,
 		                    1,
 		                    "Cucinare bene",
@@ -265,14 +273,14 @@ class SelectRicette {
 
 		var filtro = Filters()
 		filtro.string = "Pollo"
-		var res = dao.getRicette(filtro)
-		ricette[0].id = res[0].id
+		var res = dao.getRicette(filtro).toList()
+		ricette[0].id = res[0][0].id
 		ricette[0].nome = "Amatriciana"
 
 		dao.updateRicetta(ricette[0])
 
 		filtro = Filters()
-		res = dao.getRicette(filtro)
-		assertTrue("Test update", res[0].nome == "Amatriciana")
+		res = dao.getRicette(filtro).toList()
+		assertTrue("Test update", res[0][0].nome == "Amatriciana")
 	}
 }

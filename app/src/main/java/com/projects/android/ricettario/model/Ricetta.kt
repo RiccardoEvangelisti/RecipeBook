@@ -8,6 +8,9 @@ import com.projects.android.ricettario.model.enums.TempoPreparazione
 
 @Entity(tableName = "ricettario")
 data class Ricetta(
+	@PrimaryKey(autoGenerate = true)
+	@ColumnInfo(name = "rowid")
+	var id: Int = 0,
 	var nome: String,
 	val portata: Portata,
 	val porzioni: Int,
@@ -15,9 +18,4 @@ data class Ricetta(
 	val ingredientiList: List<Ingrediente>,
 	val isVegetariana: Boolean,
 	val tempoPreparazione: TempoPreparazione,
-	val serveCottura: Boolean) {
-
-	@PrimaryKey(autoGenerate = true)
-	@ColumnInfo(name = "rowid")
-	var id: Int = 0
-}
+	val serveCottura: Boolean)

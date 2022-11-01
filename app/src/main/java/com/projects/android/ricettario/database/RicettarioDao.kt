@@ -3,17 +3,18 @@ package com.projects.android.ricettario.database
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.projects.android.ricettario.model.Ricetta
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RicettarioDao {
 
-	@Query("SELECT * FROM ricettario WHERE rowid=(:id)")
-	fun getRicettaSingola(id: Int): Ricetta
+	@Query("SELECT rowid, * FROM ricettario WHERE rowid=(:id)")
+	suspend fun getRicettaSingola(id: Int): Ricetta
 
-	@RawQuery
-	fun getRicette(query: SimpleSQLiteQuery): List<Ricetta>
+	@RawQuery(observedEntities = [Ricetta::class])
+	fun getRicette(query: SimpleSQLiteQuery): Flow<List<Ricetta>>
 
-	fun getRicette(filters: Filters): List<Ricetta> {
+	fun getRicette(filters: Filters): Flow<List<Ricetta>> {
 		var query = "SELECT rowid, * FROM ricettario_fts JOIN ricettario ON rowid = docid WHERE 1 == 1"
 		val args = mutableListOf<String>()
 		with(filters) {
@@ -46,7 +47,7 @@ interface RicettarioDao {
 	}
 
 	@Insert
-	fun insertRicetta(ricetta: Ricetta)
+	suspend fun insertRicetta(ricetta: Ricetta)
 
 	@Delete
 	fun deleteRicetta(ricetta: Ricetta)

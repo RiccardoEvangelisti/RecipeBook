@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<EditText
+		android:id="@+id/nome"
+		android:layout_width="316dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="20dp"
+		android:inputType="text"
+		android:text="@string/nome_ricetta"
+		android:textColor="@color/black"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.494"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/preparazione"
+		android:layout_width="320dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="20dp"
+		android:inputType="text"
+		android:text="@string/preparazione_ricetta"
+		android:textColor="@color/black"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.534"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/nome" />
+
+	<Switch
+		android:id="@+id/vegetariaro"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:minHeight="48dp"
+		android:text="Vegetariaro"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.168"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
+
+	<Switch
+		android:id="@+id/serve_cottura"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:minHeight="48dp"
+		android:text="Serve Cottura"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.627"
+		app:layout_constraintStart_toEndOf="@+id/vegetariaro"
+		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
+
+	<Spinner
+		android:id="@+id/portate"
+		android:layout_width="180dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="92dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.214"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/preparazione"
+		tools:ignore="SpeakableTextPresentCheck" />
+
+	<Spinner
+		android:id="@+id/tempo_preparazione"
+		android:layout_width="180dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="24dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.216"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/portate"
+		tools:ignore="SpeakableTextPresentCheck" />
+
+	<EditText
+		android:id="@+id/porzioni"
+		android:layout_width="83dp"
+		android:layout_height="48dp"
+		android:layout_marginStart="29dp"
+		android:layout_marginTop="24dp"
+		android:ems="10"
+		android:inputType="numberDecimal"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.275"
+		app:layout_constraintStart_toEndOf="@+id/portate"
+		app:layout_constraintTop_toBottomOf="@+id/serve_cottura" />
+</androidx.constraintlayout.widget.ConstraintLayout>

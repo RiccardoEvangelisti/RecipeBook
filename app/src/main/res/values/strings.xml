@@ -1,3 +1,12 @@
 <resources>
 	<string name="app_name">Ricettario</string>
+	<string name="nome_ricetta">Nome Ricetta</string>
+	<string name="preparazione_ricetta">Preparazione Ricetta</string>
+	<string name="portata">Portata</string>
+	<string name="nome">Nome Ricetta</string>
+	<string name="tempo_di_preparazione">Tempo di Preparazione</string>
+	<string name="aggiungi">Aggiungi</string>
+	<string name="aggiungi_uppercase">AGGIUNGI</string>
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
