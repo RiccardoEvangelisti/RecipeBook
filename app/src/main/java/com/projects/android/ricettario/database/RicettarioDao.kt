@@ -7,6 +7,9 @@ import com.projects.android.ricettario.model.Ricetta
 @Dao
 interface RicettarioDao {
 
+	@Query("SELECT * FROM ricettario WHERE rowid=(:id)")
+	fun getRicettaSingola(id: Int): Ricetta
+
 	@RawQuery
 	fun getRicette(query: SimpleSQLiteQuery): List<Ricetta>
 
@@ -17,7 +20,7 @@ interface RicettarioDao {
 			if (!string.isNullOrBlank()) {
 				query += " "
 				query += "AND ricettario_fts MATCH ?"
-				args.add(string)
+				args.add(string!!)
 			}
 			portata?.let {
 				query += " "

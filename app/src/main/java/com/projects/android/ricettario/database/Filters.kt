@@ -4,9 +4,9 @@ import com.projects.android.ricettario.model.enums.Portata
 import com.projects.android.ricettario.model.enums.TempoPreparazione
 
 data class Filters(
-	val string: String? = null,
-	val portata: Portata? = null,
-	val isVegetariana: Boolean? = null,
-	val tempoPreparazione: TempoPreparazione? = null,
-	val serveCottura: Boolean? = null
+	var string: String? = null,
+	var portata: Portata? = null,
+	var isVegetariana: Boolean? = null,
+	var tempoPreparazione: TempoPreparazione? = null,
+	var serveCottura: Boolean? = null
 )
