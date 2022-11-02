@@ -50,6 +50,8 @@ class RicettarioRepository private constructor(context: Context, private val cor
 	}
 
 	fun deleteRicetta(ricetta: Ricetta) {
-		return database.ricettarioDao().deleteRicetta(ricetta)
+		coroutineScope.launch {
+			database.ricettarioDao().deleteRicetta(ricetta)
+		}
 	}
 }

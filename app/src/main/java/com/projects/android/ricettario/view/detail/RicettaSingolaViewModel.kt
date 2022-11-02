@@ -28,7 +28,7 @@ class RicettaSingolaViewModel(ricettaID: Int) : ViewModel() {
 		_ricetta.update { oldRicetta -> oldRicetta?.let { onUpdate(it) } }
 	}
 
-	fun deleteRicetta() {
+	suspend fun deleteRicetta() {
 		_ricetta.value?.let { ricettarioRepository.deleteRicetta(it) }
 	}
 

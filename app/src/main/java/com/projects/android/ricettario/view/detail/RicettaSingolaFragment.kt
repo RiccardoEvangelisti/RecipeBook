@@ -103,8 +103,17 @@ class RicettaSingolaFragment : Fragment() {
 			}
 
 			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-				ricettaSingolaViewModel.deleteRicetta()
-				return true;
+				return when (menuItem.itemId) {
+					R.id.delete_ricetta -> {
+						viewLifecycleOwner.lifecycleScope.launch {
+							ricettaSingolaViewModel.deleteRicetta()
+						}
+						findNavController().navigateUp()
+						true
+					}
+
+					else -> false
+				}
 			}
 		}, viewLifecycleOwner, Lifecycle.State.RESUMED)
 	}
