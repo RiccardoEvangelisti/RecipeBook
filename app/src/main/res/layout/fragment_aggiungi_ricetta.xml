@@ -11,6 +11,8 @@
 		android:layout_width="316dp"
 		android:layout_height="48dp"
 		android:layout_marginTop="20dp"
+		android:hint="@string/nome_ricetta"
+		android:importantForAutofill="no"
 		android:inputType="text"
 		android:text="@string/nome_ricetta"
 		android:textColor="@color/black"
@@ -24,6 +26,8 @@
 		android:layout_width="320dp"
 		android:layout_height="48dp"
 		android:layout_marginTop="20dp"
+		android:hint="@string/preparazione_ricetta"
+		android:importantForAutofill="no"
 		android:inputType="text"
 		android:text="@string/preparazione_ricetta"
 		android:textColor="@color/black"
@@ -32,25 +36,25 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/nome" />
 
-	<Switch
+	<androidx.appcompat.widget.SwitchCompat
 		android:id="@+id/vegetariaro"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"
 		android:minHeight="48dp"
-		android:text="Vegetariaro"
+		android:text="@string/vegetariano"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.168"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
 
-	<Switch
+	<com.google.android.material.switchmaterial.SwitchMaterial
 		android:id="@+id/serve_cottura"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"
 		android:minHeight="48dp"
-		android:text="Serve Cottura"
+		android:text="@string/serve_cottura"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.627"
 		app:layout_constraintStart_toEndOf="@+id/vegetariaro"
@@ -89,5 +93,53 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.275"
 		app:layout_constraintStart_toEndOf="@+id/portate"
-		app:layout_constraintTop_toBottomOf="@+id/serve_cottura" />
+		app:layout_constraintTop_toBottomOf="@+id/serve_cottura"
+		tools:ignore="SpeakableTextPresentCheck"
+		android:importantForAutofill="no" />
+
+	<RelativeLayout
+		android:id="@+id/idRLContainer"
+		android:layout_width="411dp"
+		android:layout_height="352dp"
+		android:layout_marginTop="16dp"
+		android:orientation="vertical"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tempo_preparazione"
+		tools:context=".MainActivity">
+
+		<!--on below line we are creating edit text
+            for adding a new item to list-->
+		<EditText
+			android:id="@+id/idEdtItemName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="4dp"
+			android:layout_marginTop="4dp"
+			android:layout_marginEnd="4dp"
+			android:layout_marginBottom="4dp"
+			android:layout_toStartOf="@id/idBtnAdd"
+			android:hint="Enter item name to add in ist"
+			android:minHeight="48dp"
+			android:textColorHint="#757575"
+			android:importantForAutofill="no" />
+
+		<!--button for adding item from edit text to list-->
+		<Button
+			android:id="@+id/idBtnAdd"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_margin="4dp"
+			android:text="Add"
+			android:textAllCaps="false" />
+
+		<!--list view to display list of languages-->
+		<ListView
+			android:id="@+id/idLVLanguages"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@id/idEdtItemName" />
+
+	</RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

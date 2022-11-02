@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/new_crime"
+    android:icon="@drawable/ic_baseline_add_24"
+    android:title="Rimuovi Ricetta"
+    app:showAsAction="ifRoom|withText" />
+<!-- L'attributo showAsAction fa riferimento al posizionamento dell'item nel appbar o nel
+        "overflow menu" (= i tre puntini vericali).
+     "ifRoom|withText" significa che l'icona e il titolo dell'item appariranno nell'appbar se
+      c'è spazio (ifRoom). Se c'è spazio solo per l'icona, non viene inserito il testo,
+      altrimenti solo l'icona nell'overflow menu.
+-->
+</menu>
