@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projects.android.ricettario.R
+import com.projects.android.ricettario.database.Filters
 import com.projects.android.ricettario.databinding.FragmentRicetteListBinding
 import kotlinx.coroutines.launch
 
@@ -40,6 +41,16 @@ class RicetteListFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
+		binding.apply {
+			cercaButton.setOnClickListener {
+				val filtro = Filters()
+				if (!cercaText.text.isNullOrBlank()) {
+					filtro.string = cercaText.text.toString()
+				}
+				ricetteListViewModel.getRicette(filtro)
+			}
+		}
 
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
