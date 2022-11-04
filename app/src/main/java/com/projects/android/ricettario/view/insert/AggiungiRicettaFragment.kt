@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -60,6 +61,17 @@ class AggiungiRicettaFragment : Fragment() {
 
 			preparazione.doOnTextChanged { text, _, _, _ ->
 				aggiungiRicettaViewModel.updateRicetta { it.copy(preparazione = text.toString()) }
+			}
+
+			portate?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+				override fun onNothingSelected(parent: AdapterView<*>?) {
+				}
+
+				override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+					if (parent != null) {
+						aggiungiRicettaViewModel.updateRicetta { it.copy(portata = parent.adapter.getItem(position) as Portata) }
+					}
+				}
 			}
 		}
 

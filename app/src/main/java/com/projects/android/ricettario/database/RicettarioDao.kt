@@ -23,10 +23,21 @@ interface RicettarioDao {
 				query += "AND ricettario_fts MATCH ?"
 				args.add(string!!)
 			}
-			portata?.let {
-				query += " "
-				query += "AND ricettario.portata == ?"
-				args.add(it.ordinal.toString())
+			portate?.let {
+				if (it.isNotEmpty()) {
+					query += " "
+					query += "AND ricettario.portata IN ("
+					for (i in 1..it.size) {
+						query += "?"
+						if (i != it.size) {
+							query += ", "
+						}
+					}
+					query += ")"
+					it.forEach { portata ->
+						args.add(portata.ordinal.toString())
+					}
+				}
 			}
 			isVegetariana?.let {
 				query += " "

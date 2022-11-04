@@ -5,76 +5,163 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:textAlignment="center">
 
-	<RelativeLayout
-		android:id="@+id/cercaContainer"
+	<!--on below line we are creating edit text
+		for adding a new item to list-->
+	<EditText
+		android:id="@+id/cercaText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_toStartOf="@id/cercaButton"
+		android:hint="Cerca qualcosa..."
+		android:importantForAutofill="no"
+		android:minHeight="48dp"
+		android:textColorHint="#757575"
+		app:layout_constraintEnd_toStartOf="@+id/cercaButton"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<!--button for adding item from edit text to list-->
+
+	<Button
+		android:id="@+id/cercaButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
+		android:layout_alignParentEnd="true"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:text="Cerca"
+		android:textAllCaps="false"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:context=".MainActivity">
+		app:layout_constraintStart_toEndOf="@+id/cercaText"
+		app:layout_constraintTop_toTopOf="parent" />
 
-		<!--on below line we are creating edit text
-            for adding a new item to list-->
-		<EditText
-			android:id="@+id/cercaText"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="4dp"
-			android:layout_marginTop="4dp"
-			android:layout_marginEnd="4dp"
-			android:layout_marginBottom="4dp"
-			android:layout_toStartOf="@id/cercaButton"
-			android:hint="Cerca qualcosa..."
-			android:importantForAutofill="no"
-			android:minHeight="48dp"
-			android:textColorHint="#757575" />
-
-		<!--button for adding item from edit text to list-->
-		<Button
-			android:id="@+id/cercaButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentEnd="true"
-			android:layout_margin="4dp"
-			android:text="Cerca"
-			android:textAllCaps="false" />
-
-		<Button
-			android:id="@+id/dropFiltri"
-			android:layout_width="wrap_content"
-			android:layout_height="48dp"
-			android:layout_below="@+id/cercaText"
-			android:layout_alignParentStart="true"
-			android:layout_alignParentEnd="true"
-			android:layout_marginStart="152dp"
-			android:layout_marginTop="-5dp"
-			android:layout_marginEnd="165dp"
-			tools:ignore="SpeakableTextPresentCheck" />
-
-	</RelativeLayout>
-
-	<RelativeLayout
-		android:id="@+id/cercaContainerHidden"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+	<androidx.constraintlayout.widget.Group
+		android:id="@+id/groupFiltri"
+		android:layout_width="123dp"
+		android:layout_height="0dp"
 		android:visibility="gone"
+		app:constraint_referenced_ids="antipastoToggleButton,secondoToggleButton,dolceToggleButton,contornoToggleButton,primoToggleButton"
+		tools:layout_editor_absoluteY="731dp"
+		tools:visibility="visible" />
+
+	<ToggleButton
+		android:id="@+id/antipastoToggleButton"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/dropFiltri"
+		android:layout_below="@+id/cercaText"
+		android:layout_alignParentEnd="true"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:paddingHorizontal="1dp"
+		android:paddingVertical="1dp"
+		android:textOff="Antipasto"
+		android:textOn="Antipasto"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toStartOf="@+id/primoToggleButton"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/cercaText" />
+
+	<ToggleButton
+		android:id="@+id/primoToggleButton"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/dropFiltri"
+		android:layout_below="@+id/cercaText"
+		android:layout_alignParentEnd="true"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:paddingHorizontal="1dp"
+		android:paddingVertical="1dp"
+		android:textOff="Primo"
+		android:textOn="Primo"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toStartOf="@+id/secondoToggleButton"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/antipastoToggleButton"
+		app:layout_constraintTop_toBottomOf="@+id/cercaText" />
+
+	<ToggleButton
+		android:id="@+id/secondoToggleButton"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/dropFiltri"
+		android:layout_below="@+id/cercaText"
+		android:layout_alignParentEnd="true"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:paddingHorizontal="1dp"
+		android:paddingVertical="1dp"
+		android:textOff="Secondo"
+		android:textOn="Secondo"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toStartOf="@+id/contornoToggleButton"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/primoToggleButton"
+		app:layout_constraintTop_toBottomOf="@+id/cercaText" />
+
+	<ToggleButton
+		android:id="@+id/contornoToggleButton"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/dropFiltri"
+		android:layout_below="@+id/cercaText"
+		android:layout_alignParentEnd="true"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:paddingHorizontal="1dp"
+		android:paddingVertical="1dp"
+		android:textOff="Contorno"
+		android:textOn="Contorno"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/dolceToggleButton"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/secondoToggleButton"
+		app:layout_constraintTop_toBottomOf="@+id/cercaText" />
+
+	<ToggleButton
+		android:id="@+id/dolceToggleButton"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/dropFiltri"
+		android:layout_below="@+id/cercaText"
+		android:layout_alignParentEnd="true"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:checked="true"
+		android:paddingHorizontal="1dp"
+		android:paddingVertical="1dp"
+		android:textOff="Dolce"
+		android:textOn="Dolce"
+		android:textSize="12sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/contornoToggleButton"
+		app:layout_constraintTop_toBottomOf="@+id/cercaText" />
+
+	<ImageButton
+		android:id="@+id/dropFiltri"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/cercaContainer"
-		tools:visibility="visible">
-
-		<ToggleButton
-			android:id="@+id/antipastoToggleButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="7dp"
-			android:text="ToggleButton" />
-
-	</RelativeLayout>
+		app:layout_constraintTop_toBottomOf="@+id/secondoToggleButton"
+		app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+		tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/ricette_recycler_view"
@@ -84,8 +171,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/cercaContainerHidden"
-		app:layout_constraintVertical_bias="1.0"
+		app:layout_constraintTop_toBottomOf="@+id/dropFiltri"
 		tools:listitem="@layout/item_list_ricette" />
 
 	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
