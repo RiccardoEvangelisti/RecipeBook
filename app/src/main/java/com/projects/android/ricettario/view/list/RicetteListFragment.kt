@@ -3,6 +3,8 @@ package com.projects.android.ricettario.view.list
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,58 +22,76 @@ import kotlinx.coroutines.launch
 
 class RicetteListFragment : Fragment() {
 
-	// VIEW MODEL
-	private val ricetteListViewModel: RicetteListViewModel by viewModels()
+    // VIEW MODEL
+    private val ricetteListViewModel: RicetteListViewModel by viewModels()
 
-	// VIEW BINDING
-	private var _binding: FragmentRicetteListBinding? = null
-	private val binding
-		get() = checkNotNull(_binding) {
-			"Cannot access binding because it is null. Is the view visible?"
-		}
+    // VIEW BINDING
+    private var _binding: FragmentRicetteListBinding? = null
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible?"
+        }
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
 
-		// RECYCLER VIEW
-		_binding = FragmentRicetteListBinding.inflate(inflater, container, false)
-		binding.ricetteRecyclerView.layoutManager = LinearLayoutManager(context)
-		return binding.root
-	}
+        // RECYCLER VIEW
+        _binding = FragmentRicetteListBinding.inflate(inflater, container, false)
+        binding.ricetteRecyclerView.layoutManager = LinearLayoutManager(context)
+        return binding.root
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		binding.apply {
-			cercaButton.setOnClickListener {
-				val filtro = Filters()
-				if (!cercaText.text.isNullOrBlank()) {
-					filtro.string = cercaText.text.toString()
-				}
-				ricetteListViewModel.getRicette(filtro)
-			}
-		}
+        binding.apply {
+            cercaButton.setOnClickListener {
+                val filtro = Filters()
+                if (!cercaText.text.isNullOrBlank()) {
+                    filtro.string = cercaText.text.toString()
+                }
+                ricetteListViewModel.getRicette(filtro)
+            }
 
-		viewLifecycleOwner.lifecycleScope.launch {
-			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				ricetteListViewModel.ricette.collect { ricette ->
-					binding.ricetteRecyclerView.adapter = RicetteListAdapter(ricette) { ricettaID ->
-						findNavController().navigate(RicetteListFragmentDirections.fromListaToDettaglio(ricettaID))
-					}
-					// Separatore tra gli item
-					binding.ricetteRecyclerView.addItemDecoration(DividerItemDecoration(context, VERTICAL))
-				}
-			}
-		}
+            dropFiltri.setOnClickListener {
+                if (cercaContainerHidden.visibility == VISIBLE) {
+                    cercaContainerHidden.visibility = GONE
+                } else {
+                    cercaContainerHidden.visibility = VISIBLE
+                }
+            }
+        }
 
-		binding.aggiungiRicettaFAB.setOnClickListener {
-			findNavController().navigate(R.id.from_lista_to_aggiungi)
-		}
-	}
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                ricetteListViewModel.ricette.collect { ricette ->
+                    binding.ricetteRecyclerView.adapter = RicetteListAdapter(ricette) { ricettaID ->
+                        findNavController().navigate(
+                            RicetteListFragmentDirections.fromListaToDettaglio(
+                                ricettaID
+                            )
+                        )
+                    }
+                    // Separatore tra gli item
+                    binding.ricetteRecyclerView.addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            VERTICAL
+                        )
+                    )
+                }
+            }
+        }
 
-	// VIEW BINDING
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
-	}
+        binding.aggiungiRicettaFAB.setOnClickListener {
+            findNavController().navigate(R.id.from_lista_to_aggiungi)
+        }
+    }
+
+    // VIEW BINDING
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
