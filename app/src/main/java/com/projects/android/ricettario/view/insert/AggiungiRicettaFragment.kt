@@ -63,7 +63,7 @@ class AggiungiRicettaFragment : Fragment() {
 				aggiungiRicettaViewModel.updateRicetta { it.copy(preparazione = text.toString()) }
 			}
 
-			portate?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+			portate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 				override fun onNothingSelected(parent: AdapterView<*>?) {
 				}
 
@@ -72,6 +72,13 @@ class AggiungiRicettaFragment : Fragment() {
 						aggiungiRicettaViewModel.updateRicetta { it.copy(portata = parent.adapter.getItem(position) as Portata) }
 					}
 				}
+			}
+
+			vegetariano.setOnCheckedChangeListener { _, b ->
+				aggiungiRicettaViewModel.updateRicetta { it.copy(isVegetariana = b) }
+			}
+			serveCottura.setOnCheckedChangeListener { _, b ->
+				aggiungiRicettaViewModel.updateRicetta { it.copy(serveCottura = b) }
 			}
 		}
 

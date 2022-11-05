@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,6 +21,7 @@ import com.projects.android.ricettario.R
 import com.projects.android.ricettario.database.Filters
 import com.projects.android.ricettario.databinding.FragmentRicetteListBinding
 import com.projects.android.ricettario.model.enums.Portata
+import com.projects.android.ricettario.model.enums.TempoPreparazione
 import kotlinx.coroutines.launch
 
 class RicetteListFragment : Fragment() {
@@ -47,6 +49,43 @@ class RicetteListFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		binding.apply {
+
+			cercaText.setOnEditorActionListener { _, actionId, _ ->
+				return@setOnEditorActionListener when (actionId) {
+					EditorInfo.IME_ACTION_SEARCH -> {
+						cercaButton.callOnClick()
+						true
+					}
+
+					else -> false
+				}
+			}
+
+			vegetarianoSwitch.setOnClickListener {
+				// se ho spento vegetarianoSwitch ed è già spento nonVegetarianoSwitch
+				if (!vegetarianoSwitch.isChecked && !nonVegetarianoSwitch.isChecked) {
+					nonVegetarianoSwitch.isChecked = true
+				}
+			}
+			nonVegetarianoSwitch.setOnClickListener {
+				// se ho spento nonVegetarianoSwitch ed è già spento vegetarianoSwitch
+				if (!nonVegetarianoSwitch.isChecked && !vegetarianoSwitch.isChecked) {
+					vegetarianoSwitch.isChecked = true
+				}
+			}
+
+			serveCotturaSwitch.setOnClickListener {
+				if (!serveCotturaSwitch.isChecked && !nonServeCotturaSwitch.isChecked) {
+					nonServeCotturaSwitch.isChecked = true
+				}
+			}
+			nonServeCotturaSwitch.setOnClickListener {
+				if (!nonServeCotturaSwitch.isChecked && !serveCotturaSwitch.isChecked) {
+					serveCotturaSwitch.isChecked = true
+				}
+			}
+
+
 			cercaButton.setOnClickListener {
 				val filtro = Filters()
 
@@ -55,6 +94,13 @@ class RicetteListFragment : Fragment() {
 				}
 
 				filtro.portate = mutableListOf()
+				if (!antipastoToggleButton.isChecked && !primoToggleButton.isChecked && !secondoToggleButton.isChecked && !contornoToggleButton.isChecked && !dolceToggleButton.isChecked) {
+					antipastoToggleButton.toggle()
+					primoToggleButton.toggle()
+					secondoToggleButton.toggle()
+					contornoToggleButton.toggle()
+					dolceToggleButton.toggle()
+				}
 				if (antipastoToggleButton.isChecked) {
 					filtro.portate?.add(Portata.ANTIPASTO)
 				}
@@ -70,6 +116,25 @@ class RicetteListFragment : Fragment() {
 				if (dolceToggleButton.isChecked) {
 					filtro.portate?.add(Portata.DOLCE)
 				}
+
+				filtro.tempoPreparazione = when (tempoPrepRadioGroup.checkedRadioButtonId) {
+					R.id.cinqueMinRadioButton -> TempoPreparazione.CINQUE_MIN
+					R.id.trentaMinRadioButton -> TempoPreparazione.TRENTA_MIN
+					R.id.unaOraRadioButton -> TempoPreparazione.UN_ORA
+					R.id.dueOreRadioButton -> TempoPreparazione.DUE_ORE
+					R.id.quattroOreRadioButton -> TempoPreparazione.QUATTRO_ORE
+					R.id.oltreRadioButton -> TempoPreparazione.ILLIMITATO_TEMPO
+					else -> null
+				}
+
+				if (!(vegetarianoSwitch.isChecked && nonVegetarianoSwitch.isChecked)) {
+					filtro.isVegetariana = vegetarianoSwitch.isChecked
+				}
+
+				if (!(serveCotturaSwitch.isChecked && nonServeCotturaSwitch.isChecked)) {
+					filtro.serveCottura = serveCotturaSwitch.isChecked
+				}
+
 				ricetteListViewModel.getRicette(filtro)
 			}
 

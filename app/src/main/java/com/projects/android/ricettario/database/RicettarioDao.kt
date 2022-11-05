@@ -46,7 +46,7 @@ interface RicettarioDao {
 			tempoPreparazione?.let {
 				query += " "
 				query += "AND ricettario.tempoPreparazione <= ?"
-				args.add(it.toString())
+				args.add(it.ordinal.toString())
 			}
 			serveCottura?.let {
 				query += " "

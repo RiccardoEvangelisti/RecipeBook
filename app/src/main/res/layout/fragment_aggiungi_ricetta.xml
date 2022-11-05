@@ -37,10 +37,11 @@
 		app:layout_constraintTop_toBottomOf="@+id/nome" />
 
 	<androidx.appcompat.widget.SwitchCompat
-		android:id="@+id/vegetariaro"
+		android:id="@+id/vegetariano"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"
+		android:checked="true"
 		android:minHeight="48dp"
 		android:text="@string/vegetariano"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -53,11 +54,12 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"
+		android:checked="true"
 		android:minHeight="48dp"
 		android:text="@string/serve_cottura"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.627"
-		app:layout_constraintStart_toEndOf="@+id/vegetariaro"
+		app:layout_constraintStart_toEndOf="@+id/vegetariano"
 		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
 
 	<Spinner
