@@ -1,147 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<EditText
-		android:id="@+id/nome"
-		android:layout_width="316dp"
-		android:layout_height="48dp"
-		android:layout_marginTop="20dp"
-		android:hint="@string/nome_ricetta"
-		android:importantForAutofill="no"
-		android:inputType="text"
-		android:text="@string/nome_ricetta"
-		android:textColor="@color/black"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.494"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/nome_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/nome_ricetta"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences"
+        android:textColor="@color/black"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/vegetariano_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	<EditText
-		android:id="@+id/preparazione"
-		android:layout_width="320dp"
-		android:layout_height="48dp"
-		android:layout_marginTop="20dp"
-		android:hint="@string/preparazione_ricetta"
-		android:importantForAutofill="no"
-		android:inputType="text"
-		android:text="@string/preparazione_ricetta"
-		android:textColor="@color/black"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.534"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/nome" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/vegetariano_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:checked="true"
+        android:minHeight="48dp"
+        android:text="@string/vegetariano"
+        app:layout_constraintBottom_toTopOf="@+id/ttempo_preparazione_add"
+        app:layout_constraintEnd_toStartOf="@+id/serve_cottura_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nome_add" />
 
-	<androidx.appcompat.widget.SwitchCompat
-		android:id="@+id/vegetariano"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="20dp"
-		android:checked="true"
-		android:minHeight="48dp"
-		android:text="@string/vegetariano"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.168"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/serve_cottura_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:checked="true"
+        android:minHeight="48dp"
+        android:text="@string/serve_cottura"
+        app:layout_constraintBottom_toTopOf="@+id/porzioni_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toEndOf="@+id/vegetariano_add"
+        app:layout_constraintTop_toBottomOf="@+id/nome_add" />
 
-	<com.google.android.material.switchmaterial.SwitchMaterial
-		android:id="@+id/serve_cottura"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="20dp"
-		android:checked="true"
-		android:minHeight="48dp"
-		android:text="@string/serve_cottura"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.627"
-		app:layout_constraintStart_toEndOf="@+id/vegetariano"
-		app:layout_constraintTop_toBottomOf="@+id/preparazione" />
+    <Spinner
+        android:id="@+id/portata_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/nome_ingrediente_add"
+        app:layout_constraintEnd_toStartOf="@+id/ttempo_preparazione_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vegetariano_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-	<Spinner
-		android:id="@+id/portate"
-		android:layout_width="180dp"
-		android:layout_height="48dp"
-		android:layout_marginTop="92dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.214"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/preparazione"
-		tools:ignore="SpeakableTextPresentCheck" />
+    <Spinner
+        android:id="@+id/ttempo_preparazione_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/quantita_ingrediente_add"
+        app:layout_constraintEnd_toStartOf="@+id/porzioni_add"
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toEndOf="@+id/portata_add"
+        app:layout_constraintTop_toBottomOf="@+id/vegetariano_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-	<Spinner
-		android:id="@+id/tempo_preparazione"
-		android:layout_width="180dp"
-		android:layout_height="48dp"
-		android:layout_marginTop="24dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.216"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/portate"
-		tools:ignore="SpeakableTextPresentCheck" />
+    <EditText
+        android:id="@+id/porzioni_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/porzioni"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/unita_ingrediente_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ttempo_preparazione_add"
+        app:layout_constraintTop_toBottomOf="@+id/serve_cottura_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-	<EditText
-		android:id="@+id/porzioni"
-		android:layout_width="83dp"
-		android:layout_height="48dp"
-		android:layout_marginStart="29dp"
-		android:layout_marginTop="24dp"
-		android:ems="10"
-		android:inputType="numberDecimal"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.275"
-		app:layout_constraintStart_toEndOf="@+id/portate"
-		app:layout_constraintTop_toBottomOf="@+id/serve_cottura"
-		tools:ignore="SpeakableTextPresentCheck"
-		android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/nome_ingrediente_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@id/btn_ingrediente_add"
+        android:hint="@string/aggiungi_ingrediente"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
+        app:layout_constraintEnd_toStartOf="@+id/quantita_ingrediente_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add" />
 
-	<RelativeLayout
-		android:id="@+id/idRLContainer"
-		android:layout_width="411dp"
-		android:layout_height="352dp"
-		android:layout_marginTop="16dp"
-		android:orientation="vertical"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/tempo_preparazione"
-		tools:context=".MainActivity">
+    <EditText
+        android:id="@+id/quantita_ingrediente_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/quantita"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
+        app:layout_constraintEnd_toStartOf="@+id/unita_ingrediente_add"
+        app:layout_constraintStart_toEndOf="@+id/nome_ingrediente_add"
+        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add" />
 
-		<!--on below line we are creating edit text
-            for adding a new item to list-->
-		<EditText
-			android:id="@+id/idEdtItemName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="4dp"
-			android:layout_marginTop="4dp"
-			android:layout_marginEnd="4dp"
-			android:layout_marginBottom="4dp"
-			android:layout_toStartOf="@id/idBtnAdd"
-			android:hint="Enter item name to add in ist"
-			android:minHeight="48dp"
-			android:textColorHint="#757575"
-			android:importantForAutofill="no" />
+    <Spinner
+        android:id="@+id/unita_ingrediente_add"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
+        app:layout_constraintEnd_toStartOf="@+id/btn_ingrediente_add"
+        app:layout_constraintStart_toEndOf="@+id/quantita_ingrediente_add"
+        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-		<!--button for adding item from edit text to list-->
-		<Button
-			android:id="@+id/idBtnAdd"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentEnd="true"
-			android:layout_margin="4dp"
-			android:text="Add"
-			android:textAllCaps="false" />
+    <ImageButton
+        android:id="@+id/btn_ingrediente_add"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#B2F3EC"
+        android:contentDescription="@string/pulsante_per_aggiungere_ingrediente_alla_lista"
+        android:src="@drawable/ic_baseline_add_24"
+        android:text="@string/aggiungi"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/unita_ingrediente_add"
+        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-		<!--list view to display list of languages-->
-		<ListView
-			android:id="@+id/idLVLanguages"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_below="@id/idEdtItemName" />
+    <ListView
+        android:id="@+id/ingredienti_list_add"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/nome_ingrediente_add"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nome_ingrediente_add" />
 
-	</RelativeLayout>
+    <EditText
+        android:id="@+id/preparazione_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/preparazione"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences"
+        android:minHeight="48dp"
+        android:text="@string/preparazione"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredienti_list_add"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,4 +23,9 @@
 	<string name="pulsante_per_estendere_il_pannello_di_ricerca">Pulsante per estendere il pannello di ricerca</string>
 	<string name="onnivoro">Onnivoro</string>
 	<string name="crudo">Crudo</string>
+    <string name="aggiungi_ingrediente">Aggiungi ingrediente</string>
+    <string name="preparazione">Preparazione</string>
+    <string name="quantita">Quantità</string>
+	<string name="porzioni">Porzioni</string>
+	<string name="pulsante_per_aggiungere_ingrediente_alla_lista">Pulsante per aggiungere ingrediente alla lista</string>
 </resources>
