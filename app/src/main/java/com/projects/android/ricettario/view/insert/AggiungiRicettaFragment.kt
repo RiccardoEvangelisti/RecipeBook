@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.projects.android.ricettario.databinding.FragmentAggiungiRicettaBinding
 import com.projects.android.ricettario.model.enums.Portata
 import com.projects.android.ricettario.model.enums.TempoPreparazione
+import com.projects.android.ricettario.model.enums.UnitaDiMisura
 import kotlinx.coroutines.launch
 
 class AggiungiRicettaFragment : Fragment() {
@@ -40,30 +41,47 @@ class AggiungiRicettaFragment : Fragment() {
 
 		binding.apply {
 
+			val listIngredienti = mutableListOf<String?>()
+
 			context?.let {
 				ArrayAdapter(it, android.R.layout.simple_spinner_item, Portata.values()).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					portate.adapter = adapter
+					portataAdd.adapter = adapter
 				}
 
 				ArrayAdapter(it, android.R.layout.simple_spinner_item, TempoPreparazione.values()).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					binding.tempoPreparazione.adapter = adapter
+					tempoPreparazioneAdd.adapter = adapter
+				}
+
+				ArrayAdapter(it, android.R.layout.simple_spinner_item, UnitaDiMisura.values()).also { adapter ->
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+					unitaIngredienteAdd.adapter = adapter
+				}
+
+				ArrayAdapter(it, android.R.layout.simple_list_item_1, listIngredienti).also { adapter ->
+					ingredientiListAdd.adapter = adapter
+					btnIngredienteAdd.setOnClickListener {
+						if (!nomeIngredienteAdd.text.isNullOrBlank()) {
+							listIngredienti.add(nomeIngredienteAdd.text.toString())
+							adapter.notifyDataSetChanged()
+						}
+					}
 				}
 			}
 
 
-			nome.doOnTextChanged { text, _, _, _ ->
+			nomeAdd.doOnTextChanged { text, _, _, _ ->
 				aggiungiRicettaViewModel.updateRicetta { oldRicetta ->
 					oldRicetta.copy(nome = text.toString())
 				}
 			}
 
-			preparazione.doOnTextChanged { text, _, _, _ ->
+			preparazioneAdd.doOnTextChanged { text, _, _, _ ->
 				aggiungiRicettaViewModel.updateRicetta { it.copy(preparazione = text.toString()) }
 			}
 
-			portate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+			portataAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 				override fun onNothingSelected(parent: AdapterView<*>?) {
 				}
 
@@ -74,10 +92,10 @@ class AggiungiRicettaFragment : Fragment() {
 				}
 			}
 
-			vegetariano.setOnCheckedChangeListener { _, b ->
+			vegetarianoAdd.setOnCheckedChangeListener { _, b ->
 				aggiungiRicettaViewModel.updateRicetta { it.copy(isVegetariana = b) }
 			}
-			serveCottura.setOnCheckedChangeListener { _, b ->
+			serveCotturaAdd.setOnCheckedChangeListener { _, b ->
 				aggiungiRicettaViewModel.updateRicetta { it.copy(serveCottura = b) }
 			}
 		}
@@ -87,11 +105,11 @@ class AggiungiRicettaFragment : Fragment() {
 				aggiungiRicettaViewModel.ricetta.collect { ricetta ->
 					ricetta?.let {
 						binding.apply {
-							if (nome.text.toString() != ricetta.nome) { // previene un infinite-loop con il listener
-								nome.setText(ricetta.nome)
+							if (nomeAdd.text.toString() != ricetta.nome) { // previene un infinite-loop con il listener
+								nomeAdd.setText(ricetta.nome)
 							}
-							if (preparazione.text.toString() != ricetta.preparazione) {
-								preparazione.setText(ricetta.preparazione)
+							if (preparazioneAdd.text.toString() != ricetta.preparazione) {
+								preparazioneAdd.setText(ricetta.preparazione)
 							}
 						}
 					}

@@ -7,7 +7,7 @@
 	android:layout_height="wrap_content">
 
 	<TextView
-		android:id="@+id/nome_add"
+		android:id="@+id/nome"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/vegetariano_item"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+		app:layout_constraintTop_toBottomOf="@+id/nome" />
 
 	<TextView
 		android:id="@+id/tempoPreparazione"
@@ -44,7 +44,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/serveCottura_item"
-		app:layout_constraintTop_toBottomOf="@+id/nome_add"
+		app:layout_constraintTop_toBottomOf="@+id/nome"
 		app:layout_constraintVertical_bias="0.0" />
 
 	<TextView
@@ -58,7 +58,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/serveCottura_item"
 		app:layout_constraintStart_toEndOf="@+id/portata"
-		app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+		app:layout_constraintTop_toBottomOf="@+id/nome" />
 
 	<TextView
 		android:id="@+id/serveCottura_item"
@@ -71,6 +71,6 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/tempoPreparazione"
 		app:layout_constraintStart_toEndOf="@+id/vegetariano_item"
-		app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+		app:layout_constraintTop_toBottomOf="@+id/nome" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

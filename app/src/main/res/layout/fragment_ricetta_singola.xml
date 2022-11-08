@@ -6,7 +6,7 @@
 	android:layout_height="match_parent">
 
 	<EditText
-		android:id="@+id/nome_add"
+		android:id="@+id/nome"
 		android:layout_width="316dp"
 		android:layout_height="48dp"
 		android:layout_marginTop="16dp"
@@ -19,7 +19,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
-		android:id="@+id/preparazione_add"
+		android:id="@+id/preparazione"
 		android:layout_width="299dp"
 		android:layout_height="48dp"
 		android:layout_marginTop="4dp"
@@ -29,5 +29,5 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.705"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+		app:layout_constraintTop_toBottomOf="@+id/nome" />
 </androidx.constraintlayout.widget.ConstraintLayout>

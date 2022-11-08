@@ -1,188 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/nome_add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:hint="@string/nome_ricetta"
-        android:importantForAutofill="no"
-        android:inputType="textCapSentences"
-        android:textColor="@color/black"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/vegetariano_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/vegetariano_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:checked="true"
-        android:minHeight="48dp"
-        android:text="@string/vegetariano"
-        app:layout_constraintBottom_toTopOf="@+id/ttempo_preparazione_add"
-        app:layout_constraintEnd_toStartOf="@+id/serve_cottura_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="20dp" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/serve_cottura_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:checked="true"
-        android:minHeight="48dp"
-        android:text="@string/serve_cottura"
-        app:layout_constraintBottom_toTopOf="@+id/porzioni_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toEndOf="@+id/vegetariano_add"
-        app:layout_constraintTop_toBottomOf="@+id/nome_add" />
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_end="20dp" />
 
-    <Spinner
-        android:id="@+id/portata_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/nome_ingrediente_add"
-        app:layout_constraintEnd_toStartOf="@+id/ttempo_preparazione_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vegetariano_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+	<EditText
+		android:id="@+id/nome_add"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:hint="@string/nome_ricetta"
+		android:importantForAutofill="no"
+		android:inputType="textCapSentences"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textColor="@color/black"
+		android:textColorHint="#757575"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintHorizontal_bias="0.494"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/ttempo_preparazione_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/quantita_ingrediente_add"
-        app:layout_constraintEnd_toStartOf="@+id/porzioni_add"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toEndOf="@+id/portata_add"
-        app:layout_constraintTop_toBottomOf="@+id/vegetariano_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+	<ToggleButton
+		android:id="@+id/vegetariano_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:minHeight="48dp"
+		android:textOff="@string/vegetariano"
+		android:textOn="@string/vegetariano"
+		app:layout_constraintBottom_toTopOf="@+id/guideline3"
+		app:layout_constraintEnd_toStartOf="@+id/serve_cottura_add"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toBottomOf="@+id/nome_add"
+		tools:ignore="TextContrastCheck" />
 
-    <EditText
-        android:id="@+id/porzioni_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/porzioni"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/unita_ingrediente_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ttempo_preparazione_add"
-        app:layout_constraintTop_toBottomOf="@+id/serve_cottura_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+	<ToggleButton
+		android:id="@+id/serve_cottura_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:checked="true"
+		android:minHeight="48dp"
+		android:textOff="@string/serve_cottura"
+		android:textOn="@string/serve_cottura"
+		app:layout_constraintBottom_toTopOf="@+id/guideline3"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintHorizontal_bias="0.627"
+		app:layout_constraintStart_toEndOf="@+id/vegetariano_add"
+		app:layout_constraintTop_toBottomOf="@+id/nome_add"
+		tools:ignore="TextContrastCheck" />
 
-    <EditText
-        android:id="@+id/nome_ingrediente_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@id/btn_ingrediente_add"
-        android:hint="@string/aggiungi_ingrediente"
-        android:importantForAutofill="no"
-        android:inputType="textCapSentences"
-        android:minHeight="48dp"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
-        app:layout_constraintEnd_toStartOf="@+id/quantita_ingrediente_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add" />
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.15" />
 
-    <EditText
-        android:id="@+id/quantita_ingrediente_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/quantita"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
-        app:layout_constraintEnd_toStartOf="@+id/unita_ingrediente_add"
-        app:layout_constraintStart_toEndOf="@+id/nome_ingrediente_add"
-        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add" />
+	<Spinner
+		android:id="@+id/portata_add"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="@+id/tempo_preparazione_add"
+		app:layout_constraintEnd_toStartOf="@+id/tempo_preparazione_add"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toTopOf="@+id/tempo_preparazione_add"
+		tools:ignore="SpeakableTextPresentCheck" />
 
-    <Spinner
-        android:id="@+id/unita_ingrediente_add"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
-        app:layout_constraintEnd_toStartOf="@+id/btn_ingrediente_add"
-        app:layout_constraintStart_toEndOf="@+id/quantita_ingrediente_add"
-        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+	<Spinner
+		android:id="@+id/tempo_preparazione_add"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="@+id/porzioni_add"
+		app:layout_constraintEnd_toStartOf="@+id/porzioni_add"
+		app:layout_constraintStart_toEndOf="@+id/portata_add"
+		app:layout_constraintTop_toTopOf="@+id/porzioni_add"
+		tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
-        android:id="@+id/btn_ingrediente_add"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="#B2F3EC"
-        android:contentDescription="@string/pulsante_per_aggiungere_ingrediente_alla_lista"
-        android:src="@drawable/ic_baseline_add_24"
-        android:text="@string/aggiungi"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/ingredienti_list_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/unita_ingrediente_add"
-        app:layout_constraintTop_toBottomOf="@+id/ttempo_preparazione_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+	<EditText
+		android:id="@+id/porzioni_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:hint="@string/porzioni"
+		android:importantForAutofill="no"
+		android:inputType="numberDecimal"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textAllCaps="false"
+		android:textColorHint="#757575"
+		android:textSize="14sp"
+		app:layout_constraintBottom_toTopOf="@+id/guideline4"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintStart_toEndOf="@+id/tempo_preparazione_add"
+		app:layout_constraintTop_toTopOf="@+id/guideline3"
+		tools:ignore="SpeakableTextPresentCheck" />
 
-    <ListView
-        android:id="@+id/ingredienti_list_add"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_below="@id/nome_ingrediente_add"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_ingrediente_add" />
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.25" />
 
-    <EditText
-        android:id="@+id/preparazione_add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/preparazione"
-        android:importantForAutofill="no"
-        android:inputType="textCapSentences"
-        android:minHeight="48dp"
-        android:text="@string/preparazione"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredienti_list_add"
-        app:layout_constraintVertical_bias="0.0" />
+	<EditText
+		android:id="@+id/nome_ingrediente_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_toStartOf="@id/btn_ingrediente_add"
+		android:hint="@string/aggiungi_ingrediente"
+		android:importantForAutofill="no"
+		android:inputType="textCapSentences"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textColorHint="#757575"
+		app:layout_constraintBottom_toTopOf="@+id/guideline5"
+		app:layout_constraintEnd_toStartOf="@+id/quantita_ingrediente_add"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
+	<EditText
+		android:id="@+id/quantita_ingrediente_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:hint="@string/quantita"
+		android:importantForAutofill="no"
+		android:inputType="numberDecimal"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textColorHint="#757575"
+		app:layout_constraintBottom_toBottomOf="@+id/nome_ingrediente_add"
+		app:layout_constraintEnd_toStartOf="@+id/unita_ingrediente_add"
+		app:layout_constraintStart_toEndOf="@+id/nome_ingrediente_add"
+		app:layout_constraintTop_toTopOf="@+id/nome_ingrediente_add" />
+
+	<Spinner
+		android:id="@+id/unita_ingrediente_add"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="@+id/quantita_ingrediente_add"
+		app:layout_constraintEnd_toStartOf="@+id/btn_ingrediente_add"
+		app:layout_constraintStart_toEndOf="@+id/quantita_ingrediente_add"
+		app:layout_constraintTop_toTopOf="@+id/quantita_ingrediente_add"
+		tools:ignore="SpeakableTextPresentCheck" />
+
+	<ImageButton
+		android:id="@+id/btn_ingrediente_add"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_alignParentEnd="true"
+		android:backgroundTint="#B2F3EC"
+		android:contentDescription="@string/pulsante_per_aggiungere_ingrediente_alla_lista"
+		android:src="@drawable/ic_baseline_add_24"
+		android:text="@string/aggiungi"
+		android:textAllCaps="false"
+		app:layout_constraintBottom_toBottomOf="@+id/unita_ingrediente_add"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintStart_toEndOf="@+id/unita_ingrediente_add"
+		app:layout_constraintTop_toTopOf="@+id/unita_ingrediente_add"
+		tools:ignore="SpeakableTextPresentCheck" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline5"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.35" />
+
+	<androidx.constraintlayout.widget.Barrier
+		android:id="@+id/barrier1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:barrierDirection="bottom"
+		app:constraint_referenced_ids="ingredienti_list_add" />
+
+	<ListView
+		android:id="@+id/ingredienti_list_add"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/nome_ingrediente_add"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+	<EditText
+		android:id="@+id/preparazione_add"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:hint="@string/preparazione"
+		android:importantForAutofill="no"
+		android:inputType="textCapSentences|textMultiLine"
+		android:minHeight="48dp"
+		android:scrollbars="vertical"
+		android:textColor="@color/black"
+		android:textColorHint="#757575"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
+		app:layout_constraintStart_toStartOf="@+id/guideline1"
+		app:layout_constraintTop_toBottomOf="@+id/ingredienti_list_add"
+		app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
