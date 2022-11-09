@@ -34,11 +34,11 @@ class RicetteListHolder(private val binding: ItemListRicetteBinding) : RecyclerV
 				onRicettaClicked(ricetta.id)
 			}
 
-			nome.text = ricetta.nome
-			portata.text = ricetta.portata.toString()
-			tempoPreparazione.text = ricetta.tempoPreparazione.toString()
-			vegetarianoItem.text = if (ricetta.isVegetariana) "VEG" else "ONN"
-			serveCotturaItem.text = if (ricetta.serveCottura) "COTTURA" else "CRUDO"
+			nomeItemList.text = ricetta.nome
+			portataItemList.text = ricetta.portata.toString()
+			tempoPreparazioneItemList.text = ricetta.tempoPreparazione.toString()
+			vegetarianoItemList.text = if (ricetta.isVegetariana) "VEG" else "ONN"
+			serveCotturaItemList.text = if (ricetta.serveCottura) "COTTURA" else "CRUDO"
 		}
 	}
 }
