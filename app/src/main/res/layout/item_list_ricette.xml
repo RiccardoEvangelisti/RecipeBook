@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
@@ -39,46 +38,77 @@
 
 	<TextView
 		android:id="@+id/portata_itemList"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="16dp"
 		android:text="@string/portata"
 		android:textSize="16sp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/tempoPreparazione_itemList"
+		app:layout_constraintEnd_toStartOf="@+id/guideline11"
 		app:layout_constraintStart_toStartOf="@+id/guideline6"
 		app:layout_constraintTop_toBottomOf="@+id/nome_itemList" />
 
 	<TextView
 		android:id="@+id/tempoPreparazione_itemList"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="@string/tempo_di_preparazione"
+		android:textSize="16sp"
 		app:layout_constraintBottom_toBottomOf="@+id/portata_itemList"
-		app:layout_constraintEnd_toStartOf="@+id/serveCottura_itemList"
-		app:layout_constraintStart_toEndOf="@+id/portata_itemList"
+		app:layout_constraintEnd_toStartOf="@+id/guideline10"
+		app:layout_constraintStart_toStartOf="@+id/guideline11"
 		app:layout_constraintTop_toTopOf="@+id/portata_itemList"
 		app:layout_constraintVertical_bias="0.49" />
 
 	<TextView
 		android:id="@+id/vegetariano_itemList"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="@string/vegetariano"
+		android:textSize="16sp"
 		app:layout_constraintBottom_toBottomOf="@+id/serveCottura_itemList"
 		app:layout_constraintEnd_toStartOf="@+id/guideline7"
-		app:layout_constraintStart_toEndOf="@+id/serveCottura_itemList"
+		app:layout_constraintStart_toStartOf="@+id/guideline9"
 		app:layout_constraintTop_toTopOf="@+id/serveCottura_itemList" />
 
 	<TextView
 		android:id="@+id/serveCottura_itemList"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="@string/serve_cottura"
+		android:textSize="16sp"
 		app:layout_constraintBottom_toBottomOf="@+id/tempoPreparazione_itemList"
-		app:layout_constraintEnd_toStartOf="@+id/vegetariano_itemList"
-		app:layout_constraintStart_toEndOf="@+id/tempoPreparazione_itemList"
+		app:layout_constraintEnd_toStartOf="@+id/guideline9"
+		app:layout_constraintStart_toStartOf="@+id/guideline10"
 		app:layout_constraintTop_toTopOf="@+id/tempoPreparazione_itemList" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline9"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="328dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline10"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="244dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline11"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="132dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

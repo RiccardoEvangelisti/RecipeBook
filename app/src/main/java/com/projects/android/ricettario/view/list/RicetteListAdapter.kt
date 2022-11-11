@@ -38,7 +38,7 @@ class RicetteListHolder(private val binding: ItemListRicetteBinding) : RecyclerV
 			portataItemList.text = ricetta.portata.toString()
 			tempoPreparazioneItemList.text = ricetta.tempoPreparazione.toString()
 			vegetarianoItemList.text = if (ricetta.isVegetariana) "VEG" else "ONN"
-			serveCotturaItemList.text = if (ricetta.serveCottura) "COTTURA" else "CRUDO"
+			serveCotturaItemList.text = if (ricetta.serveCottura) "COTTO" else "CRUDO"
 		}
 	}
 }
