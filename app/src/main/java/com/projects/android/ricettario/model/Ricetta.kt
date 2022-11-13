@@ -15,7 +15,7 @@ data class Ricetta(
 	val portata: Portata,
 	val porzioni: Int,
 	val preparazione: String,
-	val ingredientiList: List<Ingrediente>,
+	val ingredientiList: MutableList<Ingrediente>,
 	val isVegetariana: Boolean,
 	val tempoPreparazione: TempoPreparazione,
 	val serveCottura: Boolean)

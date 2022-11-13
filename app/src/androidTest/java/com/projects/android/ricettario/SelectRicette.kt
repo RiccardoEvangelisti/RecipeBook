@@ -52,7 +52,7 @@ class SelectRicette {
 			                      Portata.SECONDO,
 			                      1,
 			                      "Cucinare bene",
-			                      List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                      MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
 			                      false,
 			                      TempoPreparazione.TRENTA_MIN,
 			                      true)
@@ -72,7 +72,7 @@ class SelectRicette {
 			                      Portata.SECONDO,
 			                      1,
 			                      "Cucinare bene",
-			                      List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                      MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
 			                      false,
 			                      TempoPreparazione.TRENTA_MIN,
 			                      true)
@@ -175,7 +175,7 @@ class SelectRicette {
 			                    Portata.SECONDO,
 			                    1,
 			                    "Cucinare bene",
-			                    List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))
@@ -185,7 +185,7 @@ class SelectRicette {
 			                    Portata.ANTIPASTO,
 			                    1,
 			                    "Friggere bene",
-			                    List(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
 			                    false,
 			                    TempoPreparazione.TRENTA_MIN,
 			                    true))
@@ -234,7 +234,7 @@ class SelectRicette {
 			                    Portata.SECONDO,
 			                    1,
 			                    "Cucinare bene",
-			                    List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))
@@ -244,7 +244,7 @@ class SelectRicette {
 			                    Portata.ANTIPASTO,
 			                    1,
 			                    "Friggere bene",
-			                    List(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
 			                    false,
 			                    TempoPreparazione.TRENTA_MIN,
 			                    true))
@@ -275,7 +275,7 @@ class SelectRicette {
 			                    Portata.SECONDO,
 			                    1,
 			                    "Cucinare bene",
-			                    List(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))

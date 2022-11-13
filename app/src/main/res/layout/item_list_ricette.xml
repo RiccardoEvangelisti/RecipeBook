@@ -95,20 +95,20 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		app:layout_constraintGuide_begin="328dp" />
+		app:layout_constraintGuide_begin="306dp" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline10"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		app:layout_constraintGuide_begin="244dp" />
+		app:layout_constraintGuide_begin="221dp" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline11"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		app:layout_constraintGuide_begin="132dp" />
+		app:layout_constraintGuide_begin="121dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

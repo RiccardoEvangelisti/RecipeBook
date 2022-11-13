@@ -3,11 +3,9 @@ package com.projects.android.ricettario.view.insert
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projects.android.ricettario.database.RicettarioRepository
-import com.projects.android.ricettario.model.Ingrediente
 import com.projects.android.ricettario.model.Ricetta
 import com.projects.android.ricettario.model.enums.Portata
 import com.projects.android.ricettario.model.enums.TempoPreparazione
-import com.projects.android.ricettario.model.enums.UnitaDiMisura
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,15 +21,7 @@ class AggiungiRicettaViewModel : ViewModel() {
 
 	init {
 		viewModelScope.launch {
-			_ricetta.value = Ricetta(0,
-			                         "",
-			                         Portata.SECONDO,
-			                         1,
-			                         "",
-			                         List(0, init = { Ingrediente("", 0, UnitaDiMisura.CHILOGRAMMO) }),
-			                         true,
-			                         TempoPreparazione.TRENTA_MIN,
-			                         true)
+			_ricetta.value = Ricetta(0, "", Portata.SECONDO, 1, "", mutableListOf(), true, TempoPreparazione.TRENTA_MIN, true)
 		}
 	}
 

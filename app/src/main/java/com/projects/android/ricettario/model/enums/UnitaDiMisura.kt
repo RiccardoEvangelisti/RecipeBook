@@ -3,10 +3,10 @@ package com.projects.android.ricettario.model.enums
 import com.google.gson.annotations.SerializedName
 
 enum class UnitaDiMisura(value: String) { @SerializedName("0")
-CHILOGRAMMO("Kg"),
+GRAMMO("g"),
 
 	@SerializedName("1")
-	GRAMMO("g"),
+	CHILOGRAMMO("Kg"),
 
 	@SerializedName("2")
 	QUANTOBASTA("q.b");
