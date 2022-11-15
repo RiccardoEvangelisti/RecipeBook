@@ -50,43 +50,34 @@ class AggiungiRicettaFragment : Fragment() {
         binding.apply {
 
             activity?.onBackPressedDispatcher?.addCallback(
-                viewLifecycleOwner,
-                true
+                viewLifecycleOwner, true
             ) {
                 if (!nomeAdd.text.isNullOrBlank()) {
                     findNavController().navigateUp()
                 } else {
                     Toast.makeText(
-                        context,
-                        "ERRORE: Inserire un titolo",
-                        Toast.LENGTH_SHORT
+                        context, "ERRORE: Inserire un titolo", Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             context?.let {
                 ArrayAdapter(
-                    it,
-                    android.R.layout.simple_spinner_item,
-                    Portata.values()
+                    it, android.R.layout.simple_spinner_item, Portata.values()
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     portataAdd.adapter = adapter
                 }
 
                 ArrayAdapter(
-                    it,
-                    android.R.layout.simple_spinner_item,
-                    TempoPreparazione.values()
+                    it, android.R.layout.simple_spinner_item, TempoPreparazione.values()
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     tempoPreparazioneAdd.adapter = adapter
                 }
 
                 ArrayAdapter(
-                    it,
-                    android.R.layout.simple_spinner_item,
-                    UnitaDiMisura.values()
+                    it, android.R.layout.simple_spinner_item, UnitaDiMisura.values()
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     unitaIngredienteAdd.adapter = adapter
@@ -214,10 +205,7 @@ class AggiungiRicettaFragment : Fragment() {
                 }
 
                 override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
                     if (parent != null) {
                         aggiungiRicettaViewModel.updateRicetta {
@@ -257,6 +245,23 @@ class AggiungiRicettaFragment : Fragment() {
                             }
                             if (preparazioneAdd.text.toString() != ricetta.preparazione) {
                                 preparazioneAdd.setText(ricetta.preparazione)
+                            }
+                            for (i in _bindingIngredientiList.indices) {
+                                if (_bindingIngredientiList[i]?.nomeIngredienteItemAdd?.text.toString() != ricetta.ingredientiList[i].nome) {
+                                    _bindingIngredientiList[i]?.nomeIngredienteItemAdd?.setText(
+                                        ricetta.ingredientiList[i].nome
+                                    )
+                                }
+                                if (_bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.text.toString() != ricetta.ingredientiList[i].quantita.toString()) {
+                                    _bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.setText(
+                                        ricetta.ingredientiList[i].quantita
+                                    )
+                                }
+                                if (_bindingIngredientiList[i]?.unitaIngredienteItemAdd?.selectedItemPosition != ricetta.ingredientiList[i].unitaDiMisura.ordinal) {
+                                    _bindingIngredientiList[i]?.unitaIngredienteItemAdd?.setSelection(
+                                        ricetta.ingredientiList[i].unitaDiMisura.ordinal
+                                    )
+                                }
                             }
                         }
                     }
