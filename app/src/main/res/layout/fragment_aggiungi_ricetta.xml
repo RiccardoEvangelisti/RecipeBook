@@ -152,7 +152,7 @@
 			android:layout_height="wrap_content"
 			android:hint="@string/quantita"
 			android:importantForAutofill="no"
-			android:inputType="numberDecimal"
+			android:inputType="number"
 			android:minHeight="48dp"
 			android:singleLine="true"
 			android:textAlignment="center"
