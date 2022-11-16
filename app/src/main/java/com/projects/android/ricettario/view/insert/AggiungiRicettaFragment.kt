@@ -26,233 +26,312 @@ import kotlinx.coroutines.launch
 
 class AggiungiRicettaFragment : Fragment() {
 
-	// VIEW MODEL
-	private val aggiungiRicettaViewModel: AggiungiRicettaViewModel by viewModels()
+    // VIEW MODEL
+    private val aggiungiRicettaViewModel: AggiungiRicettaViewModel by viewModels()
 
-	// VIEW BINDING
-	private var _binding: FragmentAggiungiRicettaBinding? = null
-	private val binding
-		get() = checkNotNull(_binding) {
-			"Cannot access binding because it is null. Is the view visible?"
-		}
-	private var _bindingIngredientiList = mutableListOf<ItemLayoutIngredientiBinding?>()
+    // VIEW BINDING
+    private var _binding: FragmentAggiungiRicettaBinding? = null
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible?"
+        }
+    private var _bindingIngredientiList = mutableListOf<ItemLayoutIngredientiBinding?>()
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-		_binding = FragmentAggiungiRicettaBinding.inflate(layoutInflater, container, false)
-		return binding.root
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAggiungiRicettaBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		binding.apply {
+        binding.apply {
 
-			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-				if (!nomeAdd.text.isNullOrBlank()) {
-					findNavController().navigateUp()
-				} else {
-					Toast.makeText(context, "ERRORE: Inserire un titolo", Toast.LENGTH_SHORT).show()
-				}
-			}
+            // Condizioni per navigateUp e quindi salvataggio della ricetta
+            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
+                if (!nomeAdd.text.isNullOrBlank()) {
+                    findNavController().navigateUp()
+                } else {
+                    Toast.makeText(context, "ERRORE: Inserire un titolo", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-			context?.let {
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, Portata.values()).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					portataAdd.adapter = adapter
-				}
+            // Inizializzazione spinner Portata, TempoPreparazione e UnitaIngrediente
+            context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_item,
+                    Portata.values()
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    portataAdd.adapter = adapter
+                }
 
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, TempoPreparazione.values()).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					tempoPreparazioneAdd.adapter = adapter
-				}
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_item,
+                    TempoPreparazione.values()
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    tempoPreparazioneAdd.adapter = adapter
+                }
 
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, UnitaDiMisura.values()).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					unitaIngredienteAdd.adapter = adapter
-				}
-			}
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_item,
+                    UnitaDiMisura.values()
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    unitaIngredienteAdd.adapter = adapter
+                }
+            }
 
-			// Listeners che al cambiamento del dato sulla UI applicano la modifica al ViewModel (UI->ViewModel)
-			nomeAdd.doOnTextChanged { text, _, _, _ ->
-				aggiungiRicettaViewModel.updateRicetta {
-					it.copy(nome = text.toString())
-				}
-			}
+            // Listeners che applicano la modifica al ViewModel al cambiamento del dato sulla UI (UI->ViewModel)
+            nomeAdd.doOnTextChanged { text, _, _, _ ->
+                aggiungiRicettaViewModel.updateRicetta { it.also { it.nome = text.toString() } }
+            }
 
-			preparazioneAdd.doOnTextChanged { text, _, _, _ ->
-				aggiungiRicettaViewModel.updateRicetta { it.copy(preparazione = text.toString()) }
-			}
+            preparazioneAdd.doOnTextChanged { text, _, _, _ ->
+                aggiungiRicettaViewModel.updateRicetta {
+                    it.also {
+                        it.preparazione = text.toString()
+                    }
+                }
+            }
 
-			portataAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onNothingSelected(parent: AdapterView<*>?) {
-				}
+            portataAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
 
-				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-					if (parent != null) {
-						aggiungiRicettaViewModel.updateRicetta {
-							it.copy(portata = parent.adapter.getItem(position) as Portata)
-						}
-					}
-				}
-			}
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    if (parent != null) {
+                        aggiungiRicettaViewModel.updateRicetta {
+                            it.also { it.portata = parent.adapter.getItem(position) as Portata }
+                        }
+                    }
+                }
+            }
 
-			vegetarianoAdd.setOnCheckedChangeListener { _, b ->
-				aggiungiRicettaViewModel.updateRicetta { it.copy(isVegetariana = b) }
-			}
-			serveCotturaAdd.setOnCheckedChangeListener { _, b ->
-				aggiungiRicettaViewModel.updateRicetta { it.copy(serveCottura = b) }
-			}
+            vegetarianoAdd.setOnCheckedChangeListener { _, b ->
+                aggiungiRicettaViewModel.updateRicetta { it.also { it.isVegetariana = b } }
+            }
+            serveCotturaAdd.setOnCheckedChangeListener { _, b ->
+                aggiungiRicettaViewModel.updateRicetta { it.also { it.serveCottura = b } }
+            }
 
-			quantitaIngredienteAdd.setOnEditorActionListener { _, actionId, _ ->
-				return@setOnEditorActionListener when (actionId) {
-					EditorInfo.IME_ACTION_DONE -> {
-						unitaIngredienteAdd.performClick()
-						true
-					}
+            quantitaIngredienteAdd.setOnEditorActionListener { _, actionId, _ ->
+                return@setOnEditorActionListener when (actionId) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                        unitaIngredienteAdd.performClick()
+                        true
+                    }
 
-					else -> false
-				}
-			}
+                    else -> false
+                }
+            }
 
-			unitaIngredienteAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-					nomeIngredienteAdd.requestFocus()
-				}
+            unitaIngredienteAdd.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View, position: Int, id: Long
+                    ) {
+                        nomeIngredienteAdd.requestFocus()
+                    }
 
-				override fun onNothingSelected(parent: AdapterView<*>?) {}
-			}
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
 
-			nomeIngredienteAdd.setOnEditorActionListener { _, actionId, _ ->
-				return@setOnEditorActionListener when (actionId) {
-					EditorInfo.IME_ACTION_DONE -> {
-						if (!quantitaIngredienteAdd.text.isNullOrBlank() && !nomeIngredienteAdd.text.isNullOrBlank()) {
-							val bindingIngredienti = ItemLayoutIngredientiBinding.inflate(layoutInflater)
-							_bindingIngredientiList.add(bindingIngredienti)
-							bindingIngredienti.apply {
-								context?.let {
-									ArrayAdapter(it,
-									             android.R.layout.simple_spinner_item,
-									             UnitaDiMisura.values()).also { adapter ->
-										adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-										unitaIngredienteItemAdd.adapter = adapter
-									}
-								}
-								cancellaIngredienteItemAdd.setOnClickListener {
-									aggiungiRicettaViewModel.updateRicetta { ricetta ->
-										ricetta.copy(ingredientiList = ricetta.ingredientiList.also {
-											it.removeAt(ingredientiLayoutAdd.indexOfChild(root))
-										})
-									}
-									ingredientiLayoutAdd.removeView(root)
-								}
+            nomeIngredienteAdd.setOnEditorActionListener { _, actionId, _ ->
+                return@setOnEditorActionListener when (actionId) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                        if (!quantitaIngredienteAdd.text.isNullOrBlank() && !nomeIngredienteAdd.text.isNullOrBlank()) {
+                            val bindingIngredienti =
+                                ItemLayoutIngredientiBinding.inflate(layoutInflater)
+                            _bindingIngredientiList.add(bindingIngredienti)
+                            bindingIngredienti.apply {
+                                context?.let {
+                                    ArrayAdapter(
+                                        it,
+                                        android.R.layout.simple_spinner_item,
+                                        UnitaDiMisura.values()
+                                    ).also { adapter ->
+                                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                                        unitaIngredienteItemAdd.adapter = adapter
+                                    }
+                                }
+                                cancellaIngredienteItemAdd.setOnClickListener {
+                                    aggiungiRicettaViewModel.updateRicetta { stato ->
+                                        stato.also {
+                                            it.ingredientiList = stato.ingredientiList.also {
+                                                if (it != null) {
+                                                    it.removeAt(
+                                                        ingredientiLayoutAdd.indexOfChild(
+                                                            root
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ingredientiLayoutAdd.removeView(root)
+                                }
 
-								quantitaIngredienteItemAdd.text = quantitaIngredienteAdd.text
-								unitaIngredienteItemAdd.setSelection(unitaIngredienteAdd.selectedItemPosition)
-								nomeIngredienteItemAdd.text = nomeIngredienteAdd.text
+                                quantitaIngredienteItemAdd.text = quantitaIngredienteAdd.text
+                                unitaIngredienteItemAdd.setSelection(unitaIngredienteAdd.selectedItemPosition)
+                                nomeIngredienteItemAdd.text = nomeIngredienteAdd.text
 
-								quantitaIngredienteAdd.text.clear()
-								unitaIngredienteAdd.setSelection(0)
-								nomeIngredienteAdd.text.clear()
-								quantitaIngredienteAdd.requestFocus()
+                                quantitaIngredienteAdd.text.clear()
+                                unitaIngredienteAdd.setSelection(0)
+                                nomeIngredienteAdd.text.clear()
+                                quantitaIngredienteAdd.requestFocus()
 
-								ingredientiLayoutAdd.addView(root)
+                                ingredientiLayoutAdd.addView(root)
 
-								aggiungiRicettaViewModel.updateRicetta { ricetta ->
-									ricetta.copy(ingredientiList = ricetta.ingredientiList.also {
-										it.add(Ingrediente(nomeIngredienteAdd.text.toString(),
-										                   quantitaIngredienteItemAdd.text.toString().toInt(),
-										                   unitaIngredienteAdd.selectedItem as UnitaDiMisura))
-									})
-								}
+                                aggiungiRicettaViewModel.updateRicetta { stato ->
+                                    stato.also {
+                                        it.ingredientiList = stato.ingredientiList.also {
+                                            if (it != null) {
+                                                it.add(
+                                                    Ingrediente(
+                                                        nomeIngredienteAdd.text.toString(),
+                                                        quantitaIngredienteItemAdd.text.toString()
+                                                            .toInt(),
+                                                        unitaIngredienteAdd.selectedItem as UnitaDiMisura
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
 
-								quantitaIngredienteItemAdd.doOnTextChanged { text, _, _, _ ->
-									if (text.isNullOrBlank() || text == "0") {
-										quantitaIngredienteItemAdd.setText("1")
-									} else {
-										aggiungiRicettaViewModel.updateRicetta { ricetta ->
-											ricetta.copy(ingredientiList = ricetta.ingredientiList.also {
-												it[ingredientiLayoutAdd.indexOfChild(root)].quantita = text.toString().toInt()
-											})
-										}
-									}
-								}
+                                quantitaIngredienteItemAdd.doOnTextChanged { text, _, _, _ ->
+                                    if (text.isNullOrBlank() || text == "0") {
+                                        quantitaIngredienteItemAdd.setText("1")
+                                    } else {
+                                        aggiungiRicettaViewModel.updateRicetta { stato ->
+                                            stato.also {
+                                                it.ingredientiList = stato.ingredientiList.also {
+                                                    it!![ingredientiLayoutAdd.indexOfChild(root)].quantita =
+                                                        text.toString().toInt()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
-								unitaIngredienteItemAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-									override fun onItemSelected(
-										parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-										aggiungiRicettaViewModel.updateRicetta { ricetta ->
-											ricetta.copy(ingredientiList = ricetta.ingredientiList.also {
-												it[ingredientiLayoutAdd.indexOfChild(root)].unitaDiMisura =
-													UnitaDiMisura.values()[position]
-											})
-										}
-									}
+                                unitaIngredienteItemAdd.onItemSelectedListener =
+                                    object : AdapterView.OnItemSelectedListener {
+                                        override fun onItemSelected(
+                                            parent: AdapterView<*>?,
+                                            view: View,
+                                            position: Int,
+                                            id: Long
+                                        ) {
+                                            aggiungiRicettaViewModel.updateRicetta { stato ->
+                                                stato.also {
+                                                    it.ingredientiList =
+                                                        stato.ingredientiList.also {
+                                                            it!![ingredientiLayoutAdd.indexOfChild(
+                                                                root
+                                                            )].unitaDiMisura =
+                                                                UnitaDiMisura.values()[position]
+                                                        }
+                                                }
+                                            }
+                                        }
 
-									override fun onNothingSelected(parent: AdapterView<*>?) {}
-								}
+                                        override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                    }
 
-								nomeIngredienteItemAdd.doOnTextChanged { text, _, _, _ ->
-									aggiungiRicettaViewModel.updateRicetta { ricetta ->
-										ricetta.copy(ingredientiList = ricetta.ingredientiList.also {
-											it[ingredientiLayoutAdd.indexOfChild(root)].nome = text.toString()
-										})
-									}
-								}
-							}
-						}
-						true
-					}
+                                nomeIngredienteItemAdd.doOnTextChanged { text, _, _, _ ->
+                                    aggiungiRicettaViewModel.updateRicetta { stato ->
+                                        stato.also {
+                                            it.ingredientiList = stato.ingredientiList.also {
+                                                it!![ingredientiLayoutAdd.indexOfChild(root)].nome =
+                                                    text.toString()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        true
+                    }
 
-					else -> false
-				}
-			}
-		}
+                    else -> false
+                }
+            }
+        }
 
-		// Colleziono lo StateFlow del ViewModel e con esso aggiorno la UI (ViewModel->UI)
-		viewLifecycleOwner.lifecycleScope.launch {
-			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				aggiungiRicettaViewModel.ricetta.collect { ricetta ->
-					ricetta?.let {
-						binding.apply {
-							if (nomeAdd.text.toString() != ricetta.nome) { // previene un infinite-loop con il listener
-								nomeAdd.setText(ricetta.nome)
-							}
-							vegetarianoAdd.isChecked = ricetta.isVegetariana
-							serveCotturaAdd.isChecked = ricetta.serveCottura
-							portataAdd.setSelection(ricetta.portata.ordinal)
-							tempoPreparazioneAdd.setSelection(ricetta.tempoPreparazione.ordinal)
-							if (porzioniAdd.text.toString() != ricetta.porzioni.toString()) {
-								porzioniAdd.setText(ricetta.porzioni.toString())
-							}
-							if (preparazioneAdd.text.toString() != ricetta.preparazione) {
-								preparazioneAdd.setText(ricetta.preparazione)
-							}
-							for (i in _bindingIngredientiList.indices) {
-								if (_bindingIngredientiList[i]?.nomeIngredienteItemAdd?.text.toString() != ricetta.ingredientiList[i].nome) {
-									_bindingIngredientiList[i]?.nomeIngredienteItemAdd?.setText(ricetta.ingredientiList[i].nome)
-								}
-								if (_bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.text.toString() != ricetta.ingredientiList[i].quantita.toString()) {
-									_bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.setText(ricetta.ingredientiList[i].quantita)
-								}
-								if (_bindingIngredientiList[i]?.unitaIngredienteItemAdd?.selectedItemPosition != ricetta.ingredientiList[i].unitaDiMisura.ordinal) {
-									_bindingIngredientiList[i]?.unitaIngredienteItemAdd?.setSelection(ricetta.ingredientiList[i].unitaDiMisura.ordinal)
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+        // Colleziono lo StateFlow del ViewModel e con esso aggiorno la UI (ViewModel->UI)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                aggiungiRicettaViewModel.state.collect { ricetta ->
+                    ricetta?.let {
+                        binding.apply {
+                            ricetta.nome?.let {
+                                if (nomeAdd.text.toString() != ricetta.nome) { // previene un infinite-loop con il listener
+                                    nomeAdd.setText(ricetta.nome)
+                                }
+                            }
+                            ricetta.isVegetariana?.let {
+                                vegetarianoAdd.isChecked = ricetta.isVegetariana!!
+                            }
+                            ricetta.serveCottura?.let {
+                                serveCotturaAdd.isChecked = ricetta.serveCottura!!
+                            }
+                            ricetta.portata?.let {
+                                portataAdd.setSelection(ricetta.portata!!.ordinal)
+                            }
+                            ricetta.tempoPreparazione?.let {
+                                tempoPreparazioneAdd.setSelection(ricetta.tempoPreparazione!!.ordinal)
+                            }
+                            ricetta.porzioni?.let {
+                                if (porzioniAdd.text.toString() != ricetta.porzioni.toString()) {
+                                    porzioniAdd.setText(ricetta.porzioni.toString())
+                                }
+                            }
+                            ricetta.preparazione?.let {
+                                if (preparazioneAdd.text.toString() != ricetta.preparazione) {
+                                    preparazioneAdd.setText(ricetta.preparazione)
+                                }
+                            }
+                            for (i in _bindingIngredientiList.indices) {
+                                ricetta.ingredientiList?.let {
+                                    if (_bindingIngredientiList[i]?.nomeIngredienteItemAdd?.text.toString() != ricetta.ingredientiList!![i].nome) {
+                                        _bindingIngredientiList[i]?.nomeIngredienteItemAdd?.setText(
+                                            ricetta.ingredientiList!![i].nome
+                                        )
+                                    }
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
-		for (i in _bindingIngredientiList.indices) {
-			_bindingIngredientiList[i] = null
-		}
-	}
+                                    if (_bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.text.toString() != ricetta.ingredientiList!![i].quantita.toString()) {
+                                        _bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.setText(
+                                            ricetta.ingredientiList!![i].quantita
+                                        )
+                                    }
+                                    if (_bindingIngredientiList[i]?.unitaIngredienteItemAdd?.selectedItemPosition != ricetta.ingredientiList!![i].unitaDiMisura.ordinal) {
+                                        _bindingIngredientiList[i]?.unitaIngredienteItemAdd?.setSelection(
+                                            ricetta.ingredientiList!![i].unitaDiMisura.ordinal
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        for (i in _bindingIngredientiList.indices) {
+            _bindingIngredientiList[i] = null
+        }
+    }
 }
