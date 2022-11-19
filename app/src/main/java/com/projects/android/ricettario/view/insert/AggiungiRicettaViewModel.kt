@@ -37,6 +37,6 @@ class AggiungiRicettaViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         _state.value.formatRicetta()
-        _state.value?.let { state -> ricettarioRepository.insertRicetta(state.toRicetta()) }
+        _state.value.let { state -> ricettarioRepository.insertRicetta(state.toRicetta()) }
     }
 }
