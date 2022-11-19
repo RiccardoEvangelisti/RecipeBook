@@ -22,7 +22,7 @@ class AggiungiRicettaViewModel : ViewModel() {
         _state.value.portata = Portata.SECONDO
         _state.value.tempoPreparazione = TempoPreparazione.TRENTA_MIN
         _state.value.isVegetariana = true
-        _state.value.serveCottura = false
+        _state.value.serveCottura = true
         _state.value.ingredientiList = mutableListOf()
     }
 
@@ -30,12 +30,13 @@ class AggiungiRicettaViewModel : ViewModel() {
         _state.update { it.also { onUpdate(it) } }
     }
 
-    fun formatRicetta(): String {
-        return _state.value.formatRicetta()
+    fun checkRicetta(): String? {
+        return _state.value.checkRicetta()
     }
 
     override fun onCleared() {
         super.onCleared()
+        _state.value.formatRicetta()
         _state.value?.let { state -> ricettarioRepository.insertRicetta(state.toRicetta()) }
     }
 }

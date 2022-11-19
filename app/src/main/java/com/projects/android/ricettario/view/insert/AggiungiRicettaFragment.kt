@@ -3,6 +3,7 @@ package com.projects.android.ricettario.view.insert
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
@@ -52,33 +53,32 @@ class AggiungiRicettaFragment : Fragment() {
 
             // Condizioni per navigateUp e quindi salvataggio della ricetta
             activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-                if (aggiungiRicettaViewModel.formatRicetta().isNotBlank()) {
+                val check = aggiungiRicettaViewModel.checkRicetta()
+                if (!check.isNullOrBlank()) {
                     Toast.makeText(
-                        context,
-                        "ERRORE: " + aggiungiRicettaViewModel.formatRicetta(),
-                        Toast.LENGTH_SHORT
+                        context, "ERRORE: $check", Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     findNavController().navigateUp()
                 }
             }
 
-            // Inizializzazione spinner Portata, TempoPreparazione e UnitaIngrediente
             requireContext().let {
+                // Inizializzazione spinner Portata
                 ArrayAdapter(
                     it, android.R.layout.simple_spinner_item, Portata.values()
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     portataAdd.adapter = adapter
                 }
-
+                // Inizializzazione spinner TempoPreparazione
                 ArrayAdapter(
                     it, android.R.layout.simple_spinner_item, TempoPreparazione.values()
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     tempoPreparazioneAdd.adapter = adapter
                 }
-
+                // Inizializzazione spinner UnitaIngrediente
                 ArrayAdapter(
                     it, android.R.layout.simple_spinner_item, UnitaDiMisura.values()
                 ).also { adapter ->
@@ -87,7 +87,7 @@ class AggiungiRicettaFragment : Fragment() {
                 }
             }
 
-            // Listeners che applicano la modifica al ViewModel al cambiamento del dato sulla UI (UI->ViewModel)
+            // Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
             nomeAdd.doOnTextChanged { text, _, _, _ ->
                 aggiungiRicettaViewModel.updateRicetta { it.nome = text.toString() }
             }
@@ -124,10 +124,8 @@ class AggiungiRicettaFragment : Fragment() {
                     ) {
                         parent!!.let {
                             aggiungiRicettaViewModel.updateRicetta {
-
                                 it.tempoPreparazione =
                                     parent.adapter.getItem(position) as TempoPreparazione
-
                             }
                         }
                     }
@@ -135,9 +133,7 @@ class AggiungiRicettaFragment : Fragment() {
 
             porzioniAdd.doOnTextChanged { text, _, _, _ ->
                 aggiungiRicettaViewModel.updateRicetta {
-
-                    it.porzioni = text.toString().toInt()
-
+                    it.porzioni = text.toString()
                 }
             }
 
@@ -157,6 +153,13 @@ class AggiungiRicettaFragment : Fragment() {
                     override fun onItemSelected(
                         parent: AdapterView<*>?, view: View, position: Int, id: Long
                     ) {
+                        // Gestione UnitaDiMisura.QUANTOBASTA
+                        if (position == UnitaDiMisura.QUANTOBASTA.ordinal) {
+                            quantitaIngredienteAdd.setText("")
+                            quantitaIngredienteAdd.visibility = GONE
+                        } else {
+                            quantitaIngredienteAdd.visibility = VISIBLE
+                        }
                         nomeIngredienteAdd.requestFocus()
                     }
 
@@ -166,11 +169,14 @@ class AggiungiRicettaFragment : Fragment() {
             nomeIngredienteAdd.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
-                        if (!quantitaIngredienteAdd.text.isNullOrBlank() && !nomeIngredienteAdd.text.isNullOrBlank()) {
+                        // Se nomeIngredienteAdd e' consistente e (quantitaIngredienteAdd e' consistente oppure unitaIngrediente==QUANTOBASTA)
+                        if ((!quantitaIngredienteAdd.text.isNullOrBlank() || unitaIngredienteAdd.selectedItemPosition == UnitaDiMisura.QUANTOBASTA.ordinal) && !nomeIngredienteAdd.text.isNullOrBlank()) {
+                            // Si genera il binding
                             val bindingIngredienti =
                                 ItemLayoutIngredientiBinding.inflate(layoutInflater)
                             _bindingIngredientiList.add(bindingIngredienti)
                             bindingIngredienti.apply {
+                                // Inizializzione spinner UnitaDiMisura
                                 requireContext().let {
                                     ArrayAdapter(
                                         it,
@@ -182,41 +188,42 @@ class AggiungiRicettaFragment : Fragment() {
                                     }
                                 }
 
+                                // Riempimento UI nuovo ingrediente
                                 quantitaIngredienteItemAdd.text = quantitaIngredienteAdd.text
                                 unitaIngredienteItemAdd.setSelection(unitaIngredienteAdd.selectedItemPosition)
+                                if (unitaIngredienteItemAdd.selectedItemPosition == UnitaDiMisura.QUANTOBASTA.ordinal) {
+                                    quantitaIngredienteItemAdd.visibility = GONE
+                                }
                                 nomeIngredienteItemAdd.text = nomeIngredienteAdd.text
 
+                                // Cleanup
                                 quantitaIngredienteAdd.text.clear()
                                 unitaIngredienteAdd.setSelection(0)
+                                unitaIngredienteAdd.visibility = VISIBLE
                                 nomeIngredienteAdd.text.clear()
-                                quantitaIngredienteAdd.requestFocus()
 
+                                // Si aggiunge la view al linearLayout
                                 ingredientiLayoutAdd.addView(root)
 
                                 aggiungiRicettaViewModel.updateRicetta { stato ->
                                     stato.ingredientiList = stato.ingredientiList.also { list ->
-                                        list?.add(
+                                        list!!.add(
                                             Ingrediente(
-                                                nomeIngredienteAdd.text.toString(),
-                                                quantitaIngredienteItemAdd.text.toString().toInt(),
-                                                unitaIngredienteAdd.selectedItem as UnitaDiMisura
+                                                nomeIngredienteItemAdd.text.toString(),
+                                                quantitaIngredienteItemAdd.text.toString(),
+                                                unitaIngredienteItemAdd.selectedItem as UnitaDiMisura
                                             )
                                         )
-
                                     }
                                 }
 
+                                // Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
                                 quantitaIngredienteItemAdd.doOnTextChanged { text, _, _, _ ->
-                                    if (text.isNullOrBlank() || text == "0") {
-                                        quantitaIngredienteItemAdd.setText("1")
-                                    } else {
-                                        aggiungiRicettaViewModel.updateRicetta { state ->
-                                            state.ingredientiList =
-                                                state.ingredientiList.also { list ->
-                                                    list!![ingredientiLayoutAdd.indexOfChild(
-                                                        root
-                                                    )].quantita = text.toString().toInt()
-                                                }
+                                    aggiungiRicettaViewModel.updateRicetta { state ->
+                                        state.ingredientiList = state.ingredientiList.also { list ->
+                                            list!![ingredientiLayoutAdd.indexOfChild(
+                                                root
+                                            )].quantita = text.toString()
                                         }
                                     }
                                 }
@@ -229,6 +236,12 @@ class AggiungiRicettaFragment : Fragment() {
                                             position: Int,
                                             id: Long
                                         ) {
+                                            if (position == UnitaDiMisura.QUANTOBASTA.ordinal) {
+                                                quantitaIngredienteItemAdd.setText("")
+                                                quantitaIngredienteItemAdd.visibility = INVISIBLE
+                                            } else {
+                                                quantitaIngredienteItemAdd.visibility = VISIBLE
+                                            }
                                             aggiungiRicettaViewModel.updateRicetta { stato ->
                                                 stato.ingredientiList =
                                                     stato.ingredientiList.also { list ->
@@ -237,7 +250,6 @@ class AggiungiRicettaFragment : Fragment() {
                                                         )].unitaDiMisura =
                                                             UnitaDiMisura.values()[position]
                                                     }
-
                                             }
                                         }
 
@@ -250,7 +262,6 @@ class AggiungiRicettaFragment : Fragment() {
                                             list!![ingredientiLayoutAdd.indexOfChild(root)].nome =
                                                 text.toString()
                                         }
-
                                     }
                                 }
 
@@ -263,7 +274,6 @@ class AggiungiRicettaFragment : Fragment() {
                                                 )
                                             )
                                         }
-
                                     }
                                     ingredientiLayoutAdd.removeView(root)
                                 }
@@ -316,22 +326,23 @@ class AggiungiRicettaFragment : Fragment() {
                                     preparazioneAdd.setText(ricetta.preparazione)
                                 }
                             }
-                            for (i in _bindingIngredientiList.indices) {
-                                ricetta.ingredientiList?.let {
-                                    if (_bindingIngredientiList[i]?.nomeIngredienteItemAdd?.text.toString() != ricetta.ingredientiList!![i].nome) {
-                                        _bindingIngredientiList[i]?.nomeIngredienteItemAdd?.setText(
-                                            ricetta.ingredientiList!![i].nome
+                            ricetta.ingredientiList?.let {
+                                for (i in _bindingIngredientiList.indices) {
+                                    val bindingItemAdd = _bindingIngredientiList[i]!!
+                                    val ingrediente = ricetta.ingredientiList!![i]
+                                    if (bindingItemAdd.nomeIngredienteItemAdd.text.toString() != ingrediente.nome) {
+                                        bindingItemAdd.nomeIngredienteItemAdd.setText(
+                                            ingrediente.nome
                                         )
                                     }
-
-                                    if (_bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.text.toString() != ricetta.ingredientiList!![i].quantita.toString()) {
-                                        _bindingIngredientiList[i]?.quantitaIngredienteItemAdd?.setText(
-                                            ricetta.ingredientiList!![i].quantita
+                                    if (bindingItemAdd.quantitaIngredienteItemAdd.text.toString() != ingrediente.quantita) {
+                                        bindingItemAdd.quantitaIngredienteItemAdd.setText(
+                                            ingrediente.quantita
                                         )
                                     }
-                                    if (_bindingIngredientiList[i]?.unitaIngredienteItemAdd?.selectedItemPosition != ricetta.ingredientiList!![i].unitaDiMisura.ordinal) {
-                                        _bindingIngredientiList[i]?.unitaIngredienteItemAdd?.setSelection(
-                                            ricetta.ingredientiList!![i].unitaDiMisura.ordinal
+                                    if (bindingItemAdd.unitaIngredienteItemAdd.selectedItemPosition != ingrediente.unitaDiMisura.ordinal) {
+                                        bindingItemAdd.unitaIngredienteItemAdd.setSelection(
+                                            ingrediente.unitaDiMisura.ordinal
                                         )
                                     }
                                 }

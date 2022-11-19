@@ -13,7 +13,7 @@ data class Ricetta(
 	var id: Int = 0,
 	var nome: String,
 	val portata: Portata,
-	val porzioni: Int,
+	val porzioni: String,
 	val preparazione: String,
 	val ingredientiList: MutableList<Ingrediente>,
 	val isVegetariana: Boolean,

@@ -50,9 +50,9 @@ class SelectRicette {
 			val ricetta = Ricetta(0,
 			                      "Pollo con patate",
 			                      Portata.SECONDO,
-			                      1,
+			                      "1",
 			                      "Cucinare bene",
-			                      MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                      MutableList(1, init = { Ingrediente("Petto", "1", UnitaDiMisura.CHILOGRAMMO) }),
 			                      false,
 			                      TempoPreparazione.TRENTA_MIN,
 			                      true)
@@ -70,9 +70,9 @@ class SelectRicette {
 			val ricetta = Ricetta(0,
 			                      "Pollo con patate",
 			                      Portata.SECONDO,
-			                      1,
+			                      "1",
 			                      "Cucinare bene",
-			                      MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                      MutableList(1, init = { Ingrediente("Petto", "1", UnitaDiMisura.CHILOGRAMMO) }),
 			                      false,
 			                      TempoPreparazione.TRENTA_MIN,
 			                      true)
@@ -173,9 +173,9 @@ class SelectRicette {
 			ricette.add(Ricetta(0,
 			                    "Pollo con patate",
 			                    Portata.SECONDO,
-			                    1,
+			                    "1",
 			                    "Cucinare bene",
-			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", "1", UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))
@@ -183,9 +183,9 @@ class SelectRicette {
 			ricette.add(Ricetta(0,
 			                    "Pesce con patate",
 			                    Portata.ANTIPASTO,
-			                    1,
+			                    "1",
 			                    "Friggere bene",
-			                    MutableList(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Pesce", "1000", UnitaDiMisura.GRAMMO) }),
 			                    false,
 			                    TempoPreparazione.TRENTA_MIN,
 			                    true))
@@ -221,7 +221,7 @@ class SelectRicette {
 			filtro = Filters()
 			res = dao.getRicette(filtro).toList()
 			assertTrue("Test ingredienti Quantita",
-			           res.size == 2 && res[0][0].ingredientiList[0].quantita == 1 && res[0][1].ingredientiList[0].quantita == 1000)
+			           res.size == 2 && res[0][0].ingredientiList[0].quantita == "1" && res[0][1].ingredientiList[0].quantita == "1000")
 		}
 	}
 
@@ -232,9 +232,9 @@ class SelectRicette {
 			ricette.add(Ricetta(0,
 			                    "Pollo con patate",
 			                    Portata.SECONDO,
-			                    1,
+			                    "1",
 			                    "Cucinare bene",
-			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", "1", UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))
@@ -242,9 +242,9 @@ class SelectRicette {
 			ricette.add(Ricetta(0,
 			                    "Pesce con patate",
 			                    Portata.ANTIPASTO,
-			                    1,
+			                    "1",
 			                    "Friggere bene",
-			                    MutableList(1, init = { Ingrediente("Pesce", 1000, UnitaDiMisura.GRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Pesce", "1000", UnitaDiMisura.GRAMMO) }),
 			                    false,
 			                    TempoPreparazione.TRENTA_MIN,
 			                    true))
@@ -273,9 +273,9 @@ class SelectRicette {
 			ricette.add(Ricetta(0,
 			                    "Pollo con patate",
 			                    Portata.SECONDO,
-			                    1,
+			                    "1",
 			                    "Cucinare bene",
-			                    MutableList(1, init = { Ingrediente("Petto", 1, UnitaDiMisura.CHILOGRAMMO) }),
+			                    MutableList(1, init = { Ingrediente("Petto", "1", UnitaDiMisura.CHILOGRAMMO) }),
 			                    false,
 			                    TempoPreparazione.CINQUE_MIN,
 			                    true))

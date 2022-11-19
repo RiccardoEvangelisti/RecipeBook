@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cec25082f56350a3f9d00549f4aa563f",
+    "identityHash": "e83ea7e79bdfed35e2c605efaa5a4517",
     "entities": [
       {
         "tableName": "ricettario",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nome` TEXT NOT NULL, `portata` INTEGER NOT NULL, `porzioni` INTEGER NOT NULL, `preparazione` TEXT NOT NULL, `ingredientiList` TEXT NOT NULL, `isVegetariana` INTEGER NOT NULL, `tempoPreparazione` INTEGER NOT NULL, `serveCottura` INTEGER NOT NULL, `rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT NOT NULL, `portata` INTEGER NOT NULL, `porzioni` TEXT NOT NULL, `preparazione` TEXT NOT NULL, `ingredientiList` TEXT NOT NULL, `isVegetariana` INTEGER NOT NULL, `tempoPreparazione` INTEGER NOT NULL, `serveCottura` INTEGER NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "rowid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "nome",
             "columnName": "nome",
@@ -23,7 +29,7 @@
           {
             "fieldPath": "porzioni",
             "columnName": "porzioni",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -53,12 +59,6 @@
           {
             "fieldPath": "serveCottura",
             "columnName": "serveCottura",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "rowid",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -125,7 +125,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cec25082f56350a3f9d00549f4aa563f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e83ea7e79bdfed35e2c605efaa5a4517')"
     ]
   }
 }
