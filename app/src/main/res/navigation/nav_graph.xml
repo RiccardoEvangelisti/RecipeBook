@@ -7,9 +7,9 @@
 
 	<fragment
 		android:id="@+id/ricetteListFragment"
-		android:name="com.projects.android.ricettario.view.list.RicetteListFragment"
+		android:name="com.projects.android.recipebook.view.list.ListRecipesFragment"
 		android:label="fragment_ricette_list"
-		tools:layout="@layout/fragment_ricette_list">
+		tools:layout="@layout/fragment_list_recipes">
 		<action
 			android:id="@+id/from_lista_to_dettaglio"
 			app:destination="@id/ricettaSingolaFragment" />
@@ -20,9 +20,9 @@
 
 	<fragment
 		android:id="@+id/ricettaSingolaFragment"
-		android:name="com.projects.android.ricettario.view.detail.RicettaSingolaFragment"
+		android:name="com.projects.android.recipebook.view.single.SingleRecipeFragment"
 		android:label="RicettaSingolaFragment"
-		tools:layout="@layout/fragment_ricetta_singola">
+		tools:layout="@layout/fragment_single_recipe">
 		<argument
 			android:name="ricettaID"
 			app:argType="integer" />
@@ -30,7 +30,7 @@
 
 	<fragment
 		android:id="@+id/aggiungiRicettaFragment"
-		android:name="com.projects.android.ricettario.view.insert.AggiungiRicettaFragment"
+		android:name="com.projects.android.recipebook.view.add.AddRecipeFragment"
 		android:label="fragment_aggiungi_ricetta"
-		tools:layout="@layout/fragment_aggiungi_ricetta" />
+		tools:layout="@layout/fragment_add_recipe" />
 </navigation>

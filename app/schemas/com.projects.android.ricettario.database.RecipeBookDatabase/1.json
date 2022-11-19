@@ -1,0 +1,131 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3ddf6fdbb50f8fb199401f20e837ae8f",
+    "entities": [
+      {
+        "tableName": "recipeBook",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `course` INTEGER NOT NULL, `portions` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, `isVegetarian` INTEGER NOT NULL, `preparationTime` INTEGER NOT NULL, `isCooked` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "rowid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "course",
+            "columnName": "course",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "portions",
+            "columnName": "portions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preparation",
+            "columnName": "preparation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingredientsList",
+            "columnName": "ingredientsList",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isVegetarian",
+            "columnName": "isVegetarian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preparationTime",
+            "columnName": "preparationTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCooked",
+            "columnName": "isCooked",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "rowid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "recipeBook",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_recipeBook_fts_BEFORE_UPDATE BEFORE UPDATE ON `recipeBook` BEGIN DELETE FROM `recipeBook_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_recipeBook_fts_BEFORE_DELETE BEFORE DELETE ON `recipeBook` BEGIN DELETE FROM `recipeBook_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_recipeBook_fts_AFTER_UPDATE AFTER UPDATE ON `recipeBook` BEGIN INSERT INTO `recipeBook_fts`(`docid`, `name`, `preparation`, `ingredientsList`) VALUES (NEW.`rowid`, NEW.`name`, NEW.`preparation`, NEW.`ingredientsList`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_recipeBook_fts_AFTER_INSERT AFTER INSERT ON `recipeBook` BEGIN INSERT INTO `recipeBook_fts`(`docid`, `name`, `preparation`, `ingredientsList`) VALUES (NEW.`rowid`, NEW.`name`, NEW.`preparation`, NEW.`ingredientsList`); END"
+        ],
+        "tableName": "recipeBook_fts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`name` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, content=`recipeBook`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preparation",
+            "columnName": "preparation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingredientsList",
+            "columnName": "ingredientsList",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "rowid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ddf6fdbb50f8fb199401f20e837ae8f')"
+    ]
+  }
+}

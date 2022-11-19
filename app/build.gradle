@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace 'com.projects.android.ricettario'
+    namespace 'com.projects.android.recipebook'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.projects.android.ricettario"
+        applicationId "com.projects.android.recipebook"
         minSdk 31
         targetSdk 33
         versionCode 1
