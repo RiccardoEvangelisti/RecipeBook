@@ -1,114 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	android:layout_width = "match_parent"
+	android:layout_height = "wrap_content">
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline6"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_begin="20dp" />
+		android:id = "@+id/guideline6"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_begin = "20dp" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline7"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_end="20dp" />
+		android:id = "@+id/guideline7"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_end = "20dp" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline8"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		app:layout_constraintGuide_begin="16dp" />
+		android:id = "@+id/guideline8"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "horizontal"
+		app:layout_constraintGuide_begin = "16dp" />
 
 	<TextView
-		android:id="@+id/name_item_list"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="@string/nome_ricetta"
-		android:textSize="20sp"
-		app:layout_constraintEnd_toStartOf="@+id/guideline7"
-		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toStartOf="@+id/guideline6"
-		app:layout_constraintTop_toTopOf="@+id/guideline8" />
+		android:id = "@+id/name_item_list"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:text = "@string/nome_ricetta"
+		android:textSize = "20sp"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline7"
+		app:layout_constraintHorizontal_bias = "0.0"
+		app:layout_constraintStart_toStartOf = "@+id/guideline6"
+		app:layout_constraintTop_toTopOf = "@+id/guideline8" />
 
 	<TextView
-		android:id="@+id/course_item_list"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="16dp"
-		android:text="@string/portata"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/guideline11"
-		app:layout_constraintStart_toStartOf="@+id/guideline6"
-		app:layout_constraintTop_toBottomOf="@+id/name_item_list" />
+		android:id = "@+id/course_item_list"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_marginTop = "16dp"
+		android:layout_marginEnd = "8dp"
+		android:layout_marginBottom = "16dp"
+		android:text = "@string/portata"
+		android:textSize = "16sp"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline11"
+		app:layout_constraintStart_toStartOf = "@+id/guideline6"
+		app:layout_constraintTop_toBottomOf = "@+id/name_item_list" />
 
 	<TextView
-		android:id="@+id/preparation_time_item_list"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="8dp"
-		android:text="@string/tempo_di_preparazione"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="@+id/course_item_list"
-		app:layout_constraintEnd_toStartOf="@+id/guideline10"
-		app:layout_constraintStart_toStartOf="@+id/guideline11"
-		app:layout_constraintTop_toTopOf="@+id/course_item_list"
-		app:layout_constraintVertical_bias="0.49" />
+		android:id = "@+id/preparation_time_item_list"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:layout_marginStart = "8dp"
+		android:layout_marginEnd = "8dp"
+		android:text = "@string/tempo_di_preparazione"
+		android:textSize = "16sp"
+		app:layout_constraintBottom_toBottomOf = "@+id/course_item_list"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline10"
+		app:layout_constraintStart_toStartOf = "@+id/guideline11"
+		app:layout_constraintTop_toTopOf = "@+id/course_item_list"
+		app:layout_constraintVertical_bias = "0.49" />
 
 	<TextView
-		android:id="@+id/is_vegetarian_item_list"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="8dp"
-		android:text="@string/vegetariano"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="@+id/is_cooked_item_list"
-		app:layout_constraintEnd_toStartOf="@+id/guideline7"
-		app:layout_constraintStart_toStartOf="@+id/guideline9"
-		app:layout_constraintTop_toTopOf="@+id/is_cooked_item_list" />
+		android:id = "@+id/is_vegetarian_item_list"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:layout_marginStart = "8dp"
+		android:layout_marginEnd = "8dp"
+		android:text = "@string/vegetariano"
+		android:textSize = "16sp"
+		app:layout_constraintBottom_toBottomOf = "@+id/is_cooked_item_list"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline7"
+		app:layout_constraintStart_toStartOf = "@+id/guideline9"
+		app:layout_constraintTop_toTopOf = "@+id/is_cooked_item_list" />
 
 	<TextView
-		android:id="@+id/is_cooked_item_list"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="8dp"
-		android:text="@string/serve_cottura"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="@+id/preparation_time_item_list"
-		app:layout_constraintEnd_toStartOf="@+id/guideline9"
-		app:layout_constraintStart_toStartOf="@+id/guideline10"
-		app:layout_constraintTop_toTopOf="@+id/preparation_time_item_list" />
+		android:id = "@+id/is_cooked_item_list"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:layout_marginStart = "8dp"
+		android:layout_marginEnd = "8dp"
+		android:text = "@string/serve_cottura"
+		android:textSize = "16sp"
+		app:layout_constraintBottom_toBottomOf = "@+id/preparation_time_item_list"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline9"
+		app:layout_constraintStart_toStartOf = "@+id/guideline10"
+		app:layout_constraintTop_toTopOf = "@+id/preparation_time_item_list" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline9"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_begin="306dp" />
+		android:id = "@+id/guideline9"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_begin = "306dp" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline10"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_begin="221dp" />
+		android:id = "@+id/guideline10"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_begin = "221dp" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline11"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_begin="121dp" />
+		android:id = "@+id/guideline11"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_begin = "121dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

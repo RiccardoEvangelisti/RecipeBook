@@ -26,8 +26,7 @@ class RecipeBookRepository private constructor(context: Context, private val cor
 		}
 	}
 
-	private val database: RecipeBookDatabase =
-		Room.databaseBuilder(context.applicationContext, RecipeBookDatabase::class.java, DATABASE_NAME).build()
+	private val database: RecipeBookDatabase = Room.databaseBuilder(context.applicationContext, RecipeBookDatabase::class.java, DATABASE_NAME).build()
 
 	fun getRecipes(filters: Filters): Flow<List<Recipe>> {
 		return database.recipeBookDao().getRecipes(filters)

@@ -40,6 +40,5 @@ class RicettaSingolaViewModel(ricettaID: Int) : ViewModel() {
 
 class RicettaSingolaViewModelFactory(private val ricettaID: Int) : ViewModelProvider.Factory {
 
-	override fun <T : ViewModel> create(modelClass: Class<T>): T =
-		RicettaSingolaViewModel(ricettaID) as T
+	override fun <T : ViewModel> create(modelClass: Class<T>): T = RicettaSingolaViewModel(ricettaID) as T
 }

@@ -8,4 +8,5 @@ data class Filters(
 	var courses: MutableList<Course>? = null,
 	var isVegetarian: Boolean? = null,
 	var preparationTime: PreparationTime? = null,
-	var isCooked: Boolean? = null)
+	var isCooked: Boolean? = null
+)

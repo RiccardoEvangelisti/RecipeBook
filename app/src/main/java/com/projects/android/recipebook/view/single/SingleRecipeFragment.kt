@@ -36,7 +36,8 @@ class SingleRecipeFragment : Fragment() {
 		}
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View {
 		_binding = FragmentSingleRecipeBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}

@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "recipeBook_fts")
 @Suppress("unused")
 class RecipeFTS(
-	val name: String, val preparation: String, val ingredientsList: List<Ingredient>) {
+	val name: String, val preparation: String, val ingredientsList: List<Ingredient>
+) {
 
 	@PrimaryKey
 	var rowid: Int = 0

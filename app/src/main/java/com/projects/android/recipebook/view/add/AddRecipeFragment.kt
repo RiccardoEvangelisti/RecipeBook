@@ -39,8 +39,7 @@ class AddRecipeFragment : Fragment() {
 
 	private var _bindingIngredientiList = mutableListOf<ItemAddIngredientBinding?>()
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		_binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}
@@ -62,17 +61,23 @@ class AddRecipeFragment : Fragment() {
 
 			requireContext().let {
 				// Inizializzazione spinner Course
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, Course.values()).also { adapter ->
+				ArrayAdapter(
+					it, android.R.layout.simple_spinner_item, Course.values()
+				).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 					courseAdd.adapter = adapter
 				}
 				// Inizializzazione spinner PreparationTime
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, PreparationTime.values()).also { adapter ->
+				ArrayAdapter(
+					it, android.R.layout.simple_spinner_item, PreparationTime.values()
+				).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 					preparationTimeAdd.adapter = adapter
 				}
 				// Inizializzazione spinner UnitaIngrediente
-				ArrayAdapter(it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()).also { adapter ->
+				ArrayAdapter(
+					it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
+				).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 					unitIngredientAdd.adapter = adapter
 				}
@@ -95,7 +100,8 @@ class AddRecipeFragment : Fragment() {
 				}
 
 				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+					parent: AdapterView<*>?, view: View?, position: Int, id: Long
+				) {
 					parent!!.let {
 						addRecipeViewModel.updateRicetta {
 							it.course = parent.adapter.getItem(position) as Course
@@ -109,7 +115,8 @@ class AddRecipeFragment : Fragment() {
 				}
 
 				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+					parent: AdapterView<*>?, view: View?, position: Int, id: Long
+				) {
 					parent!!.let {
 						addRecipeViewModel.updateRicetta {
 							it.preparationTime = parent.adapter.getItem(position) as PreparationTime
@@ -126,7 +133,8 @@ class AddRecipeFragment : Fragment() {
 
 			unitIngredientAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+					parent: AdapterView<*>?, view: View, position: Int, id: Long
+				) {
 					// Gestione UnitOfMeasure.QUANTOBASTA
 					if (position == UnitOfMeasure.TOTASTE.ordinal) {
 						quantityIngredientAdd.setText("")
@@ -151,9 +159,9 @@ class AddRecipeFragment : Fragment() {
 							bindingIngredienti.apply {
 								// Inizializzione spinner UnitOfMeasure
 								requireContext().let {
-									ArrayAdapter(it,
-									             android.R.layout.simple_spinner_item,
-									             UnitOfMeasure.values()).also { adapter ->
+									ArrayAdapter(
+										it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
+									).also { adapter ->
 										adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 										unitIngredientItemAdd.adapter = adapter
 									}
@@ -178,9 +186,13 @@ class AddRecipeFragment : Fragment() {
 
 								addRecipeViewModel.updateRicetta { stato ->
 									stato.ingredientsList = stato.ingredientsList.also { list ->
-										list!!.add(Ingredient(nameIngredientItemAdd.text.toString(),
-										                      quantityIngredientItemAdd.text.toString(),
-										                      unitIngredientItemAdd.selectedItem as UnitOfMeasure))
+										list!!.add(
+											Ingredient(
+												nameIngredientItemAdd.text.toString(),
+												quantityIngredientItemAdd.text.toString(),
+												unitIngredientItemAdd.selectedItem as UnitOfMeasure
+											)
+										)
 									}
 								}
 
@@ -195,7 +207,8 @@ class AddRecipeFragment : Fragment() {
 
 								unitIngredientItemAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 									override fun onItemSelected(
-										parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+										parent: AdapterView<*>?, view: View, position: Int, id: Long
+									) {
 										if (position == UnitOfMeasure.TOTASTE.ordinal) {
 											quantityIngredientItemAdd.setText("")
 											quantityIngredientItemAdd.visibility = INVISIBLE
@@ -204,8 +217,7 @@ class AddRecipeFragment : Fragment() {
 										}
 										addRecipeViewModel.updateRicetta { stato ->
 											stato.ingredientsList = stato.ingredientsList.also { list ->
-												list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure =
-													UnitOfMeasure.values()[position]
+												list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
 											}
 										}
 									}
@@ -224,7 +236,11 @@ class AddRecipeFragment : Fragment() {
 								deleteIngredientItemAdd.setOnClickListener {
 									addRecipeViewModel.updateRicetta { stato ->
 										stato.ingredientsList = stato.ingredientsList.also { list ->
-											list!!.removeAt(ingredientsContainerAdd.indexOfChild(root))
+											list!!.removeAt(
+												ingredientsContainerAdd.indexOfChild(
+													root
+												)
+											)
 										}
 									}
 									ingredientsContainerAdd.removeView(root)

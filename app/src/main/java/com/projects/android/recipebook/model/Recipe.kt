@@ -8,9 +8,7 @@ import com.projects.android.recipebook.model.enums.PreparationTime
 
 @Entity(tableName = "recipeBook")
 data class Recipe(
-	@PrimaryKey(autoGenerate = true)
-	@ColumnInfo(name = "rowid")
-	var id: Int = 0,
+	@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "rowid") var id: Int = 0,
 	var name: String,
 	val course: Course,
 	val portions: String,
@@ -18,4 +16,5 @@ data class Recipe(
 	val ingredientsList: MutableList<Ingredient>,
 	val isVegetarian: Boolean,
 	val preparationTime: PreparationTime,
-	val isCooked: Boolean)
+	val isCooked: Boolean
+)

@@ -7,7 +7,7 @@ import com.projects.android.recipebook.databinding.ItemListRecipesBinding
 import com.projects.android.recipebook.model.Recipe
 
 class RicetteListAdapter(private val ricette: List<Recipe>, private val onRicettaClicked: (ricettaID: Int) -> Unit) :
-		RecyclerView.Adapter<RicetteListHolder>() {
+	RecyclerView.Adapter<RicetteListHolder>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RicetteListHolder {
 		val inflater = LayoutInflater.from(parent.context)

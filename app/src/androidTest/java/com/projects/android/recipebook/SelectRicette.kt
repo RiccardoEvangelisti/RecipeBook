@@ -47,15 +47,17 @@ class SelectRicette {
 	@Throws(Exception::class)
 	fun test_write_and_read_Singola() {
 		GlobalScope.launch {
-			val recipe = Recipe(0,
-			                    "Pollo con patate",
-			                    Course.SECOND,
-			                    "1",
-			                    "Cucinare bene",
-			                    MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
-			                    false,
-			                    PreparationTime.THIRTY_MIN,
-			                    true)
+			val recipe = Recipe(
+				0,
+				"Pollo con patate",
+				Course.SECOND,
+				"1",
+				"Cucinare bene",
+				MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
+				false,
+				PreparationTime.THIRTY_MIN,
+				true
+			)
 			dao.insertRecipe(recipe)
 
 			val res = dao.getSingleRecipe(1)
@@ -67,15 +69,17 @@ class SelectRicette {
 	@Throws(Exception::class)
 	fun test_write_and_read() {
 		GlobalScope.launch {
-			val recipe = Recipe(0,
-			                    "Pollo con patate",
-			                    Course.SECOND,
-			                    "1",
-			                    "Cucinare bene",
-			                    MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
-			                    false,
-			                    PreparationTime.THIRTY_MIN,
-			                    true)
+			val recipe = Recipe(
+				0,
+				"Pollo con patate",
+				Course.SECOND,
+				"1",
+				"Cucinare bene",
+				MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
+				false,
+				PreparationTime.THIRTY_MIN,
+				true
+			)
 
 			dao.insertRecipe(recipe)
 
@@ -170,25 +174,33 @@ class SelectRicette {
 	@Throws(Exception::class)
 	fun insertRecipes() {
 		GlobalScope.launch {
-			ricette.add(Recipe(0,
-			                   "Pollo con patate",
-			                   Course.SECOND,
-			                   "1",
-			                   "Cucinare bene",
-			                   MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
-			                   false,
-			                   PreparationTime.FIVE_MIN,
-			                   true))
+			ricette.add(
+				Recipe(
+					0,
+					"Pollo con patate",
+					Course.SECOND,
+					"1",
+					"Cucinare bene",
+					MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
+					false,
+					PreparationTime.FIVE_MIN,
+					true
+				)
+			)
 
-			ricette.add(Recipe(0,
-			                   "Pesce con patate",
-			                   Course.STARTER,
-			                   "1",
-			                   "Friggere bene",
-			                   MutableList(1, init = { Ingredient("Pesce", "1000", UnitOfMeasure.GRAM) }),
-			                   false,
-			                   PreparationTime.THIRTY_MIN,
-			                   true))
+			ricette.add(
+				Recipe(
+					0,
+					"Pesce con patate",
+					Course.STARTER,
+					"1",
+					"Friggere bene",
+					MutableList(1, init = { Ingredient("Pesce", "1000", UnitOfMeasure.GRAM) }),
+					false,
+					PreparationTime.THIRTY_MIN,
+					true
+				)
+			)
 
 			dao.insertRecipe(ricette[0])
 			dao.insertRecipe(ricette[1])
@@ -215,13 +227,17 @@ class SelectRicette {
 
 			filtro = Filters()
 			res = dao.getRecipes(filtro).toList()
-			assertTrue("Test ingredienti UnitOfMeasure",
-			           res.size == 2 && res[0][0].ingredientsList[0].unitOfMeasure == UnitOfMeasure.GRAM && res[0][1].ingredientsList[0].unitOfMeasure == UnitOfMeasure.GRAM)
+			assertTrue(
+				"Test ingredienti UnitOfMeasure",
+				res.size == 2 && res[0][0].ingredientsList[0].unitOfMeasure == UnitOfMeasure.GRAM && res[0][1].ingredientsList[0].unitOfMeasure == UnitOfMeasure.GRAM
+			)
 
 			filtro = Filters()
 			res = dao.getRecipes(filtro).toList()
-			assertTrue("Test ingredienti Quantita",
-			           res.size == 2 && res[0][0].ingredientsList[0].quantity == "1" && res[0][1].ingredientsList[0].quantity == "1000")
+			assertTrue(
+				"Test ingredienti Quantita",
+				res.size == 2 && res[0][0].ingredientsList[0].quantity == "1" && res[0][1].ingredientsList[0].quantity == "1000"
+			)
 		}
 	}
 
@@ -229,25 +245,33 @@ class SelectRicette {
 	@Throws(Exception::class)
 	fun deleteRecipes() {
 		GlobalScope.launch {
-			ricette.add(Recipe(0,
-			                   "Pollo con patate",
-			                   Course.SECOND,
-			                   "1",
-			                   "Cucinare bene",
-			                   MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
-			                   false,
-			                   PreparationTime.FIVE_MIN,
-			                   true))
+			ricette.add(
+				Recipe(
+					0,
+					"Pollo con patate",
+					Course.SECOND,
+					"1",
+					"Cucinare bene",
+					MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
+					false,
+					PreparationTime.FIVE_MIN,
+					true
+				)
+			)
 
-			ricette.add(Recipe(0,
-			                   "Pesce con patate",
-			                   Course.STARTER,
-			                   "1",
-			                   "Friggere bene",
-			                   MutableList(1, init = { Ingredient("Pesce", "1000", UnitOfMeasure.GRAM) }),
-			                   false,
-			                   PreparationTime.THIRTY_MIN,
-			                   true))
+			ricette.add(
+				Recipe(
+					0,
+					"Pesce con patate",
+					Course.STARTER,
+					"1",
+					"Friggere bene",
+					MutableList(1, init = { Ingredient("Pesce", "1000", UnitOfMeasure.GRAM) }),
+					false,
+					PreparationTime.THIRTY_MIN,
+					true
+				)
+			)
 
 			dao.insertRecipe(ricette[0])
 			dao.insertRecipe(ricette[1])
@@ -270,15 +294,19 @@ class SelectRicette {
 	@Throws(Exception::class)
 	fun updateRecipe() {
 		GlobalScope.launch {
-			ricette.add(Recipe(0,
-			                   "Pollo con patate",
-			                   Course.SECOND,
-			                   "1",
-			                   "Cucinare bene",
-			                   MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
-			                   false,
-			                   PreparationTime.FIVE_MIN,
-			                   true))
+			ricette.add(
+				Recipe(
+					0,
+					"Pollo con patate",
+					Course.SECOND,
+					"1",
+					"Cucinare bene",
+					MutableList(1, init = { Ingredient("Petto", "1", UnitOfMeasure.GRAM) }),
+					false,
+					PreparationTime.FIVE_MIN,
+					true
+				)
+			)
 
 			dao.insertRecipe(ricette[0])
 

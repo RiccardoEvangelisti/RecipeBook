@@ -11,32 +11,30 @@ import kotlinx.coroutines.flow.update
 
 class AddRecipeViewModel : ViewModel() {
 
-    private val recipeBookRepository = RecipeBookRepository.get()
+	private val recipeBookRepository = RecipeBookRepository.get()
 
-    private val _state: MutableStateFlow<AddRecipeUIState> =
-        MutableStateFlow(AddRecipeUIState())
-    val state: StateFlow<AddRecipeUIState?> =
-        _state.asStateFlow() // all'esterno una versione readonly
+	private val _state: MutableStateFlow<AddRecipeUIState> = MutableStateFlow(AddRecipeUIState())
+	val state: StateFlow<AddRecipeUIState?> = _state.asStateFlow() // all'esterno una versione readonly
 
-    init {
-        _state.value.course = Course.SECOND
-        _state.value.preparationTime = PreparationTime.THIRTY_MIN
-        _state.value.isVegetarian = true
-        _state.value.isCooked = true
-        _state.value.ingredientsList = mutableListOf()
-    }
+	init {
+		_state.value.course = Course.SECOND
+		_state.value.preparationTime = PreparationTime.THIRTY_MIN
+		_state.value.isVegetarian = true
+		_state.value.isCooked = true
+		_state.value.ingredientsList = mutableListOf()
+	}
 
-    fun updateRicetta(onUpdate: (AddRecipeUIState) -> Unit) {
-        _state.update { it.also { onUpdate(it) } }
-    }
+	fun updateRicetta(onUpdate: (AddRecipeUIState) -> Unit) {
+		_state.update { it.also { onUpdate(it) } }
+	}
 
-    fun checkRicetta(): String? {
-        return _state.value.checkRicetta()
-    }
+	fun checkRicetta(): String? {
+		return _state.value.checkRicetta()
+	}
 
-    override fun onCleared() {
-        super.onCleared()
-        _state.value.formatRicetta()
-        _state.value.let { state -> recipeBookRepository.insertRecipe(state.toRicetta()) }
-    }
+	override fun onCleared() {
+		super.onCleared()
+		_state.value.formatRicetta()
+		_state.value.let { state -> recipeBookRepository.insertRecipe(state.toRicetta()) }
+	}
 }

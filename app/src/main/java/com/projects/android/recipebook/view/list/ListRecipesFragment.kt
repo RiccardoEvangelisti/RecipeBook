@@ -37,7 +37,8 @@ class ListRecipesFragment : Fragment() {
 		}
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+	): View {
 
 		// RECYCLER VIEW
 		_binding = FragmentListRecipesBinding.inflate(inflater, container, false)
@@ -50,10 +51,10 @@ class ListRecipesFragment : Fragment() {
 
 		binding.apply {
 
-			cercaText.setOnEditorActionListener { _, actionId, _ ->
+			searchTextList.setOnEditorActionListener { _, actionId, _ ->
 				return@setOnEditorActionListener when (actionId) {
 					EditorInfo.IME_ACTION_SEARCH -> {
-						cercaButton.callOnClick()
+						searchButtonList.callOnClick()
 						true
 					}
 
@@ -86,11 +87,11 @@ class ListRecipesFragment : Fragment() {
 			}
 
 
-			cercaButton.setOnClickListener {
+			searchButtonList.setOnClickListener {
 				val filtro = Filters()
 
-				if (!cercaText.text.isNullOrBlank()) {
-					filtro.string = cercaText.text.toString()
+				if (!searchTextList.text.isNullOrBlank()) {
+					filtro.string = searchTextList.text.toString()
 				}
 
 				filtro.courses = mutableListOf()
@@ -139,11 +140,11 @@ class ListRecipesFragment : Fragment() {
 			}
 
 			dropFiltri.setOnClickListener {
-				if (groupFiltri.visibility == VISIBLE) {
-					groupFiltri.visibility = GONE
+				if (filtersGroup.visibility == VISIBLE) {
+					filtersGroup.visibility = GONE
 					dropFiltri.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_down_24))
 				} else {
-					groupFiltri.visibility = VISIBLE
+					filtersGroup.visibility = VISIBLE
 					dropFiltri.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_up_24))
 				}
 			}
@@ -161,7 +162,7 @@ class ListRecipesFragment : Fragment() {
 			}
 		}
 
-		binding.aggiungiRicettaFAB.setOnClickListener {
+		binding.addRecipeFAB.setOnClickListener {
 			findNavController().navigate(R.id.from_lista_to_aggiungi)
 		}
 	}
