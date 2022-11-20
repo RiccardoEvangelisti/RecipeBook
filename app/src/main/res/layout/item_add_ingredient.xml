@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline6"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="40dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline7"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_end="40dp" />
+
+	<EditText
+		android:id="@+id/quantity_ingredient_item_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:hint="@string/quantita"
+		android:importantForAutofill="no"
+		android:inputType="number"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textAlignment="center"
+		android:textColorHint="#757575"
+		android:textSize="16sp"
+		app:layout_constraintBottom_toBottomOf="@+id/unit_ingredient_item_add"
+		app:layout_constraintEnd_toStartOf="@+id/unit_ingredient_item_add"
+		app:layout_constraintStart_toStartOf="@+id/guideline6"
+		app:layout_constraintTop_toTopOf="@+id/unit_ingredient_item_add" />
+
+	<Spinner
+		android:id="@+id/unit_ingredient_item_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@null"
+		android:minHeight="48dp"
+		app:layout_constraintBottom_toBottomOf="@+id/name_ingredient_item_add"
+		app:layout_constraintEnd_toStartOf="@+id/name_ingredient_item_add"
+		app:layout_constraintStart_toEndOf="@+id/quantity_ingredient_item_add"
+		app:layout_constraintTop_toTopOf="@+id/name_ingredient_item_add"
+		tools:ignore="SpeakableTextPresentCheck" />
+
+	<EditText
+		android:id="@+id/name_ingredient_item_add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:hint="@string/aggiungi_ingrediente"
+		android:imeOptions="actionDone"
+		android:importantForAutofill="no"
+		android:inputType="textCapSentences"
+		android:minHeight="48dp"
+		android:singleLine="true"
+		android:textColorHint="#757575"
+		android:textSize="16sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/delete_ingredient_item_add"
+		app:layout_constraintStart_toEndOf="@+id/unit_ingredient_item_add"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/delete_ingredient_item_add"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guideline7"
+		app:layout_constraintStart_toEndOf="@+id/name_ingredient_item_add"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/ic_baseline_delete_24"
+		tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
