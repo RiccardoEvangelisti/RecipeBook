@@ -95,11 +95,11 @@ class ListRecipesFragment : Fragment() {
 				}
 
 				filtro.courses = mutableListOf()
-				if (!starterFilter.isChecked && !firstFilter.isChecked && !secondoToggleButton.isChecked && !contornoToggleButton.isChecked &&
+				if (!starterFilter.isChecked && !firstFilter.isChecked && !secondFilter.isChecked && !contornoToggleButton.isChecked &&
 					!dolceToggleButton.isChecked) {
 					starterFilter.toggle()
 					firstFilter.toggle()
-					secondoToggleButton.toggle()
+					secondFilter.toggle()
 					contornoToggleButton.toggle()
 					dolceToggleButton.toggle()
 				}
@@ -109,7 +109,7 @@ class ListRecipesFragment : Fragment() {
 				if (firstFilter.isChecked) {
 					filtro.courses?.add(Course.FIRST)
 				}
-				if (secondoToggleButton.isChecked) {
+				if (secondFilter.isChecked) {
 					filtro.courses?.add(Course.SECOND)
 				}
 				if (contornoToggleButton.isChecked) {

@@ -47,7 +47,7 @@
 		android:layout_width = "123dp"
 		android:layout_height = "0dp"
 		android:visibility = "gone"
-		app:constraint_referenced_ids = "starter_filter,secondoToggleButton,dolceToggleButton,contornoToggleButton,first_filter,tempoPrepRadioGroup,serveCotturaSwitch,vegetarianoSwitch,nonServeCotturaSwitch,nonVegetarianoSwitch"
+		app:constraint_referenced_ids = "starter_filter,second_filter,dolceToggleButton,contornoToggleButton,first_filter,tempoPrepRadioGroup,serveCotturaSwitch,vegetarianoSwitch,nonServeCotturaSwitch,nonVegetarianoSwitch"
 		tools:layout_editor_absoluteY = "731dp"
 		tools:visibility = "visible" />
 
@@ -86,13 +86,13 @@
 		android:textOff = "@string/primo"
 		android:textOn = "@string/primo"
 		android:textSize = "12sp"
-		app:layout_constraintEnd_toStartOf = "@+id/secondoToggleButton"
+		app:layout_constraintEnd_toStartOf = "@+id/second_filter"
 		app:layout_constraintHorizontal_bias = "0.5"
 		app:layout_constraintStart_toEndOf = "@+id/starter_filter"
 		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
 
 	<ToggleButton
-		android:id = "@+id/secondoToggleButton"
+		android:id = "@+id/second_filter"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_above = "@+id/dropFiltri"
@@ -129,7 +129,7 @@
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintEnd_toStartOf = "@+id/dolceToggleButton"
 		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/secondoToggleButton"
+		app:layout_constraintStart_toEndOf = "@+id/second_filter"
 		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
 
 	<ToggleButton
@@ -161,7 +161,7 @@
 		android:orientation = "horizontal"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/secondoToggleButton">
+		app:layout_constraintTop_toBottomOf = "@+id/second_filter">
 
 		<RadioButton
 			android:id = "@+id/cinqueMinRadioButton"
