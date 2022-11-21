@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.doOnLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +17,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
+import com.projects.android.recipebook.utils.PictureUtils.Companion.getScaledBitmap
 import kotlinx.coroutines.launch
+import java.io.File
 
 class SingleRecipeFragment : Fragment() {
 
@@ -24,8 +27,8 @@ class SingleRecipeFragment : Fragment() {
 	private val args: SingleRecipeFragmentArgs by navArgs()
 
 	// VIEW MODEL
-	private val ricettaSingolaViewModel: RicettaSingolaViewModel by viewModels {
-		RicettaSingolaViewModelFactory(args.ricettaID)
+	private val recipeSingolaViewModel: RicettaSingolaViewModel by viewModels {
+		RicettaSingolaViewModelFactory(args.recipeID)
 	}
 
 	// VIEW BINDING
@@ -59,26 +62,41 @@ class SingleRecipeFragment : Fragment() {
 
 		binding.apply {
 			nameSingle.doOnTextChanged { text, _, _, _ ->
-				ricettaSingolaViewModel.updateRicetta { oldRicetta ->
+				recipeSingolaViewModel.updateRicetta { oldRicetta ->
 					oldRicetta.copy(name = text.toString())
 				}
 			}
 
 			preparationSingle.doOnTextChanged { text, _, _, _ ->
-				ricettaSingolaViewModel.updateRicetta { it.copy(preparation = text.toString()) }
+				recipeSingolaViewModel.updateRicetta { it.copy(preparation = text.toString()) }
 			}
 		}
 
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				ricettaSingolaViewModel.recipe.collect { ricetta ->
-					ricetta?.let {
+				recipeSingolaViewModel.recipe.collect { recipe ->
+					recipe?.let {
 						binding.apply {
-							if (nameSingle.text.toString() != ricetta.name) { // previene un infinite-loop con il listener
-								nameSingle.setText(ricetta.name)
+							if (nameSingle.text.toString() != recipe.name) { // previene un infinite-loop con il listener
+								nameSingle.setText(recipe.name)
 							}
-							if (preparationSingle.text.toString() != ricetta.preparation) {
-								preparationSingle.setText(ricetta.preparation)
+							if (preparationSingle.text.toString() != recipe.preparation) {
+								preparationSingle.setText(recipe.preparation)
+							}
+							if (photoSingle.tag != recipe.photoFileName) { // Update photo only when the name is different
+								val photoFile = recipe.photoFileName?.let {
+									File(requireContext().applicationContext.filesDir, it)
+								}
+								if (photoFile?.exists() == true) {
+									photoSingle.doOnLayout { measuredView ->
+										val scaledBitmap = getScaledBitmap(photoFile.path, measuredView.width, measuredView.height)
+										photoSingle.setImageBitmap(scaledBitmap)
+										photoSingle.tag = recipe.photoFileName
+									}
+								} else {
+									photoSingle.setImageBitmap(null)
+									photoSingle.tag = null
+								}
 							}
 						}
 					}
@@ -100,14 +118,14 @@ class SingleRecipeFragment : Fragment() {
 			}
 
 			override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-				menuInflater.inflate(R.menu.ricetta_singola_fragment_menu, menu)
+				menuInflater.inflate(R.menu.fragment_menu_single_recipe, menu)
 			}
 
 			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 				return when (menuItem.itemId) {
-					R.id.delete_ricetta -> {
+					R.id.delete_recipe -> {
 						viewLifecycleOwner.lifecycleScope.launch {
-							ricettaSingolaViewModel.deleteRicetta()
+							recipeSingolaViewModel.deleteRicetta()
 						}
 						findNavController().navigateUp()
 						true

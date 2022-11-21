@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3ddf6fdbb50f8fb199401f20e837ae8f",
+    "identityHash": "1a05345371d48bdeb5ac018d1623cab4",
     "entities": [
       {
         "tableName": "recipeBook",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `course` INTEGER NOT NULL, `portions` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, `isVegetarian` INTEGER NOT NULL, `preparationTime` INTEGER NOT NULL, `isCooked` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `course` INTEGER NOT NULL, `portions` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, `isVegetarian` INTEGER NOT NULL, `preparationTime` INTEGER NOT NULL, `isCooked` INTEGER NOT NULL, `photoFileName` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -61,6 +61,12 @@
             "columnName": "isCooked",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "photoFileName",
+            "columnName": "photoFileName",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -125,7 +131,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ddf6fdbb50f8fb199401f20e837ae8f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1a05345371d48bdeb5ac018d1623cab4')"
     ]
   }
 }

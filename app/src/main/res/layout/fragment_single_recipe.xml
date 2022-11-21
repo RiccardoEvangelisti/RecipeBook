@@ -32,4 +32,16 @@
 		app:layout_constraintHorizontal_bias = "0.705"
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toBottomOf = "@+id/name_single" />
+
+	<ImageView
+		android:id = "@+id/photoSingle"
+		android:layout_width = "154dp"
+		android:layout_height = "148dp"
+		android:layout_marginTop = "16dp"
+		android:background = "@color/black"
+		android:cropToPadding = "true"
+		android:scaleType = "centerInside"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
 </androidx.constraintlayout.widget.ConstraintLayout>

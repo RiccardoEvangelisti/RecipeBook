@@ -11,25 +11,25 @@
         tools:layout="@layout/fragment_list_recipes">
         <action
             android:id="@+id/from_lista_to_dettaglio"
-            app:destination="@id/ricettaSingolaFragment" />
+            app:destination="@id/recipeSingolaFragment" />
         <action
             android:id="@+id/from_lista_to_aggiungi"
             app:destination="@id/aggiungiRicettaFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/ricettaSingolaFragment"
+        android:id="@+id/recipeSingolaFragment"
         android:name="com.projects.android.recipebook.view.single.SingleRecipeFragment"
         android:label="RicettaSingolaFragment"
         tools:layout="@layout/fragment_single_recipe">
         <argument
-            android:name="ricettaID"
+            android:name="recipeID"
             app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/aggiungiRicettaFragment"
         android:name="com.projects.android.recipebook.view.add.AddRecipeFragment"
-        android:label="fragment_aggiungi_ricetta"
+        android:label="fragment_aggiungi_recipe"
         tools:layout="@layout/fragment_add_recipe" />
 </navigation>

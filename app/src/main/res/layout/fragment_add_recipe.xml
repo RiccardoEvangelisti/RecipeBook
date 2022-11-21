@@ -30,7 +30,7 @@
 			android:id = "@+id/name_add"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "16dp"
+			android:layout_marginEnd = "16dp"
 			android:hint = "@string/nome_ricetta"
 			android:importantForAutofill = "no"
 			android:inputType = "textCapSentences"
@@ -38,17 +38,35 @@
 			android:singleLine = "true"
 			android:textColor = "@color/black"
 			android:textColorHint = "#757575"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline15"
+			app:layout_constraintEnd_toStartOf = "@+id/photo_add"
 			app:layout_constraintHorizontal_bias = "0.494"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1"
 			app:layout_constraintTop_toTopOf = "parent" />
+
+		<ImageButton
+			android:id = "@+id/photo_add"
+			android:layout_width = "wrap_content"
+			android:layout_height = "0dp"
+			android:contentDescription = "@string/take_picture"
+			android:minHeight = "48dp"
+			android:src = "@drawable/ic_baseline_photo_camera_24"
+			app:layout_constraintBottom_toBottomOf = "@+id/name_add"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintStart_toEndOf = "@+id/name_add"
+			app:layout_constraintTop_toTopOf = "@+id/name_add" />
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline15"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "horizontal"
+			app:layout_constraintGuide_begin = "79dp" />
 
 		<ToggleButton
 			android:id = "@+id/is_vegetarian_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "8dp"
-			android:layout_marginBottom = "8dp"
 			android:checked = "true"
 			android:minHeight = "48dp"
 			android:textOff = "@string/vegetariano"
@@ -56,15 +74,13 @@
 			app:layout_constraintBottom_toTopOf = "@+id/guideline3"
 			app:layout_constraintEnd_toStartOf = "@+id/is_cooked_add"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1"
-			app:layout_constraintTop_toBottomOf = "@+id/name_add"
+			app:layout_constraintTop_toTopOf = "@+id/guideline15"
 			tools:ignore = "TextContrastCheck" />
 
 		<ToggleButton
 			android:id = "@+id/is_cooked_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "8dp"
-			android:layout_marginBottom = "8dp"
 			android:checked = "true"
 			android:minHeight = "48dp"
 			android:textOff = "@string/serve_cottura"
@@ -72,7 +88,7 @@
 			app:layout_constraintBottom_toTopOf = "@+id/guideline3"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
 			app:layout_constraintStart_toEndOf = "@+id/is_vegetarian_add"
-			app:layout_constraintTop_toBottomOf = "@+id/name_add"
+			app:layout_constraintTop_toTopOf = "@+id/guideline15"
 			tools:ignore = "TextContrastCheck" />
 
 		<androidx.constraintlayout.widget.Guideline
@@ -80,7 +96,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "120dp" />
+			app:layout_constraintGuide_begin = "142dp" />
 
 		<Spinner
 			android:id = "@+id/course_add"
@@ -130,7 +146,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "181dp" />
+			app:layout_constraintGuide_begin = "196dp" />
 
 		<Spinner
 			android:id = "@+id/unit_ingredient_add"
@@ -183,7 +199,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "243dp" />
+			app:layout_constraintGuide_begin = "259dp" />
 
 		<LinearLayout
 			android:id = "@+id/ingredients_container_add"

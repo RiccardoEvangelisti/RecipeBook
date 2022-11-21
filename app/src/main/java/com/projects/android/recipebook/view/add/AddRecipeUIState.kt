@@ -15,10 +15,11 @@ class AddRecipeUIState {
 	var isVegetarian: Boolean? = null
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null
+	var photoFileName: String? = null
 
 	fun toRicetta(): Recipe {
 		return Recipe(
-			0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVegetarian!!, preparationTime!!, isCooked!!
+			0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVegetarian!!, preparationTime!!, isCooked!!, photoFileName
 		)
 	}
 

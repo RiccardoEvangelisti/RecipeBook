@@ -1,5 +1,9 @@
 package com.projects.android.recipebook.view.add
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +30,8 @@ import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.*
 
 class AddRecipeFragment : Fragment() {
 
@@ -38,6 +46,14 @@ class AddRecipeFragment : Fragment() {
 		}
 
 	private var _bindingIngredientiList = mutableListOf<ItemAddIngredientBinding?>()
+
+	// Variables for taking photos
+	private var photoName: String? = null
+	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
+		if (didTakePhoto && photoName != null) {
+			addRecipeViewModel.updateRicetta { it.photoFileName = photoName }
+		}
+	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 		_binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
@@ -87,6 +103,14 @@ class AddRecipeFragment : Fragment() {
 			nameAdd.doOnTextChanged { text, _, _, _ ->
 				addRecipeViewModel.updateRicetta { it.name = text.toString() }
 			}
+
+			photoAdd.setOnClickListener {
+				photoName = "IMG_${Date()}.JPG"
+				val photoFile = File(requireContext().applicationContext.filesDir, photoName!!)
+				val photoUri = FileProvider.getUriForFile(requireContext(), "com.projects.android.recipebook.fileprovider", photoFile)
+				takePhoto.launch(photoUri)
+			}
+			photoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 
 			isVegetarianAdd.setOnCheckedChangeListener { _, b ->
 				addRecipeViewModel.updateRicetta { it.isVegetarian = b }
@@ -323,5 +347,12 @@ class AddRecipeFragment : Fragment() {
 		for (i in _bindingIngredientiList.indices) {
 			_bindingIngredientiList[i] = null
 		}
+	}
+
+	@Suppress("DEPRECATION")
+	private fun canResolveIntent(intent: Intent): Boolean {
+		val packageManager: PackageManager = requireActivity().packageManager
+		val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+		return resolvedActivity != null
 	}
 }

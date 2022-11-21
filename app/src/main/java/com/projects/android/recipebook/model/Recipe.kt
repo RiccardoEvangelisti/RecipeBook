@@ -16,5 +16,6 @@ data class Recipe(
 	val ingredientsList: MutableList<Ingredient>,
 	val isVegetarian: Boolean,
 	val preparationTime: PreparationTime,
-	val isCooked: Boolean
+	val isCooked: Boolean,
+	val photoFileName: String? = null
 )
