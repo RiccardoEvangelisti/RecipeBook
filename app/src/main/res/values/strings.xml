@@ -27,4 +27,8 @@
     <string name="preparazione">Preparazione</string>
     <string name="quantita">Quantità</string>
     <string name="porzioni">Porzioni</string>
+	<string name = "not_veg">Not Veg</string>
+    <string name = "cooked">Cooked</string>
+    <string name = "raw">Raw</string>
+    <string name = "veg">Veg</string>
 </resources>

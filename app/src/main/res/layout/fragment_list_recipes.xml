@@ -1,306 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	android:textAlignment = "center">
+	android:layout_height = "match_parent">
 
-	<EditText
-		android:id = "@+id/search_text_list"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:layout_marginEnd = "8dp"
-		android:layout_toStartOf = "@id/search_button_list"
-		android:hint = "@string/cerca_qualcosa"
-		android:imeOptions = "actionSearch"
-		android:importantForAutofill = "no"
-		android:inputType = "textCapSentences"
-		android:minHeight = "48dp"
-		android:textColorHint = "#757575"
-		app:layout_constraintEnd_toStartOf = "@+id/search_button_list"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toTopOf = "parent" />
-
-	<Button
-		android:id = "@+id/search_button_list"
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline13"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginTop = "8dp"
-		android:layout_marginEnd = "8dp"
-		android:backgroundTint = "@android:color/holo_orange_light"
-		android:text = "@string/cerca"
-		android:textAllCaps = "false"
-		android:textColor = "#424242"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toEndOf = "@+id/search_text_list"
-		app:layout_constraintTop_toTopOf = "parent" />
-
-	<androidx.constraintlayout.widget.Group
-		android:id = "@+id/filters_group"
-		android:layout_width = "123dp"
-		android:layout_height = "0dp"
-		android:visibility = "gone"
-		app:constraint_referenced_ids = "starter_filter,second_filter,dolceToggleButton,side_filter,first_filter,tempoPrepRadioGroup,serveCotturaSwitch,vegetarianoSwitch,nonServeCotturaSwitch,nonVegetarianoSwitch"
-		tools:layout_editor_absoluteY = "731dp"
-		tools:visibility = "visible" />
-
-	<ToggleButton
-		android:id = "@+id/starter_filter"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_above = "@+id/dropFiltri"
-		android:layout_below = "@+id/search_text_list"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:checked = "true"
-		android:paddingHorizontal = "1dp"
-		android:paddingVertical = "1dp"
-		android:textOff = "@string/antipasto"
-		android:textOn = "@string/antipasto"
-		android:textSize = "12sp"
-		app:layout_constraintEnd_toStartOf = "@+id/first_filter"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
-
-	<ToggleButton
-		android:id = "@+id/first_filter"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_above = "@+id/dropFiltri"
-		android:layout_below = "@+id/search_text_list"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:checked = "true"
-		android:paddingHorizontal = "1dp"
-		android:paddingVertical = "1dp"
-		android:textOff = "@string/primo"
-		android:textOn = "@string/primo"
-		android:textSize = "12sp"
-		app:layout_constraintEnd_toStartOf = "@+id/second_filter"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/starter_filter"
-		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
-
-	<ToggleButton
-		android:id = "@+id/second_filter"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_above = "@+id/dropFiltri"
-		android:layout_below = "@+id/search_text_list"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:checked = "true"
-		android:paddingHorizontal = "1dp"
-		android:paddingVertical = "1dp"
-		android:textOff = "@string/secondo"
-		android:textOn = "@string/secondo"
-		android:textSize = "12sp"
-		app:layout_constraintEnd_toStartOf = "@+id/side_filter"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/first_filter"
-		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
-
-	<ToggleButton
-		android:id = "@+id/side_filter"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_above = "@+id/dropFiltri"
-		android:layout_below = "@+id/search_text_list"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:checked = "true"
-		android:paddingHorizontal = "1dp"
-		android:paddingVertical = "1dp"
-		android:textOff = "@string/contorno"
-		android:textOn = "@string/contorno"
-		android:textSize = "12sp"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintEnd_toStartOf = "@+id/dolceToggleButton"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/second_filter"
-		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
-
-	<ToggleButton
-		android:id = "@+id/dolceToggleButton"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:layout_above = "@+id/dropFiltri"
-		android:layout_below = "@+id/search_text_list"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginStart = "8dp"
-		android:layout_marginTop = "8dp"
-		android:layout_marginEnd = "8dp"
-		android:checked = "true"
-		android:paddingHorizontal = "1dp"
-		android:paddingVertical = "1dp"
-		android:textOff = "@string/dolce"
-		android:textOn = "@string/dolce"
-		android:textSize = "12sp"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/side_filter"
-		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
-
-	<RadioGroup
-		android:id = "@+id/tempoPrepRadioGroup"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:checkedButton = "@id/oltreRadioButton"
 		android:orientation = "horizontal"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/second_filter">
+		app:layout_constraintGuide_begin = "20dp" />
 
-		<RadioButton
-			android:id = "@+id/cinqueMinRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/_5_min"
-			android:textAllCaps = "false" />
-
-		<RadioButton
-			android:id = "@+id/trentaMinRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/_30_min"
-			android:textAllCaps = "false" />
-
-		<RadioButton
-			android:id = "@+id/unaOraRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/_1_ora"
-			android:textAllCaps = "false" />
-
-		<RadioButton
-			android:id = "@+id/dueOreRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/_2_ore"
-			android:textAllCaps = "false" />
-
-		<RadioButton
-			android:id = "@+id/quattroOreRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/_4_ore"
-			android:textAllCaps = "false" />
-
-		<RadioButton
-			android:id = "@+id/oltreRadioButton"
-			android:layout_width = "wrap_content"
-			android:layout_height = "match_parent"
-			android:layout_weight = "1"
-			android:button = "@null"
-			android:drawableTop = "@android:drawable/btn_radio"
-			android:drawablePadding = "-10dp"
-			android:gravity = "center"
-			android:padding = "10dp"
-			android:text = "@string/oltre"
-			app:useMaterialThemeColors = "false" />
-
-	</RadioGroup>
-
-	<androidx.appcompat.widget.SwitchCompat
-		android:id = "@+id/vegetarianoSwitch"
-		android:layout_width = "wrap_content"
+	<androidx.fragment.app.FragmentContainerView
+		android:id = "@+id/filters_layout"
+		android:name = "com.projects.android.recipebook.view.list.filters.FiltersFragment"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
-		android:layout_marginStart = "32dp"
-		android:layout_marginTop = "8dp"
-		android:checked = "true"
-		android:minHeight = "48dp"
-		android:text = "@string/vegetariano"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/tempoPrepRadioGroup" />
-
-	<androidx.appcompat.widget.SwitchCompat
-		android:id = "@+id/nonVegetarianoSwitch"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:layout_marginStart = "32dp"
-		android:checked = "false"
-		android:minHeight = "48dp"
-		android:text = "@string/onnivoro"
-		app:layout_constraintEnd_toEndOf = "@+id/vegetarianoSwitch"
-		app:layout_constraintHorizontal_bias = "1.0"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/vegetarianoSwitch" />
-
-	<androidx.appcompat.widget.SwitchCompat
-		android:id = "@+id/serveCotturaSwitch"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:layout_marginTop = "8dp"
-		android:layout_marginEnd = "32dp"
-		android:checked = "true"
-		android:minHeight = "48dp"
-		android:text = "@string/serve_cottura"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/tempoPrepRadioGroup" />
-
-	<androidx.appcompat.widget.SwitchCompat
-		android:id = "@+id/nonServeCotturaSwitch"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:checked = "true"
-		android:minHeight = "48dp"
-		android:text = "@string/crudo"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "0.594"
-		app:layout_constraintStart_toStartOf = "@+id/serveCotturaSwitch"
-		app:layout_constraintTop_toBottomOf = "@+id/serveCotturaSwitch"
-		tools:ignore = "TextContrastCheck" />
+		android:visibility = "gone"
+		app:layout_constraintBottom_toTopOf = "@+id/dropFiltri"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
+		app:layout_constraintHorizontal_bias = "0.0"
+		app:layout_constraintStart_toStartOf = "@+id/guideline16"
+		app:layout_constraintTop_toTopOf = "@+id/guideline13"
+		tools:layout = "@layout/fragment_filters"
+		tools:visibility = "visible" />
 
 	<ImageButton
 		android:id = "@+id/dropFiltri"
 		android:layout_width = "wrap_content"
-		android:layout_height = "0dp"
+		android:layout_height = "wrap_content"
 		android:contentDescription = "@string/pulsante_per_estendere_il_pannello_di_ricerca"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintBottom_toTopOf = "@+id/ricette_recycler_view"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
+		app:layout_constraintStart_toStartOf = "@+id/guideline16"
+		app:layout_constraintTop_toBottomOf = "@+id/filters_layout"
 		app:srcCompat = "@drawable/ic_baseline_keyboard_arrow_down_24"
 		tools:ignore = "SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -309,9 +44,9 @@
 		android:layout_width = "0dp"
 		android:layout_height = "0dp"
 		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
 		app:layout_constraintHorizontal_bias = "0.0"
-		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintStart_toStartOf = "@+id/guideline16"
 		app:layout_constraintTop_toBottomOf = "@+id/dropFiltri"
 		tools:listitem = "@layout/item_list_recipes" />
 
@@ -333,5 +68,19 @@
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toTopOf = "@+id/ricette_recycler_view"
 		app:layout_constraintVertical_bias = "0.975" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline16"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_begin = "20dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline18"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_end = "20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
