@@ -89,7 +89,7 @@ class SingleRecipeFragment : Fragment() {
 								}
 								if (photoFile?.exists() == true) {
 									photoSingle.doOnLayout { measuredView ->
-										val scaledBitmap = getScaledBitmap(photoFile.path, measuredView.width, measuredView.height)
+										val scaledBitmap = getScaledBitmap(requireContext(), photoFile.path, measuredView.width, measuredView.height)
 										photoSingle.setImageBitmap(scaledBitmap)
 										photoSingle.tag = recipe.photoFileName
 									}

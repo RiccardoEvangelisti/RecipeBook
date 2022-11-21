@@ -31,6 +31,7 @@ import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import kotlinx.coroutines.launch
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddRecipeFragment : Fragment() {
@@ -104,13 +105,13 @@ class AddRecipeFragment : Fragment() {
 				addRecipeViewModel.updateRicetta { it.name = text.toString() }
 			}
 
+			photoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 			photoAdd.setOnClickListener {
-				photoName = "IMG_${Date()}.JPG"
+				photoName = "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(Date())}.JPG"
 				val photoFile = File(requireContext().applicationContext.filesDir, photoName!!)
 				val photoUri = FileProvider.getUriForFile(requireContext(), "com.projects.android.recipebook.fileprovider", photoFile)
 				takePhoto.launch(photoUri)
 			}
-			photoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 
 			isVegetarianAdd.setOnCheckedChangeListener { _, b ->
 				addRecipeViewModel.updateRicetta { it.isVegetarian = b }
@@ -120,8 +121,7 @@ class AddRecipeFragment : Fragment() {
 			}
 
 			courseAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onNothingSelected(parent: AdapterView<*>?) {
-				}
+				override fun onNothingSelected(parent: AdapterView<*>?) {}
 
 				override fun onItemSelected(
 					parent: AdapterView<*>?, view: View?, position: Int, id: Long
