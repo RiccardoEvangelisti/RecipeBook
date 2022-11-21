@@ -47,12 +47,12 @@
 		android:layout_width = "123dp"
 		android:layout_height = "0dp"
 		android:visibility = "gone"
-		app:constraint_referenced_ids = "antipastoToggleButton,secondoToggleButton,dolceToggleButton,contornoToggleButton,primoToggleButton,tempoPrepRadioGroup,serveCotturaSwitch,vegetarianoSwitch,nonServeCotturaSwitch,nonVegetarianoSwitch"
+		app:constraint_referenced_ids = "starter_filter,secondoToggleButton,dolceToggleButton,contornoToggleButton,primoToggleButton,tempoPrepRadioGroup,serveCotturaSwitch,vegetarianoSwitch,nonServeCotturaSwitch,nonVegetarianoSwitch"
 		tools:layout_editor_absoluteY = "731dp"
 		tools:visibility = "visible" />
 
 	<ToggleButton
-		android:id = "@+id/antipastoToggleButton"
+		android:id = "@+id/starter_filter"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_above = "@+id/dropFiltri"
@@ -88,7 +88,7 @@
 		android:textSize = "12sp"
 		app:layout_constraintEnd_toStartOf = "@+id/secondoToggleButton"
 		app:layout_constraintHorizontal_bias = "0.5"
-		app:layout_constraintStart_toEndOf = "@+id/antipastoToggleButton"
+		app:layout_constraintStart_toEndOf = "@+id/starter_filter"
 		app:layout_constraintTop_toBottomOf = "@+id/search_text_list" />
 
 	<ToggleButton
