@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "wrap_content">
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline12"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "horizontal"
+		app:layout_constraintGuide_begin = "53dp" />
+
+	<EditText
+		android:id = "@+id/search_text_list"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "8dp"
+		android:layout_toStartOf = "@id/search_button_list"
+		android:hint = "@string/cerca_qualcosa"
+		android:imeOptions = "actionSearch"
+		android:importantForAutofill = "no"
+		android:inputType = "textCapSentences"
+		android:minHeight = "48dp"
+		android:textColorHint = "#757575"
+		app:layout_constraintBottom_toTopOf = "@+id/guideline12"
+		app:layout_constraintEnd_toStartOf = "@+id/search_button_list"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "parent" />
+
+	<Button
+		android:id = "@+id/search_button_list"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_alignParentEnd = "true"
+		android:backgroundTint = "@android:color/holo_orange_light"
+		android:text = "@string/cerca"
+		android:textAllCaps = "false"
+		android:textColor = "#424242"
+		app:layout_constraintBottom_toBottomOf = "@+id/search_text_list"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toEndOf = "@+id/search_text_list"
+		app:layout_constraintTop_toTopOf = "@+id/search_text_list" />
+
+	<ToggleButton
+		android:id = "@+id/starter_filter"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_below = "@+id/search_text_list"
+		android:layout_alignParentEnd = "true"
+		android:checked = "true"
+		android:paddingHorizontal = "1dp"
+		android:paddingVertical = "1dp"
+		android:textOff = "@string/antipasto"
+		android:textOn = "@string/antipasto"
+		android:textSize = "12sp"
+		app:layout_constraintBottom_toTopOf = "@+id/first_filter"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline17"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "@+id/guideline12" />
+
+	<ToggleButton
+		android:id = "@+id/first_filter"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_below = "@+id/search_text_list"
+		android:layout_alignParentEnd = "true"
+		android:checked = "true"
+		android:paddingHorizontal = "1dp"
+		android:paddingVertical = "1dp"
+		android:textOff = "@string/primo"
+		android:textOn = "@string/primo"
+		android:textSize = "12sp"
+		app:layout_constraintBottom_toTopOf = "@+id/second_filter"
+		app:layout_constraintEnd_toEndOf = "@+id/starter_filter"
+		app:layout_constraintHorizontal_bias = "0.5"
+		app:layout_constraintStart_toStartOf = "@+id/starter_filter"
+		app:layout_constraintTop_toBottomOf = "@+id/starter_filter" />
+
+	<ToggleButton
+		android:id = "@+id/second_filter"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_below = "@+id/search_text_list"
+		android:layout_alignParentEnd = "true"
+		android:checked = "true"
+		android:paddingHorizontal = "1dp"
+		android:paddingVertical = "1dp"
+		android:textOff = "@string/secondo"
+		android:textOn = "@string/secondo"
+		android:textSize = "12sp"
+		app:layout_constraintBottom_toTopOf = "@+id/side_filter"
+		app:layout_constraintEnd_toEndOf = "@+id/first_filter"
+		app:layout_constraintHorizontal_bias = "0.5"
+		app:layout_constraintStart_toStartOf = "@+id/first_filter"
+		app:layout_constraintTop_toBottomOf = "@+id/first_filter" />
+
+	<ToggleButton
+		android:id = "@+id/side_filter"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_below = "@+id/search_text_list"
+		android:layout_alignParentEnd = "true"
+		android:checked = "true"
+		android:paddingHorizontal = "1dp"
+		android:paddingVertical = "1dp"
+		android:textOff = "@string/contorno"
+		android:textOn = "@string/contorno"
+		android:textSize = "12sp"
+		app:layout_constraintBottom_toTopOf = "@+id/dolceToggleButton"
+		app:layout_constraintEnd_toEndOf = "@+id/second_filter"
+		app:layout_constraintStart_toStartOf = "@+id/second_filter"
+		app:layout_constraintTop_toBottomOf = "@+id/second_filter" />
+
+	<ToggleButton
+		android:id = "@+id/dolceToggleButton"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_below = "@+id/search_text_list"
+		android:layout_alignParentEnd = "true"
+		android:checked = "true"
+		android:paddingHorizontal = "1dp"
+		android:paddingVertical = "1dp"
+		android:textOff = "@string/dolce"
+		android:textOn = "@string/dolce"
+		android:textSize = "12sp"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toEndOf = "@+id/side_filter"
+		app:layout_constraintHorizontal_bias = "0.5"
+		app:layout_constraintStart_toStartOf = "@+id/side_filter"
+		app:layout_constraintTop_toBottomOf = "@+id/side_filter" />
+
+	<RadioGroup
+		android:id = "@+id/tempoPrepRadioGroup"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:checkedButton = "@id/oltreRadioButton"
+		android:orientation = "vertical"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline14"
+		app:layout_constraintStart_toStartOf = "@+id/guideline17"
+		app:layout_constraintTop_toTopOf = "@+id/guideline12">
+
+		<RadioButton
+			android:id = "@+id/cinqueMinRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/_5_min"
+			android:textAllCaps = "false" />
+
+		<RadioButton
+			android:id = "@+id/trentaMinRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/_30_min"
+			android:textAllCaps = "false" />
+
+		<RadioButton
+			android:id = "@+id/unaOraRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/_1_ora"
+			android:textAllCaps = "false" />
+
+		<RadioButton
+			android:id = "@+id/dueOreRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/_2_ore"
+			android:textAllCaps = "false" />
+
+		<RadioButton
+			android:id = "@+id/quattroOreRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/_4_ore"
+			android:textAllCaps = "false" />
+
+		<RadioButton
+			android:id = "@+id/oltreRadioButton"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_weight = "1"
+			android:drawablePadding = "-10dp"
+			android:gravity = "center"
+			android:padding = "10dp"
+			android:text = "@string/oltre"
+			app:useMaterialThemeColors = "false"
+			tools:ignore = "TextContrastCheck" />
+
+	</RadioGroup>
+
+	<androidx.appcompat.widget.SwitchCompat
+		android:id = "@+id/vegetarianoSwitch"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:checked = "true"
+		android:minHeight = "48dp"
+		android:text = "@string/veg"
+		app:layout_constraintBottom_toTopOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintEnd_toEndOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintHorizontal_bias = "1.0"
+		app:layout_constraintStart_toStartOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintTop_toTopOf = "@+id/guideline12"
+		tools:ignore = "TextContrastCheck" />
+
+	<androidx.appcompat.widget.SwitchCompat
+		android:id = "@+id/nonVegetarianoSwitch"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:checked = "false"
+		android:minHeight = "48dp"
+		android:text = "@string/not_veg"
+		app:layout_constraintBottom_toTopOf = "@+id/serveCotturaSwitch"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "@+id/guideline14"
+		app:layout_constraintTop_toBottomOf = "@+id/vegetarianoSwitch" />
+
+	<androidx.appcompat.widget.SwitchCompat
+		android:id = "@+id/serveCotturaSwitch"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:checked = "true"
+		android:minHeight = "48dp"
+		android:text = "@string/cooked"
+		app:layout_constraintBottom_toTopOf = "@+id/nonServeCotturaSwitch"
+		app:layout_constraintEnd_toEndOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintStart_toStartOf = "@+id/nonVegetarianoSwitch"
+		app:layout_constraintTop_toBottomOf = "@+id/nonVegetarianoSwitch"
+		tools:ignore = "TextContrastCheck" />
+
+	<androidx.appcompat.widget.SwitchCompat
+		android:id = "@+id/nonServeCotturaSwitch"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:checked = "true"
+		android:minHeight = "48dp"
+		android:text = "@string/raw"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toEndOf = "@+id/serveCotturaSwitch"
+		app:layout_constraintStart_toStartOf = "@+id/serveCotturaSwitch"
+		app:layout_constraintTop_toBottomOf = "@+id/serveCotturaSwitch"
+		tools:ignore = "TextContrastCheck" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline17"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_percent = "0.33" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline14"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_percent = "0.66" />
+
+	<View
+		android:id = "@+id/view2"
+		style = "@style/Divider_Vertical"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline17"
+		app:layout_constraintStart_toStartOf = "@+id/guideline17"
+		app:layout_constraintTop_toTopOf = "@+id/guideline12" />
+
+	<View
+		android:id = "@+id/view"
+		style = "@style/Divider_Vertical"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline14"
+		app:layout_constraintStart_toStartOf = "@+id/guideline14"
+		app:layout_constraintTop_toTopOf = "@+id/guideline12" />
+
+	<View
+		style = "@style/Divider_Horizontal"
+		android:layout_marginStart="20dp"
+		app:layout_constraintBottom_toTopOf = "@+id/serveCotturaSwitch"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "@+id/guideline14"
+		app:layout_constraintTop_toBottomOf = "@+id/nonVegetarianoSwitch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
