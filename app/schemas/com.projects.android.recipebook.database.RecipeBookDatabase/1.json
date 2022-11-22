@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1a05345371d48bdeb5ac018d1623cab4",
+    "identityHash": "cf3c8240b3fa5532f180adcc23353f53",
     "entities": [
       {
         "tableName": "recipeBook",
@@ -81,7 +81,7 @@
       {
         "ftsVersion": "FTS4",
         "ftsOptions": {
-          "tokenizer": "simple",
+          "tokenizer": "unicode61",
           "tokenizerArgs": [],
           "contentTable": "recipeBook",
           "languageIdColumnName": "",
@@ -97,7 +97,7 @@
           "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_recipeBook_fts_AFTER_INSERT AFTER INSERT ON `recipeBook` BEGIN INSERT INTO `recipeBook_fts`(`docid`, `name`, `preparation`, `ingredientsList`) VALUES (NEW.`rowid`, NEW.`name`, NEW.`preparation`, NEW.`ingredientsList`); END"
         ],
         "tableName": "recipeBook_fts",
-        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`name` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, content=`recipeBook`)",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`name` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, tokenize=unicode61, content=`recipeBook`)",
         "fields": [
           {
             "fieldPath": "name",
@@ -131,7 +131,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1a05345371d48bdeb5ac018d1623cab4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf3c8240b3fa5532f180adcc23353f53')"
     ]
   }
 }
