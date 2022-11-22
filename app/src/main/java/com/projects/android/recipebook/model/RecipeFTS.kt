@@ -5,7 +5,7 @@ import androidx.room.Fts4
 import androidx.room.FtsOptions
 import androidx.room.PrimaryKey
 
-@Fts4(contentEntity = Recipe::class, tokenizer = FtsOptions.TOKENIZER_ICU)
+@Fts4(contentEntity = Recipe::class, tokenizer = FtsOptions.TOKENIZER_PORTER)
 @Entity(tableName = "recipeBook_fts")
 @Suppress("unused")
 class RecipeFTS(

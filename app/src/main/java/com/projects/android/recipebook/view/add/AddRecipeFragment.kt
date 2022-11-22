@@ -1,21 +1,28 @@
 package com.projects.android.recipebook.view.add
 
+import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,6 +30,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
@@ -35,6 +43,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddRecipeFragment : Fragment() {
+
+	var container: ViewGroup? = null
 
 	// VIEW MODEL
 	private val addRecipeViewModel: AddRecipeViewModel by viewModels()
@@ -57,6 +67,7 @@ class AddRecipeFragment : Fragment() {
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+		this.container = container
 		_binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}
@@ -278,9 +289,48 @@ class AddRecipeFragment : Fragment() {
 				}
 			}
 
-			preparationAdd.doOnTextChanged { text, _, _, _ ->
+			preparationAdd.movementMethod = LinkMovementMethod.getInstance()
+			preparationAdd.doAfterTextChanged { text ->
 				addRecipeViewModel.updateRicetta {
 					it.preparation = text.toString()
+				}
+
+				if (text?.last() == "#".toCharArray()[0]) {
+					val clickableSpan: ClickableSpan = object : ClickableSpan() {
+						override fun onClick(view: View) {
+							Toast.makeText(context, "CKECK", Toast.LENGTH_SHORT).show()
+
+							// inflate the layout of the popup window
+							val inflater = requireContext().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+							val popupView: View = inflater.inflate(R.layout.fragment_add_select_recipe_tag, null)
+
+							// create the popup window
+							val width = LinearLayout.LayoutParams.WRAP_CONTENT
+							val height = LinearLayout.LayoutParams.WRAP_CONTENT
+							val focusable = true // lets taps outside the popup also dismiss it
+
+							val popupWindow = PopupWindow(popupView, width, height, focusable)
+
+							// show the popup window
+							// which view you pass in doesn't matter, it is only used for the window tolken
+							popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+
+							// dismiss the popup window when touched
+							popupView.setOnTouchListener { _, _ ->
+								popupWindow.dismiss()
+								true
+							}
+						}
+
+						override fun updateDrawState(ds: TextPaint) {
+							super.updateDrawState(ds)
+							ds.isUnderlineText = true
+						}
+					}
+					val spannableText: Spannable = SpannableString("Broccoli ")
+					spannableText.setSpan(clickableSpan, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+					preparationAdd.movementMethod = LinkMovementMethod.getInstance()
+					preparationAdd.append(spannableText)
 				}
 			}
 		}

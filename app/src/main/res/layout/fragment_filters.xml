@@ -11,7 +11,7 @@
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
 		android:orientation = "horizontal"
-		app:layout_constraintGuide_begin = "53dp" />
+		app:layout_constraintGuide_begin = "51dp" />
 
 	<EditText
 		android:id = "@+id/search_text_list"
@@ -126,7 +126,7 @@
 		android:textOff = "@string/dolce"
 		android:textOn = "@string/dolce"
 		android:textSize = "12sp"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toEndOf = "@+id/side_filter"
 		app:layout_constraintHorizontal_bias = "0.5"
 		app:layout_constraintStart_toStartOf = "@+id/side_filter"
@@ -138,9 +138,10 @@
 		android:layout_height = "wrap_content"
 		android:layout_marginStart = "16dp"
 		android:layout_marginEnd = "16dp"
+		android:layout_marginBottom = "8dp"
 		android:checkedButton = "@id/oltreRadioButton"
 		android:orientation = "vertical"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline14"
 		app:layout_constraintStart_toStartOf = "@+id/guideline17"
 		app:layout_constraintTop_toTopOf = "@+id/guideline12">
@@ -242,7 +243,7 @@
 		android:checked = "true"
 		android:minHeight = "48dp"
 		android:text = "@string/raw"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toEndOf = "@+id/serveCotturaSwitch"
 		app:layout_constraintStart_toStartOf = "@+id/serveCotturaSwitch"
 		app:layout_constraintTop_toBottomOf = "@+id/serveCotturaSwitch"
@@ -265,7 +266,9 @@
 	<View
 		android:id = "@+id/divider1"
 		style = "@style/Divider_Vertical"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		android:layout_marginTop = "16dp"
+		android:layout_marginBottom = "20dp"
+		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline17"
 		app:layout_constraintStart_toStartOf = "@+id/guideline17"
 		app:layout_constraintTop_toTopOf = "@+id/guideline12" />
@@ -273,7 +276,9 @@
 	<View
 		android:id = "@+id/divider2"
 		style = "@style/Divider_Vertical"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		android:layout_marginTop = "16dp"
+		android:layout_marginBottom = "20dp"
+		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline14"
 		app:layout_constraintStart_toStartOf = "@+id/guideline14"
 		app:layout_constraintTop_toTopOf = "@+id/guideline12" />
@@ -290,9 +295,10 @@
 	<View
 		android:id = "@+id/divider4"
 		style = "@style/Divider_Horizontal"
+		android:layout_marginBottom = "8dp"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "parent" />
+		app:layout_constraintTop_toBottomOf = "@+id/tempoPrepRadioGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

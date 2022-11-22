@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
 	xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
-	android:layout_height = "match_parent">
+	android:layout_height = "match_parent"
+	android:fillViewport = "true">
 
-	<androidx.constraintlayout.widget.Guideline
-		android:id = "@+id/guideline13"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:orientation = "horizontal"
-		app:layout_constraintGuide_begin = "20dp" />
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent">
 
-	<androidx.fragment.app.FragmentContainerView
-		android:id = "@+id/filters_layout"
-		android:name = "com.projects.android.recipebook.view.list.filters.FiltersFragment"
-		android:layout_width = "0dp"
-		android:layout_height = "wrap_content"
-		android:visibility = "gone"
-		app:layout_constraintBottom_toTopOf = "@+id/dropFiltri"
-		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
-		app:layout_constraintHorizontal_bias = "0.0"
-		app:layout_constraintStart_toStartOf = "@+id/guideline16"
-		app:layout_constraintTop_toTopOf = "@+id/guideline13"
-		tools:layout = "@layout/fragment_filters"
-		tools:visibility = "visible" />
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline13"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "horizontal"
+			app:layout_constraintGuide_begin = "20dp" />
 
-	<ImageButton
-		android:id = "@+id/dropFiltri"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:contentDescription = "@string/pulsante_per_estendere_il_pannello_di_ricerca"
-		app:layout_constraintBottom_toTopOf = "@+id/ricette_recycler_view"
-		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
-		app:layout_constraintStart_toStartOf = "@+id/guideline16"
-		app:layout_constraintTop_toBottomOf = "@+id/filters_layout"
-		app:srcCompat = "@drawable/ic_baseline_keyboard_arrow_down_24"
-		tools:ignore = "SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+		<androidx.fragment.app.FragmentContainerView
+			android:id = "@+id/filters_layout"
+			android:name = "com.projects.android.recipebook.view.list.filters.FiltersFragment"
+			android:layout_width = "0dp"
+			android:layout_height = "wrap_content"
+			android:visibility = "gone"
+			app:layout_constraintBottom_toTopOf = "@+id/dropFiltri"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline18"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline16"
+			app:layout_constraintTop_toTopOf = "@+id/guideline13"
+			tools:layout = "@layout/fragment_filters"
+			tools:visibility = "visible" />
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id = "@+id/ricette_recycler_view"
-		android:layout_width = "0dp"
-		android:layout_height = "0dp"
-		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintEnd_toStartOf = "@+id/guideline18"
-		app:layout_constraintHorizontal_bias = "0.0"
-		app:layout_constraintStart_toStartOf = "@+id/guideline16"
-		app:layout_constraintTop_toBottomOf = "@+id/dropFiltri"
-		tools:listitem = "@layout/item_list_recipes" />
+		<ImageButton
+			android:id = "@+id/dropFiltri"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:contentDescription = "@string/pulsante_per_estendere_il_pannello_di_ricerca"
+			app:layout_constraintBottom_toTopOf = "@+id/ricette_recycler_view"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline18"
+			app:layout_constraintStart_toStartOf = "@+id/guideline16"
+			app:layout_constraintTop_toBottomOf = "@+id/filters_layout"
+			app:srcCompat = "@drawable/ic_baseline_keyboard_arrow_down_24"
+			tools:ignore = "SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-		android:id = "@+id/add_recipe_FAB"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:layout_margin = "16dp"
-		android:contentDescription = "@string/aggiungi"
-		android:src = "@drawable/ic_baseline_add_24"
-		android:text = "@string/aggiungi"
-		android:textAlignment = "center"
-		android:textAllCaps = "true"
-		android:textColor = "#4E342E"
-		app:backgroundTint = "@android:color/holo_orange_light"
-		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "0.953"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toTopOf = "@+id/ricette_recycler_view"
-		app:layout_constraintVertical_bias = "0.975" />
+		<androidx.recyclerview.widget.RecyclerView
+			android:id = "@+id/ricette_recycler_view"
+			android:layout_width = "0dp"
+			android:layout_height = "0dp"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline18"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline16"
+			app:layout_constraintTop_toBottomOf = "@+id/dropFiltri"
+			tools:listitem = "@layout/item_list_recipes" />
 
-	<androidx.constraintlayout.widget.Guideline
-		android:id = "@+id/guideline16"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:orientation = "vertical"
-		app:layout_constraintGuide_begin = "20dp" />
+		<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+			android:id = "@+id/add_recipe_FAB"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_margin = "16dp"
+			android:contentDescription = "@string/aggiungi"
+			android:src = "@drawable/ic_baseline_add_24"
+			android:text = "@string/aggiungi"
+			android:textAlignment = "center"
+			android:textAllCaps = "true"
+			android:textColor = "#4E342E"
+			app:backgroundTint = "@android:color/holo_orange_light"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.953"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "@+id/ricette_recycler_view"
+			app:layout_constraintVertical_bias = "0.975" />
 
-	<androidx.constraintlayout.widget.Guideline
-		android:id = "@+id/guideline18"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:orientation = "vertical"
-		app:layout_constraintGuide_end = "20dp" />
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline16"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_begin = "20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline18"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_end = "20dp" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

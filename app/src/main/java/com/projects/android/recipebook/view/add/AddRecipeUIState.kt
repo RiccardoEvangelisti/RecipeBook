@@ -25,6 +25,7 @@ class AddRecipeUIState {
 
 	fun checkRicetta(): String? {
 		if (name.isNullOrBlank()) return "Inserire un nome"
+		if (name!!.contains("#")) return "Non può contenere il simbolo #"
 		if (isVegetarian == null) return "Specificare se vegetariana"
 		if (isCooked == null) return "Specificare se serve cottura"
 		if (portions == null) return "Inserire le porzioni"

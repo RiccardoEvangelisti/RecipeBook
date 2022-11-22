@@ -21,7 +21,7 @@ interface RecipeBookDao {
 			if (!string.isNullOrBlank()) {
 				query += " "
 				query += "AND recipeBook_fts MATCH ?"
-				args.add(string!!)
+				args.add(string!! + "*")
 			}
 			courses?.let {
 				if (it.isNotEmpty()) {
