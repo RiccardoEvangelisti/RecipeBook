@@ -1,13 +1,14 @@
 package com.projects.android.recipebook.view.add
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.projects.android.recipebook.database.Filters
 import com.projects.android.recipebook.database.RecipeBookRepository
+import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class AddRecipeViewModel : ViewModel() {
 
@@ -15,6 +16,10 @@ class AddRecipeViewModel : ViewModel() {
 
 	private val _state: MutableStateFlow<AddRecipeUIState> = MutableStateFlow(AddRecipeUIState())
 	val state: StateFlow<AddRecipeUIState?> = _state.asStateFlow() // all'esterno una versione readonly
+
+	private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
+	val recipes: StateFlow<List<Recipe>>
+		get() = _recipes.asStateFlow()
 
 	init {
 		_state.value.course = Course.SECOND
@@ -26,6 +31,12 @@ class AddRecipeViewModel : ViewModel() {
 
 	fun updateRicetta(onUpdate: (AddRecipeUIState) -> Unit) {
 		_state.update { it.also { onUpdate(it) } }
+	}
+
+	fun getRecipes(filters: Filters) {
+		viewModelScope.launch {
+			recipeBookRepository.getRecipes(filters).collect { recipes -> _recipes.value = recipes }
+		}
 	}
 
 	fun checkRicetta(): String? {

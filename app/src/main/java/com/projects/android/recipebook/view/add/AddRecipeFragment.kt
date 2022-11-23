@@ -1,6 +1,5 @@
 package com.projects.android.recipebook.view.add
 
-import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -12,13 +11,14 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -30,13 +30,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
+import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment
+import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment.DialogListener
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -298,28 +299,7 @@ class AddRecipeFragment : Fragment() {
 				if (text?.last() == "#".toCharArray()[0]) {
 					val clickableSpan: ClickableSpan = object : ClickableSpan() {
 						override fun onClick(view: View) {
-							Toast.makeText(context, "CKECK", Toast.LENGTH_SHORT).show()
-
-							// inflate the layout of the popup window
-							val inflater = requireContext().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-							val popupView: View = inflater.inflate(R.layout.fragment_add_select_recipe_tag, null)
-
-							// create the popup window
-							val width = LinearLayout.LayoutParams.WRAP_CONTENT
-							val height = LinearLayout.LayoutParams.WRAP_CONTENT
-							val focusable = true // lets taps outside the popup also dismiss it
-
-							val popupWindow = PopupWindow(popupView, width, height, focusable)
-
-							// show the popup window
-							// which view you pass in doesn't matter, it is only used for the window tolken
-							popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
-
-							// dismiss the popup window when touched
-							popupView.setOnTouchListener { _, _ ->
-								popupWindow.dismiss()
-								true
-							}
+							Toast.makeText(context, "CHECK", Toast.LENGTH_SHORT).show() //TODO
 						}
 
 						override fun updateDrawState(ds: TextPaint) {
@@ -327,10 +307,15 @@ class AddRecipeFragment : Fragment() {
 							ds.isUnderlineText = true
 						}
 					}
-					val spannableText: Spannable = SpannableString("Broccoli ")
-					spannableText.setSpan(clickableSpan, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-					preparationAdd.movementMethod = LinkMovementMethod.getInstance()
-					preparationAdd.append(spannableText)
+					AddSelectRecipeTagFragment(object : DialogListener {
+						override fun cancelled() {}
+						override fun ready(name: String) {
+							val spannableText: Spannable = SpannableString(name)
+							spannableText.setSpan(clickableSpan, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+							preparationAdd.movementMethod = LinkMovementMethod.getInstance()
+							preparationAdd.append(spannableText)
+						}
+					}).show(childFragmentManager, AddSelectRecipeTagFragment.TAG)
 				}
 			}
 		}

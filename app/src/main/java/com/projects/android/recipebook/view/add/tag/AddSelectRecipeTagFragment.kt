@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.core.view.doOnLayout
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import com.projects.android.recipebook.database.Filters
+import com.projects.android.recipebook.model.enums.Course
+import com.projects.android.recipebook.view.add.AddRecipeViewModel
 import com.projects.android.recipebook.databinding.FragmentAddSelectRecipeTagBinding
-import com.projects.android.recipebook.utils.PictureUtils
-import kotlinx.coroutines.launch
-import java.io.File
 
-class AddSelectRecipeTagFragment : Fragment() {
+class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFragment() {
+
+	var listItems = ArrayList<String>()
+
+	// VIEW MODEL
+	private val viewModel: AddRecipeViewModel by viewModels()
 
 	// VIEW BINDING
 	private var _binding: FragmentAddSelectRecipeTagBinding? = null
@@ -26,6 +27,11 @@ class AddSelectRecipeTagFragment : Fragment() {
 		get() = checkNotNull(_binding) {
 			"Cannot access binding because it is null. Is the view visible?"
 		}
+
+	interface DialogListener {
+		fun ready(name: String)
+		fun cancelled()
+	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,11 +43,34 @@ class AddSelectRecipeTagFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		binding.apply {
 
+			ArrayAdapter(
+				requireContext(), android.R.layout.simple_list_item_1, Course.values()
+			).also { adapter ->
+				namesRecipesList.adapter = adapter
+			}
+
+			searchRecipe.doOnTextChanged { text, _, _, _ ->
+				val filter = Filters()
+				filter.string = text.toString()
+				viewModel.getRecipes(filter)
+				listItems.addAll(viewModel.recipes.value.map { it.name })
+			}
+
+			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+				mReadyListener.ready((namesRecipesList.getItemAtPosition(position) as Course).toString())
+				this@AddSelectRecipeTagFragment.dismiss()
+			}
+		}
 	}
 
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
+	}
+
+	companion object {
+		const val TAG = "AddSelectRecipeTagFragment"
 	}
 }
