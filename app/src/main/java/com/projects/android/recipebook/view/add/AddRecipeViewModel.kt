@@ -7,7 +7,10 @@ import com.projects.android.recipebook.database.RecipeBookRepository
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AddRecipeViewModel : ViewModel() {
@@ -22,6 +25,8 @@ class AddRecipeViewModel : ViewModel() {
 		get() = _recipes.asStateFlow()
 
 	init {
+		getRecipes(Filters())
+
 		_state.value.course = Course.SECOND
 		_state.value.preparationTime = PreparationTime.THIRTY_MIN
 		_state.value.isVegetarian = true

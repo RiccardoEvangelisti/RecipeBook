@@ -25,7 +25,7 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -48,7 +48,7 @@ class AddRecipeFragment : Fragment() {
 	var container: ViewGroup? = null
 
 	// VIEW MODEL
-	private val addRecipeViewModel: AddRecipeViewModel by viewModels()
+	private val addRecipeViewModel: AddRecipeViewModel by activityViewModels()
 
 	// VIEW BINDING
 	private var _binding: FragmentAddRecipeBinding? = null

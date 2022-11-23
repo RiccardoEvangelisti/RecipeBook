@@ -6,20 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.widget.doOnTextChanged
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.projects.android.recipebook.database.Filters
-import com.projects.android.recipebook.model.enums.Course
-import com.projects.android.recipebook.view.add.AddRecipeViewModel
 import com.projects.android.recipebook.databinding.FragmentAddSelectRecipeTagBinding
+import com.projects.android.recipebook.view.add.AddRecipeViewModel
 
 class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFragment() {
 
-	var listItems = ArrayList<String>()
+	private var listItems = ArrayList<String>()
 
 	// VIEW MODEL
-	private val viewModel: AddRecipeViewModel by viewModels()
+	private val viewModel: AddRecipeViewModel by activityViewModels()
 
 	// VIEW BINDING
 	private var _binding: FragmentAddSelectRecipeTagBinding? = null
@@ -46,20 +45,23 @@ class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFra
 		binding.apply {
 
 			ArrayAdapter(
-				requireContext(), android.R.layout.simple_list_item_1, Course.values()
-			).also { adapter ->
-				namesRecipesList.adapter = adapter
+				requireContext(),
+				android.R.layout.simple_list_item_1,
+				listItems.also { list -> list.addAll(viewModel.recipes.value.map { it.name }) }).also {
+				namesRecipesList.adapter = it
 			}
 
-			searchRecipe.doOnTextChanged { text, _, _, _ ->
+			searchRecipe.doAfterTextChanged { text ->
 				val filter = Filters()
 				filter.string = text.toString()
 				viewModel.getRecipes(filter)
+				listItems.clear()
 				listItems.addAll(viewModel.recipes.value.map { it.name })
+				(namesRecipesList.adapter as ArrayAdapter<String>).notifyDataSetChanged()
 			}
 
-			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-				mReadyListener.ready((namesRecipesList.getItemAtPosition(position) as Course).toString())
+			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+				mReadyListener.ready(namesRecipesList.getItemAtPosition(position).toString())
 				this@AddSelectRecipeTagFragment.dismiss()
 			}
 		}
