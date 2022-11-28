@@ -1,5 +1,6 @@
 package com.projects.android.recipebook.view.add.tag
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +9,22 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.projects.android.recipebook.database.Filters
 import com.projects.android.recipebook.databinding.FragmentAddSelectRecipeTagBinding
+import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.view.add.AddRecipeViewModel
+import kotlinx.coroutines.launch
 
-class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFragment() {
+class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogFragment() {
 
 	private var listItems = ArrayList<String>()
 
 	// VIEW MODEL
-	private val viewModel: AddRecipeViewModel by activityViewModels()
+	private val viewModel: AddRecipeViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
 	// VIEW BINDING
 	private var _binding: FragmentAddSelectRecipeTagBinding? = null
@@ -28,8 +34,13 @@ class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFra
 		}
 
 	interface DialogListener {
-		fun ready(name: String)
+		fun ready(recipe: Recipe)
 		fun cancelled()
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		listener.cancelled()
 	}
 
 	override fun onCreateView(
@@ -44,8 +55,7 @@ class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFra
 
 		binding.apply {
 
-			ArrayAdapter(
-				requireContext(),
+			ArrayAdapter(requireContext(),
 				android.R.layout.simple_list_item_1,
 				listItems.also { list -> list.addAll(viewModel.recipes.value.map { it.name }) }).also {
 				namesRecipesList.adapter = it
@@ -55,14 +65,23 @@ class AddSelectRecipeTagFragment(var mReadyListener: DialogListener) : DialogFra
 				val filter = Filters()
 				filter.string = text.toString()
 				viewModel.getRecipes(filter)
-				listItems.clear()
-				listItems.addAll(viewModel.recipes.value.map { it.name })
-				(namesRecipesList.adapter as ArrayAdapter<String>).notifyDataSetChanged()
 			}
 
 			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-				mReadyListener.ready(namesRecipesList.getItemAtPosition(position).toString())
+				listener.ready(viewModel.recipes.value[position])
 				this@AddSelectRecipeTagFragment.dismiss()
+			}
+
+			viewLifecycleOwner.lifecycleScope.launch {
+				viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+					viewModel.recipes.collect { _ ->
+						binding.apply {
+							listItems.clear()
+							listItems.addAll(viewModel.recipes.value.map { it.name })
+							(namesRecipesList.adapter as ArrayAdapter<*>).notifyDataSetChanged()
+						}
+					}
+				}
 			}
 		}
 	}

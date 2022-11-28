@@ -212,23 +212,27 @@
 			app:layout_constraintTop_toTopOf = "@+id/guideline5"
 			app:layout_constraintVertical_bias = "0.0" />
 
-		<EditText
-			android:id = "@+id/preparation_add"
+		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "16dp"
-			android:hint = "@string/preparazione"
-			android:importantForAutofill = "no"
-			android:inputType = "textCapSentences|textMultiLine"
-			android:minHeight = "48dp"
-			android:scrollbars = "vertical"
-			android:textColor = "@color/black"
-			android:textColorHint = "#757575"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1"
 			app:layout_constraintTop_toBottomOf = "@+id/ingredients_container_add"
-			app:layout_constraintVertical_bias = "0.0" />
+			app:layout_constraintVertical_bias = "0.0">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id = "@+id/preparation_add"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:layout_marginTop = "16dp"
+				android:autoLink = "all"
+				android:hint = "@string/preparazione"
+				android:importantForAutofill = "no"
+				android:inputType = "textCapSentences|textMultiLine"
+				android:scrollbars = "vertical" />
+		</com.google.android.material.textfield.TextInputLayout>
+
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

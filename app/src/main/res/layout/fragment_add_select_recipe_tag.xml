@@ -10,20 +10,27 @@
 		android:id = "@+id/search_recipe"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
+		android:hint = "@string/cerca"
 		android:importantForAutofill = "no"
 		android:inputType = "textCapSentences"
-		android:text = "@string/cerca"
+		app:layout_constraintBottom_toTopOf = "@id/layoutTag"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toTopOf = "parent" />
 
-	<ListView
-		android:id = "@+id/names_recipes_list"
+	<LinearLayout
+		android:id = "@+id/layoutTag"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
+		android:orientation = "horizontal"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/search_recipe" />
+		app:layout_constraintTop_toBottomOf = "@+id/search_recipe">
 
+		<ListView
+			android:id = "@+id/names_recipes_list"
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent" />
+	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

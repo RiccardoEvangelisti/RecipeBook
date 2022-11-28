@@ -5,12 +5,8 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+import android.text.*
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -18,14 +14,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -33,11 +29,13 @@ import androidx.navigation.fragment.findNavController
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
+import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment
 import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment.DialogListener
+import com.projects.android.recipebook.view.add.tag.TagSpan
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -45,10 +43,12 @@ import java.util.*
 
 class AddRecipeFragment : Fragment() {
 
-	var container: ViewGroup? = null
+	private var container: ViewGroup? = null
+	private var isDeleting = false
+	private var textWatcherPreparationAdd: TextWatcher? = null
 
 	// VIEW MODEL
-	private val addRecipeViewModel: AddRecipeViewModel by activityViewModels()
+	private val addRecipeViewModel: AddRecipeViewModel by viewModels()
 
 	// VIEW BINDING
 	private var _binding: FragmentAddRecipeBinding? = null
@@ -63,7 +63,7 @@ class AddRecipeFragment : Fragment() {
 	private var photoName: String? = null
 	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
 		if (didTakePhoto && photoName != null) {
-			addRecipeViewModel.updateRicetta { it.photoFileName = photoName }
+			addRecipeViewModel.updateRecipe { it.photoFileName = photoName }
 		}
 	}
 
@@ -80,7 +80,7 @@ class AddRecipeFragment : Fragment() {
 
 			// Condizioni per navigateUp e quindi salvataggio della recipe
 			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-				val check = addRecipeViewModel.checkRicetta()
+				val check = addRecipeViewModel.checkRecipe()
 				if (!check.isNullOrBlank()) {
 					Toast.makeText(context, "ERRORE: $check", Toast.LENGTH_SHORT).show()
 				} else {
@@ -114,7 +114,7 @@ class AddRecipeFragment : Fragment() {
 
 			// Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
 			nameAdd.doOnTextChanged { text, _, _, _ ->
-				addRecipeViewModel.updateRicetta { it.name = text.toString() }
+				addRecipeViewModel.updateRecipe { it.name = text.toString() }
 			}
 
 			photoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
@@ -126,10 +126,10 @@ class AddRecipeFragment : Fragment() {
 			}
 
 			isVegetarianAdd.setOnCheckedChangeListener { _, b ->
-				addRecipeViewModel.updateRicetta { it.isVegetarian = b }
+				addRecipeViewModel.updateRecipe { it.isVegetarian = b }
 			}
 			isCookedAdd.setOnCheckedChangeListener { _, b ->
-				addRecipeViewModel.updateRicetta { it.isCooked = b }
+				addRecipeViewModel.updateRecipe { it.isCooked = b }
 			}
 
 			courseAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -139,7 +139,7 @@ class AddRecipeFragment : Fragment() {
 					parent: AdapterView<*>?, view: View?, position: Int, id: Long
 				) {
 					parent!!.let {
-						addRecipeViewModel.updateRicetta {
+						addRecipeViewModel.updateRecipe {
 							it.course = parent.adapter.getItem(position) as Course
 						}
 					}
@@ -154,7 +154,7 @@ class AddRecipeFragment : Fragment() {
 					parent: AdapterView<*>?, view: View?, position: Int, id: Long
 				) {
 					parent!!.let {
-						addRecipeViewModel.updateRicetta {
+						addRecipeViewModel.updateRecipe {
 							it.preparationTime = parent.adapter.getItem(position) as PreparationTime
 						}
 					}
@@ -162,7 +162,7 @@ class AddRecipeFragment : Fragment() {
 			}
 
 			portionsAdd.doOnTextChanged { text, _, _, _ ->
-				addRecipeViewModel.updateRicetta {
+				addRecipeViewModel.updateRecipe {
 					it.portions = text.toString()
 				}
 			}
@@ -220,7 +220,7 @@ class AddRecipeFragment : Fragment() {
 								// Si aggiunge la view al linearLayout
 								ingredientsContainerAdd.addView(root)
 
-								addRecipeViewModel.updateRicetta { stato ->
+								addRecipeViewModel.updateRecipe { stato ->
 									stato.ingredientsList = stato.ingredientsList.also { list ->
 										list!!.add(
 											Ingredient(
@@ -234,7 +234,7 @@ class AddRecipeFragment : Fragment() {
 
 								// Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
 								quantityIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-									addRecipeViewModel.updateRicetta { state ->
+									addRecipeViewModel.updateRecipe { state ->
 										state.ingredientsList = state.ingredientsList.also { list ->
 											list!![ingredientsContainerAdd.indexOfChild(root)].quantity = text.toString()
 										}
@@ -251,7 +251,7 @@ class AddRecipeFragment : Fragment() {
 										} else {
 											quantityIngredientItemAdd.visibility = VISIBLE
 										}
-										addRecipeViewModel.updateRicetta { stato ->
+										addRecipeViewModel.updateRecipe { stato ->
 											stato.ingredientsList = stato.ingredientsList.also { list ->
 												list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
 											}
@@ -262,7 +262,7 @@ class AddRecipeFragment : Fragment() {
 								}
 
 								nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-									addRecipeViewModel.updateRicetta { stato ->
+									addRecipeViewModel.updateRecipe { stato ->
 										stato.ingredientsList = stato.ingredientsList.also { list ->
 											list!![ingredientsContainerAdd.indexOfChild(root)].name = text.toString()
 										}
@@ -270,7 +270,7 @@ class AddRecipeFragment : Fragment() {
 								}
 
 								deleteIngredientItemAdd.setOnClickListener {
-									addRecipeViewModel.updateRicetta { stato ->
+									addRecipeViewModel.updateRecipe { stato ->
 										stato.ingredientsList = stato.ingredientsList.also { list ->
 											list!!.removeAt(
 												ingredientsContainerAdd.indexOfChild(
@@ -290,34 +290,72 @@ class AddRecipeFragment : Fragment() {
 				}
 			}
 
-			preparationAdd.movementMethod = LinkMovementMethod.getInstance()
-			preparationAdd.doAfterTextChanged { text ->
-				addRecipeViewModel.updateRicetta {
-					it.preparation = text.toString()
+			textWatcherPreparationAdd = object : TextWatcher {
+
+				// Detects if the user is deleting text
+				override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+					if (after < count) {
+						isDeleting = true
+					}
 				}
 
-				if (text?.last() == "#".toCharArray()[0]) {
-					val clickableSpan: ClickableSpan = object : ClickableSpan() {
-						override fun onClick(view: View) {
-							Toast.makeText(context, "CHECK", Toast.LENGTH_SHORT).show() //TODO
+				override fun onTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+				override fun afterTextChanged(text: Editable?) {
+					if (!text.isNullOrBlank()) {
+
+						addRecipeViewModel.updateRecipe {
+							it.preparation = text
 						}
 
-						override fun updateDrawState(ds: TextPaint) {
-							super.updateDrawState(ds)
-							ds.isUnderlineText = true
+						if (isDeleting) {
+							// when deleting, if detects a span, deletes it entirely
+							text.getSpans(preparationAdd.selectionStart, preparationAdd.selectionEnd, TagSpan::class.java).also {
+								if (it.isNotEmpty()) {
+									editText(preparationAdd) {
+										text.delete(text.getSpanStart(it[0]), text.getSpanEnd(it[0]))
+										text.removeSpan(it[0])
+									}
+									addRecipeViewModel.updateRecipe { state ->
+										state.preparation = text
+									}
+								}
+							}
+							isDeleting = false
 						}
 					}
-					AddSelectRecipeTagFragment(object : DialogListener {
-						override fun cancelled() {}
-						override fun ready(name: String) {
-							val spannableText: Spannable = SpannableString(name)
-							spannableText.setSpan(clickableSpan, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-							preparationAdd.movementMethod = LinkMovementMethod.getInstance()
-							preparationAdd.append(spannableText)
+
+					if (!text.isNullOrBlank() && preparationAdd.selectionEnd > 0) {
+						if (text[preparationAdd.selectionEnd - 1] == "#".toCharArray()[0]) {
+							AddSelectRecipeTagFragment(object : DialogListener {
+								override fun cancelled() {
+									editText(preparationAdd) {
+										text.delete(preparationAdd.selectionStart - 1, preparationAdd.selectionStart)
+									}
+								}
+
+								override fun ready(recipe: Recipe) {
+									val name = "#${recipe.name}" // add "#" in span
+									val spannableText: Spannable = SpannableString(name)
+									spannableText.setSpan(TagSpan(recipe.id), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+									preparationAdd.movementMethod = LinkMovementMethod.getInstance()
+									editText(preparationAdd) {
+										text.replace(
+											preparationAdd.selectionStart - 1, preparationAdd.selectionStart, spannableText
+										) // replacing the digitated "#"
+										text.append(" ")
+									}
+									addRecipeViewModel.updateRecipe {
+										it.preparation = text
+									}
+								}
+							}).show(childFragmentManager, AddSelectRecipeTagFragment.TAG)
 						}
-					}).show(childFragmentManager, AddSelectRecipeTagFragment.TAG)
+					}
 				}
 			}
+
+			preparationAdd.addTextChangedListener(textWatcherPreparationAdd)
 		}
 
 		// Colleziono lo StateFlow del ViewModel e con esso aggiorno la UI (ViewModel->UI)
@@ -349,8 +387,8 @@ class AddRecipeFragment : Fragment() {
 								}
 							}
 							recipe.preparation?.let {
-								if (preparationAdd.text.toString() != recipe.preparation) {
-									preparationAdd.setText(recipe.preparation)
+								if (preparationAdd.text != recipe.preparation) {
+									preparationAdd.text = recipe.preparation
 								}
 							}
 							recipe.ingredientsList?.let {
@@ -389,5 +427,11 @@ class AddRecipeFragment : Fragment() {
 		val packageManager: PackageManager = requireActivity().packageManager
 		val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
 		return resolvedActivity != null
+	}
+
+	private fun editText(editText: EditText, edit: () -> Unit) {
+		editText.removeTextChangedListener(textWatcherPreparationAdd)
+		edit()
+		editText.addTextChangedListener(textWatcherPreparationAdd)
 	}
 }
