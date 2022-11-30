@@ -72,7 +72,7 @@ class SingleRecipeFragment : Fragment() {
 				}
 			}
 
-			preparationSingle.doOnTextChanged { text, _, _, _ ->
+			preparationSingle.doOnTextChanged { _, _, _, _ ->
 				//recipeSingolaViewModel.updateRecipe { it.copy(preparation = text.toString()) } //TODO
 			}
 		}
@@ -80,19 +80,19 @@ class SingleRecipeFragment : Fragment() {
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				singleRecipeViewModel.state.collect { state ->
-					state.apply {
-						recipe?.let{
+					state?.apply {
+						recipe?.let {
 							binding.apply {
 								if (nameSingle.text.toString() != recipe!!.name) { // previene un infinite-loop con il listener
 									nameSingle.setText(recipe!!.name)
 								}
 
-								val preparationText: String = recipe!!.preparation.text
-								preparationSingle.setText(preparationText) // set the text with all "#"
+								preparationSingle.setText(recipe!!.preparation.text) // set the text with all "#"
+								var startTag = -1
 								for ((i, name) in tagNames!!.withIndex()) { // for every "#"
-									val startTag = preparationText.indexOfFirst { it == "#".first() } // take the index of first "#"
+									startTag = preparationSingle.text.indexOf("#".first(), startTag + 1, true) // take the index of first "#"
 
-									val spannableText: Spannable = SpannableString(name)
+									val spannableText: Spannable = SpannableString("#$name")
 									spannableText.setSpan(
 										TagSpan(recipe!!.preparation.tags[i]), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 									) // create a span with id and name of tag

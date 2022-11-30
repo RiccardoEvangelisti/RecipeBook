@@ -17,26 +17,31 @@ class AddRecipeViewModel : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
-	private val _state: MutableStateFlow<AddRecipeState> = MutableStateFlow(AddRecipeState())
-	val state: StateFlow<AddRecipeState?> = _state.asStateFlow()
+	private val _state: MutableStateFlow<AddRecipeState?> = MutableStateFlow(null)
+	val state: StateFlow<AddRecipeState?>
+		get() = _state.asStateFlow()
 
 	// recipes searched for tag preparation system
-	private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
-	val recipes: StateFlow<List<Recipe>>
+	private val _recipes: MutableStateFlow<List<Recipe>?> = MutableStateFlow(null)
+	val recipes: StateFlow<List<Recipe>?>
 		get() = _recipes.asStateFlow()
 
 	init {
-		getRecipes(Filters())
-
-		_state.value.course = Course.SECOND
-		_state.value.preparationTime = PreparationTime.THIRTY_MIN
-		_state.value.isVegetarian = true
-		_state.value.isCooked = true
-		_state.value.ingredientsList = mutableListOf()
+		_state.value = AddRecipeState().also {
+			it.course = Course.SECOND
+			it.preparationTime = PreparationTime.THIRTY_MIN
+			it.isVegetarian = true
+			it.isCooked = true
+			it.ingredientsList = mutableListOf()
+		}
 	}
 
 	fun updateRecipe(onUpdate: (AddRecipeState) -> Unit) {
-		_state.update { it.also { onUpdate(it) } }
+		_state.update { it.also {
+			if (it != null) {
+				onUpdate(it)
+			}
+		} }
 	}
 
 	fun getRecipes(filters: Filters) {
@@ -46,12 +51,12 @@ class AddRecipeViewModel : ViewModel() {
 	}
 
 	fun checkRecipe(): String? {
-		return _state.value.checkRicetta()
+		return _state.value?.checkRicetta()
 	}
 
 	override fun onCleared() {
 		super.onCleared()
-		_state.value.formatRicetta()
-		_state.value.let { state -> recipeBookRepository.insertRecipe(state.toRicetta()) }
+		_state.value?.formatRicetta()
+		_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRicetta()) }
 	}
 }

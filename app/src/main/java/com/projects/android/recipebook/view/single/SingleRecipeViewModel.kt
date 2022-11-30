@@ -14,33 +14,39 @@ class SingleRecipeViewModel(ricettaID: Int) : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
-	private val _state: MutableStateFlow<SingleRecipeState> = MutableStateFlow(SingleRecipeState())
-	val state: StateFlow<SingleRecipeState>
+	private val _state: MutableStateFlow<SingleRecipeState?> = MutableStateFlow(null)
+	val state: StateFlow<SingleRecipeState?>
 		get() = _state.asStateFlow()
 
 	init {
 		viewModelScope.launch {
-			_state.value.recipe = recipeBookRepository.getSingleRecipe(ricettaID)
-
-			for (tag in _state.value.recipe!!.preparation.tags) {
-				_state.value.tagNames = mutableListOf()
-				_state.value.tagNames!!.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
+			_state.value = SingleRecipeState().also {
+				it.tagNames = mutableListOf<String>().also { tagNames ->
+					it.recipe = recipeBookRepository.getSingleRecipe(ricettaID).also { recipe ->
+						for (tag in recipe.preparation.tags) {
+							tagNames.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
+						}
+					}
+				}
 			}
-
 		}
 	}
 
 	fun updateRecipe(onUpdate: (SingleRecipeState) -> Unit) {
-		_state.update { it.also { onUpdate(it) } }
+		_state.update { it.also {
+			if (it != null) {
+				onUpdate(it)
+			}
+		} }
 	}
 
 	fun deleteRecipe() {
-		_state.value.recipe?.let { recipeBookRepository.deleteRecipe(it) }
+		_state.value?.recipe?.let { recipeBookRepository.deleteRecipe(it) }
 	}
 
 	override fun onCleared() {
 		super.onCleared()
-		_state.value.recipe?.let { recipeBookRepository.updateRecipe(it) }
+		_state.value?.recipe?.let { recipeBookRepository.updateRecipe(it) }
 	}
 }
 

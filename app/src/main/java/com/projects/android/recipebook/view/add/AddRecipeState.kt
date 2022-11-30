@@ -52,7 +52,7 @@ class AddRecipeState {
 		val tagsList = mutableListOf<String>()
 		for (span in preparationEditable!!.getSpans<TagSpan>()) {
 			preparationEditable!!.replace(preparationEditable!!.getSpanStart(span), preparationEditable!!.getSpanEnd(span), "#")
-			tagsList.add(span.id.toString())
+			tagsList.add(span.id)
 		}
 		val prepText = preparationEditable!!.trim().toString()
 		preparation = Preparation(prepText, tagsList)

@@ -55,30 +55,31 @@ class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogF
 
 		binding.apply {
 
-			ArrayAdapter(requireContext(),
-				android.R.layout.simple_list_item_1,
-				listItems.also { list -> list.addAll(viewModel.recipes.value.map { it.name }) }).also {
+			ArrayAdapter(
+				requireContext(), android.R.layout.simple_list_item_1, listItems
+			).also {
 				namesRecipesList.adapter = it
 			}
 
 			searchRecipe.doAfterTextChanged { text ->
-				val filter = Filters()
-				filter.string = text.toString()
-				viewModel.getRecipes(filter)
+				viewModel.getRecipes(Filters().also { it.string = text.toString() })
 			}
 
 			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-				listener.ready(viewModel.recipes.value[position])
+				listener.ready(viewModel.recipes.value!![position])
 				this@AddSelectRecipeTagFragment.dismiss()
 			}
 
 			viewLifecycleOwner.lifecycleScope.launch {
+				viewModel.getRecipes(Filters())
 				viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-					viewModel.recipes.collect { _ ->
-						binding.apply {
-							listItems.clear()
-							listItems.addAll(viewModel.recipes.value.map { it.name })
-							(namesRecipesList.adapter as ArrayAdapter<*>).notifyDataSetChanged()
+					viewModel.recipes.collect { recipes ->
+						recipes?.let {
+							binding.apply {
+								listItems.clear()
+								listItems.addAll(recipes.map { it.name })
+								(namesRecipesList.adapter as ArrayAdapter<*>).notifyDataSetChanged()
+							}
 						}
 					}
 				}
