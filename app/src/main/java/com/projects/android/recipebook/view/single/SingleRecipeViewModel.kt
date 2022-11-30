@@ -15,14 +15,16 @@ class SingleRecipeViewModel(ricettaID: Int) : ViewModel() {
 	private val recipeBookRepository = RecipeBookRepository.get()
 
 	private val _state: MutableStateFlow<SingleRecipeState> = MutableStateFlow(SingleRecipeState())
-	val state: StateFlow<SingleRecipeState> = _state.asStateFlow() // all'esterno una versione readonly
+	val state: StateFlow<SingleRecipeState>
+		get() = _state.asStateFlow()
 
 	init {
 		viewModelScope.launch {
 			_state.value.recipe = recipeBookRepository.getSingleRecipe(ricettaID)
 
 			for (tag in _state.value.recipe!!.preparation.tags) {
-				_state.value.tagNames.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
+				_state.value.tagNames = mutableListOf()
+				_state.value.tagNames!!.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
 			}
 
 		}

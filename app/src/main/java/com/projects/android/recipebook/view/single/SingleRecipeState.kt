@@ -4,5 +4,5 @@ import com.projects.android.recipebook.model.Recipe
 
 class SingleRecipeState {
 	var recipe: Recipe? = null
-	val tagNames = mutableListOf<String>()
+	var tagNames: MutableList<String>? = null
 }

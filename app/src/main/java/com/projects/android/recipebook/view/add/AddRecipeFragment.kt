@@ -361,40 +361,40 @@ class AddRecipeFragment : Fragment() {
 		// Colleziono lo StateFlow del ViewModel e con esso aggiorno la UI (ViewModel->UI)
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				addRecipeViewModel.state.collect { recipe ->
-					recipe?.let {
+				addRecipeViewModel.state.collect { state ->
+					state?.let {
 						binding.apply {
-							recipe.name?.let {
-								if (nameAdd.text.toString() != recipe.name) { // previene un infinite-loop con il listener
-									nameAdd.setText(recipe.name)
+							state.name?.let {
+								if (nameAdd.text.toString() != state.name) { // previene un infinite-loop con il listener
+									nameAdd.setText(state.name)
 								}
 							}
-							recipe.isVegetarian?.let {
-								isVegetarianAdd.isChecked = recipe.isVegetarian!!
+							state.isVegetarian?.let {
+								isVegetarianAdd.isChecked = state.isVegetarian!!
 							}
-							recipe.isCooked?.let {
-								isCookedAdd.isChecked = recipe.isCooked!!
+							state.isCooked?.let {
+								isCookedAdd.isChecked = state.isCooked!!
 							}
-							recipe.course?.let {
-								courseAdd.setSelection(recipe.course!!.ordinal)
+							state.course?.let {
+								courseAdd.setSelection(state.course!!.ordinal)
 							}
-							recipe.preparationTime?.let {
-								preparationTimeAdd.setSelection(recipe.preparationTime!!.ordinal)
+							state.preparationTime?.let {
+								preparationTimeAdd.setSelection(state.preparationTime!!.ordinal)
 							}
-							recipe.portions?.let {
-								if (portionsAdd.text.toString() != recipe.portions.toString()) {
-									portionsAdd.setText(recipe.portions.toString())
+							state.portions?.let {
+								if (portionsAdd.text.toString() != state.portions.toString()) {
+									portionsAdd.setText(state.portions.toString())
 								}
 							}
-							recipe.preparationEditable?.let {
-								if (preparationAdd.text != recipe.preparationEditable) {
-									preparationAdd.text = recipe.preparationEditable
+							state.preparationEditable?.let {
+								if (preparationAdd.text != state.preparationEditable) {
+									preparationAdd.text = state.preparationEditable
 								}
 							}
-							recipe.ingredientsList?.let {
+							state.ingredientsList?.let {
 								for (i in _bindingIngredientiList.indices) {
 									_bindingIngredientiList[i]!!.apply {
-										val ingrediente = recipe.ingredientsList!![i]
+										val ingrediente = state.ingredientsList!![i]
 										if (nameIngredientItemAdd.text.toString() != ingrediente.name) {
 											nameIngredientItemAdd.setText(ingrediente.name)
 										}

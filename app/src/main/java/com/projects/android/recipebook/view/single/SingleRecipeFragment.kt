@@ -89,7 +89,7 @@ class SingleRecipeFragment : Fragment() {
 
 								val preparationText: String = recipe!!.preparation.text
 								preparationSingle.setText(preparationText) // set the text with all "#"
-								for ((i, name) in tagNames.withIndex()) { // for every "#"
+								for ((i, name) in tagNames!!.withIndex()) { // for every "#"
 									val startTag = preparationText.indexOfFirst { it == "#".first() } // take the index of first "#"
 
 									val spannableText: Spannable = SpannableString(name)

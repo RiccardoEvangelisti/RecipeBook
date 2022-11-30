@@ -20,6 +20,7 @@ class AddRecipeViewModel : ViewModel() {
 	private val _state: MutableStateFlow<AddRecipeState> = MutableStateFlow(AddRecipeState())
 	val state: StateFlow<AddRecipeState?> = _state.asStateFlow()
 
+	// recipes searched for tag preparation system
 	private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
 	val recipes: StateFlow<List<Recipe>>
 		get() = _recipes.asStateFlow()
