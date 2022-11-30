@@ -1,6 +1,10 @@
 package com.projects.android.recipebook.view.single
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -18,6 +22,7 @@ import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
 import com.projects.android.recipebook.utils.PictureUtils.Companion.getScaledBitmap
+import com.projects.android.recipebook.view.add.tag.TagSpan
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -27,8 +32,8 @@ class SingleRecipeFragment : Fragment() {
 	private val args: SingleRecipeFragmentArgs by navArgs()
 
 	// VIEW MODEL
-	private val recipeSingolaViewModel: RicettaSingolaViewModel by viewModels {
-		RicettaSingolaViewModelFactory(args.recipeID)
+	private val singleRecipeViewModel: SingleRecipeViewModel by viewModels {
+		SingleRecipeViewModelFactory(args.recipeID)
 	}
 
 	// VIEW BINDING
@@ -62,40 +67,55 @@ class SingleRecipeFragment : Fragment() {
 
 		binding.apply {
 			nameSingle.doOnTextChanged { text, _, _, _ ->
-				recipeSingolaViewModel.updateRicetta { oldRicetta ->
-					oldRicetta.copy(name = text.toString())
+				singleRecipeViewModel.updateRecipe {
+					it.recipe?.name = text.toString()
 				}
 			}
 
 			preparationSingle.doOnTextChanged { text, _, _, _ ->
-				recipeSingolaViewModel.updateRicetta { it.copy(preparation = text.toString()) }
+				//recipeSingolaViewModel.updateRecipe { it.copy(preparation = text.toString()) } //TODO
 			}
 		}
 
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				recipeSingolaViewModel.recipe.collect { recipe ->
-					recipe?.let {
-						binding.apply {
-							if (nameSingle.text.toString() != recipe.name) { // previene un infinite-loop con il listener
-								nameSingle.setText(recipe.name)
-							}
-							if (preparationSingle.text.toString() != recipe.preparation) {
-								preparationSingle.setText(recipe.preparation)
-							}
-							if (photoSingle.tag != recipe.photoFileName) { // Update photo only when the name is different
-								val photoFile = recipe.photoFileName?.let {
-									File(requireContext().applicationContext.filesDir, it)
+				singleRecipeViewModel.state.collect { state ->
+					state.apply {
+						recipe?.let{
+							binding.apply {
+								if (nameSingle.text.toString() != recipe!!.name) { // previene un infinite-loop con il listener
+									nameSingle.setText(recipe!!.name)
 								}
-								if (photoFile?.exists() == true) {
-									photoSingle.doOnLayout { measuredView ->
-										val scaledBitmap = getScaledBitmap(requireContext(), photoFile.path, measuredView.width, measuredView.height)
-										photoSingle.setImageBitmap(scaledBitmap)
-										photoSingle.tag = recipe.photoFileName
+
+								val preparationText: String = recipe!!.preparation.text
+								preparationSingle.setText(preparationText) // set the text with all "#"
+								for ((i, name) in tagNames.withIndex()) { // for every "#"
+									val startTag = preparationText.indexOfFirst { it == "#".first() } // take the index of first "#"
+
+									val spannableText: Spannable = SpannableString(name)
+									spannableText.setSpan(
+										TagSpan(recipe!!.preparation.tags[i]), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+									) // create a span with id and name of tag
+									preparationSingle.movementMethod = LinkMovementMethod.getInstance()
+									preparationSingle.text.replace(startTag, startTag + 1, spannableText) // replace old "#"
+								}
+
+								if (photoSingle.tag != recipe!!.photoFileName) { // Update photo only when the name is different
+									val photoFile = recipe!!.photoFileName?.let {
+										File(requireContext().applicationContext.filesDir, it)
 									}
-								} else {
-									photoSingle.setImageBitmap(null)
-									photoSingle.tag = null
+									if (photoFile?.exists() == true) {
+										photoSingle.doOnLayout { measuredView ->
+											val scaledBitmap = getScaledBitmap(
+												requireContext(), photoFile.path, measuredView.width, measuredView.height
+											)
+											photoSingle.setImageBitmap(scaledBitmap)
+											photoSingle.tag = recipe!!.photoFileName
+										}
+									} else {
+										photoSingle.setImageBitmap(null)
+										photoSingle.tag = null
+									}
 								}
 							}
 						}
@@ -125,7 +145,7 @@ class SingleRecipeFragment : Fragment() {
 				return when (menuItem.itemId) {
 					R.id.delete_recipe -> {
 						viewLifecycleOwner.lifecycleScope.launch {
-							recipeSingolaViewModel.deleteRicetta()
+							singleRecipeViewModel.deleteRecipe()
 						}
 						findNavController().navigateUp()
 						true

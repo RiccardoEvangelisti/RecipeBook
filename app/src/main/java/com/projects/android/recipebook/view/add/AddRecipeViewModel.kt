@@ -17,8 +17,8 @@ class AddRecipeViewModel : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
-	private val _state: MutableStateFlow<AddRecipeUIState> = MutableStateFlow(AddRecipeUIState())
-	val state: StateFlow<AddRecipeUIState?> = _state.asStateFlow()
+	private val _state: MutableStateFlow<AddRecipeState> = MutableStateFlow(AddRecipeState())
+	val state: StateFlow<AddRecipeState?> = _state.asStateFlow()
 
 	private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
 	val recipes: StateFlow<List<Recipe>>
@@ -34,7 +34,7 @@ class AddRecipeViewModel : ViewModel() {
 		_state.value.ingredientsList = mutableListOf()
 	}
 
-	fun updateRecipe(onUpdate: (AddRecipeUIState) -> Unit) {
+	fun updateRecipe(onUpdate: (AddRecipeState) -> Unit) {
 		_state.update { it.also { onUpdate(it) } }
 	}
 

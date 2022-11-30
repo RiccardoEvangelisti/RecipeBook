@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<androidx.core.widget.NestedScrollView
 	xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	android:layout_width = "match_parent"
-	android:layout_height = "match_parent">
+	android:layout_height = "match_parent"
+	android:fillViewport = "true">
 
-	<EditText
-		android:id = "@+id/name_single"
-		android:layout_width = "316dp"
-		android:layout_height = "48dp"
-		android:layout_marginTop = "16dp"
-		android:importantForAutofill = "no"
-		android:inputType = "text"
-		android:text = "@string/nome_ricetta"
-		android:textColor = "@color/black"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "0.831"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toTopOf = "parent" />
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent">
 
-	<EditText
-		android:id = "@+id/preparation_single"
-		android:layout_width = "299dp"
-		android:layout_height = "48dp"
-		android:layout_marginTop = "4dp"
-		android:autoLink = "all"
-		android:importantForAutofill = "no"
-		android:inputType = "textCapSentences|textMultiLine"
-		android:minHeight = "48dp"
-		android:scrollbars = "vertical"
-		android:text = "@string/preparazione_ricetta"
-		android:textColor = "@color/black"
-		android:textColorHint = "#757575"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "0.705"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/name_single" />
+		<EditText
+			android:id = "@+id/name_single"
+			android:layout_width = "316dp"
+			android:layout_height = "48dp"
+			android:layout_marginTop = "16dp"
+			android:importantForAutofill = "no"
+			android:inputType = "text"
+			android:text = "@string/nome_ricetta"
+			android:textColor = "@color/black"
+			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.831"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent" />
 
-	<ImageView
-		android:id = "@+id/photoSingle"
-		android:layout_width = "310dp"
-		android:layout_height = "402dp"
-		android:layout_marginTop = "16dp"
-		android:background = "@color/black"
-		android:cropToPadding = "true"
-		android:scaleType = "centerInside"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+		<EditText
+			android:id = "@+id/preparation_single"
+			android:layout_width = "299dp"
+			android:layout_height = "48dp"
+			android:layout_marginTop = "4dp"
+			android:autoLink = "all"
+			android:importantForAutofill = "no"
+			android:inputType = "textCapSentences|textMultiLine"
+			android:minHeight = "48dp"
+			android:scrollbars = "vertical"
+			android:text = "@string/preparazione_ricetta"
+			android:textColor = "@color/black"
+			android:textColorHint = "#757575"
+			app:layout_constraintBottom_toTopOf = "@+id/photoSingle"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintHorizontal_bias = "0.705"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toBottomOf = "@+id/name_single" />
+
+		<ImageView
+			android:id = "@+id/photoSingle"
+			android:layout_width = "310dp"
+			android:layout_height = "402dp"
+			android:layout_marginTop = "16dp"
+			android:background = "@color/black"
+			android:cropToPadding = "true"
+			android:scaleType = "centerInside"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

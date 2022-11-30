@@ -4,41 +4,45 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.projects.android.recipebook.database.RecipeBookRepository
-import com.projects.android.recipebook.model.Recipe
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RicettaSingolaViewModel(ricettaID: Int) : ViewModel() {
+class SingleRecipeViewModel(ricettaID: Int) : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
-	private val _recipe: MutableStateFlow<Recipe?> = MutableStateFlow(null)
-	val recipe: StateFlow<Recipe?> = _recipe.asStateFlow() // all'esterno una versione readonly
+	private val _state: MutableStateFlow<SingleRecipeState> = MutableStateFlow(SingleRecipeState())
+	val state: StateFlow<SingleRecipeState> = _state.asStateFlow() // all'esterno una versione readonly
 
 	init {
 		viewModelScope.launch {
-			_recipe.value = recipeBookRepository.getSingleRecipe(ricettaID)
+			_state.value.recipe = recipeBookRepository.getSingleRecipe(ricettaID)
+
+			for (tag in _state.value.recipe!!.preparation.tags) {
+				_state.value.tagNames.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
+			}
+
 		}
 	}
 
-	fun updateRicetta(onUpdate: (Recipe) -> Recipe) {
-		_recipe.update { oldRicetta -> oldRicetta?.let { onUpdate(it) } }
+	fun updateRecipe(onUpdate: (SingleRecipeState) -> Unit) {
+		_state.update { it.also { onUpdate(it) } }
 	}
 
-	fun deleteRicetta() {
-		_recipe.value?.let { recipeBookRepository.deleteRecipe(it) }
+	fun deleteRecipe() {
+		_state.value.recipe?.let { recipeBookRepository.deleteRecipe(it) }
 	}
 
 	override fun onCleared() {
 		super.onCleared()
-		recipe.value?.let { ricetta -> recipeBookRepository.updateRecipe(ricetta) }
+		_state.value.recipe?.let { recipeBookRepository.updateRecipe(it) }
 	}
 }
 
-class RicettaSingolaViewModelFactory(private val ricettaID: Int) : ViewModelProvider.Factory {
+class SingleRecipeViewModelFactory(private val recipeID: Int) : ViewModelProvider.Factory {
 
-	override fun <T : ViewModel> create(modelClass: Class<T>): T = RicettaSingolaViewModel(ricettaID) as T
+	override fun <T : ViewModel> create(modelClass: Class<T>): T = SingleRecipeViewModel(recipeID) as T
 }

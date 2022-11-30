@@ -305,7 +305,7 @@ class AddRecipeFragment : Fragment() {
 					if (!text.isNullOrBlank()) {
 
 						addRecipeViewModel.updateRecipe {
-							it.preparation = text
+							it.preparationEditable = text
 						}
 
 						if (isDeleting) {
@@ -317,7 +317,7 @@ class AddRecipeFragment : Fragment() {
 										text.removeSpan(it[0])
 									}
 									addRecipeViewModel.updateRecipe { state ->
-										state.preparation = text
+										state.preparationEditable = text
 									}
 								}
 							}
@@ -337,7 +337,7 @@ class AddRecipeFragment : Fragment() {
 								override fun ready(recipe: Recipe) {
 									val name = "#${recipe.name}" // add "#" in span
 									val spannableText: Spannable = SpannableString(name)
-									spannableText.setSpan(TagSpan(recipe.id), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+									spannableText.setSpan(TagSpan(recipe.id.toString()), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 									preparationAdd.movementMethod = LinkMovementMethod.getInstance()
 									editText(preparationAdd) {
 										text.replace(
@@ -346,7 +346,7 @@ class AddRecipeFragment : Fragment() {
 										text.append(" ")
 									}
 									addRecipeViewModel.updateRecipe {
-										it.preparation = text
+										it.preparationEditable = text
 									}
 								}
 							}).show(childFragmentManager, AddSelectRecipeTagFragment.TAG)
@@ -386,9 +386,9 @@ class AddRecipeFragment : Fragment() {
 									portionsAdd.setText(recipe.portions.toString())
 								}
 							}
-							recipe.preparation?.let {
-								if (preparationAdd.text != recipe.preparation) {
-									preparationAdd.text = recipe.preparation
+							recipe.preparationEditable?.let {
+								if (preparationAdd.text != recipe.preparationEditable) {
+									preparationAdd.text = recipe.preparationEditable
 								}
 							}
 							recipe.ingredientsList?.let {

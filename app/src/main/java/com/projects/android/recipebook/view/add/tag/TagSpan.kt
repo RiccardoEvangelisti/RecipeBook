@@ -5,7 +5,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
 
-class TagSpan(var id: Int) : ClickableSpan() {
+class TagSpan(var id: String) : ClickableSpan() {
 
 	override fun onClick(view: View) {
 		Toast.makeText(view.context, "CHECK", Toast.LENGTH_SHORT).show() //TODO
