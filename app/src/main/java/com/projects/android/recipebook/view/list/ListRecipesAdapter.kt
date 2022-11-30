@@ -1,6 +1,8 @@
 package com.projects.android.recipebook.view.list
 
 import android.view.LayoutInflater
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.projects.android.recipebook.databinding.ItemListRecipesBinding
@@ -37,8 +39,8 @@ class RicetteListHolder(private val binding: ItemListRecipesBinding) : RecyclerV
 			nameItemList.text = recipe.name
 			courseItemList.text = recipe.course.toString()
 			preparationTimeItemList.text = recipe.preparationTime.toString()
-			isVegetarianItemList.text = if (recipe.isVegetarian) "VEG" else "ONN"
-			isCookedItemList.text = if (recipe.isCooked) "COTTO" else "CRUDO"
+			isVegetarianItemList.visibility = if (recipe.isVegetarian) VISIBLE else INVISIBLE
+			isCookedItemList.visibility = if (recipe.isCooked) VISIBLE else INVISIBLE
 		}
 	}
 }
