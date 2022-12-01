@@ -94,7 +94,9 @@ class SingleRecipeFragment : Fragment() {
 
 									val spannableText: Spannable = SpannableString("#$name")
 									spannableText.setSpan(
-										TagSpan(recipe!!.preparation.tags[i]), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+										TagSpan(recipe!!.preparation.tags[i]) {
+											findNavController().navigate(SingleRecipeFragmentDirections.selfSingleRecipeFragment(recipe!!.preparation.tags[i].toInt()))
+										}, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 									) // create a span with id and name of tag
 									preparationSingle.movementMethod = LinkMovementMethod.getInstance()
 									preparationSingle.text.replace(startTag, startTag + 1, spannableText) // replace old "#"

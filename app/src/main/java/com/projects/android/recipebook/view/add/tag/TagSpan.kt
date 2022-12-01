@@ -3,12 +3,11 @@ package com.projects.android.recipebook.view.add.tag
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.Toast
 
-class TagSpan(var id: String) : ClickableSpan() {
+class TagSpan(var id: String, var onClick: () -> Unit) : ClickableSpan() {
 
 	override fun onClick(view: View) {
-		Toast.makeText(view.context, "CHECK", Toast.LENGTH_SHORT).show() //TODO
+		onClick()
 	}
 
 	override fun updateDrawState(ds: TextPaint) {

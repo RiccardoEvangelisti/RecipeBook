@@ -337,7 +337,9 @@ class AddRecipeFragment : Fragment() {
 								override fun ready(recipe: Recipe) {
 									val name = "#${recipe.name}" // add "#" in span
 									val spannableText: Spannable = SpannableString(name)
-									spannableText.setSpan(TagSpan(recipe.id.toString()), 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+									spannableText.setSpan(TagSpan(recipe.id.toString()) {
+										findNavController().navigate(AddRecipeFragmentDirections.fromAddRecipeFragmentToSingleRecipeFragment(recipe.id))
+									}, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 									preparationAdd.movementMethod = LinkMovementMethod.getInstance()
 									editText(preparationAdd) {
 										text.replace(

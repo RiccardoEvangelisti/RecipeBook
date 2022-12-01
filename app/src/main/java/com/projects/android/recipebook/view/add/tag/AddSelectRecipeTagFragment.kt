@@ -14,7 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.projects.android.recipebook.database.Filters
-import com.projects.android.recipebook.databinding.FragmentAddSelectRecipeTagBinding
+import com.projects.android.recipebook.databinding.FragmentAddTagRecipeBinding
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.view.add.AddRecipeViewModel
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogF
 	private val viewModel: AddRecipeViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
 	// VIEW BINDING
-	private var _binding: FragmentAddSelectRecipeTagBinding? = null
+	private var _binding: FragmentAddTagRecipeBinding? = null
 	private val binding
 		get() = checkNotNull(_binding) {
 			"Cannot access binding because it is null. Is the view visible?"
@@ -46,7 +46,7 @@ class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogF
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 	): View {
-		_binding = FragmentAddSelectRecipeTagBinding.inflate(layoutInflater, container, false)
+		_binding = FragmentAddTagRecipeBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}
 

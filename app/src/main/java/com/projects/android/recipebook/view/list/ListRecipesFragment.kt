@@ -62,7 +62,7 @@ class ListRecipesFragment : Fragment() {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				listRecipesViewModel.recipes.collect { recipes ->
 					binding.ricetteRecyclerView.adapter = RicetteListAdapter(recipes) { ricettaID ->
-						findNavController().navigate(ListRecipesFragmentDirections.fromListaToDettaglio(ricettaID))
+						findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToSingleRecipeFragment(ricettaID))
 					}
 					// Separatore tra gli item
 					binding.ricetteRecyclerView.addItemDecoration(DividerItemDecoration(context, VERTICAL))
@@ -71,7 +71,7 @@ class ListRecipesFragment : Fragment() {
 		}
 
 		binding.addRecipeFAB.setOnClickListener {
-			findNavController().navigate(R.id.from_lista_to_aggiungi)
+			findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToAddRecipeFragment())
 		}
 	}
 

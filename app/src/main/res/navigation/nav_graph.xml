@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/ricetteListFragment">
+<navigation xmlns:android = "http://schemas.android.com/apk/res/android"
+            xmlns:app = "http://schemas.android.com/apk/res-auto"
+            xmlns:tools = "http://schemas.android.com/tools"
+            app:startDestination = "@id/fragmentListRecipes">
 
-    <fragment
-        android:id="@+id/ricetteListFragment"
-        android:name="com.projects.android.recipebook.view.list.ListRecipesFragment"
-        android:label="fragment_ricette_list"
-        tools:layout="@layout/fragment_list_recipes">
-        <action
-            android:id="@+id/from_lista_to_dettaglio"
-            app:destination="@id/recipeSingolaFragment" />
-        <action
-            android:id="@+id/from_lista_to_aggiungi"
-            app:destination="@id/aggiungiRicettaFragment" />
-    </fragment>
+	<fragment
+		android:id = "@+id/fragmentListRecipes"
+		android:name = "com.projects.android.recipebook.view.list.ListRecipesFragment"
+		android:label = "fragment_ricette_list"
+		tools:layout = "@layout/fragment_list_recipes">
+		<action
+			android:id = "@+id/from_ListRecipesFragment_to_singleRecipeFragment"
+			app:destination = "@id/fragmentSingleRecipe" />
+		<action
+			android:id = "@+id/from_listRecipesFragment_to_addRecipeFragment"
+			app:destination = "@id/fragmentAddRecipe" />
+	</fragment>
 
-    <fragment
-        android:id="@+id/recipeSingolaFragment"
-        android:name="com.projects.android.recipebook.view.single.SingleRecipeFragment"
-        android:label="RicettaSingolaFragment"
-        tools:layout="@layout/fragment_single_recipe">
-        <argument
-            android:name="recipeID"
-            app:argType="integer" />
-    </fragment>
+	<fragment
+		android:id = "@+id/fragmentSingleRecipe"
+		android:name = "com.projects.android.recipebook.view.single.SingleRecipeFragment"
+		android:label = "RicettaSingolaFragment"
+		tools:layout = "@layout/fragment_single_recipe">
+		<argument
+			android:name = "recipeID"
+			app:argType = "integer" />
+		<action
+			android:id = "@+id/self_singleRecipeFragment"
+			app:destination = "@id/fragmentSingleRecipe" />
+	</fragment>
 
-    <fragment
-        android:id="@+id/aggiungiRicettaFragment"
-        android:name="com.projects.android.recipebook.view.add.AddRecipeFragment"
-        android:label="fragment_aggiungi_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
+	<fragment
+		android:id = "@+id/fragmentAddRecipe"
+		android:name = "com.projects.android.recipebook.view.add.AddRecipeFragment"
+		android:label = "fragment_aggiungi_recipe"
+		tools:layout = "@layout/fragment_add_recipe" >
+		<action
+			android:id = "@+id/from_addRecipeFragment_to_singleRecipeFragment"
+			app:destination = "@id/fragmentSingleRecipe" />
+	</fragment>
 </navigation>
