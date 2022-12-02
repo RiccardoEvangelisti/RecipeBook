@@ -10,7 +10,7 @@
 		android:id = "@+id/search_recipe"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
-		android:hint = "@string/cerca"
+		android:hint = "@string/add_tag_recipe_search"
 		android:importantForAutofill = "no"
 		android:inputType = "textCapSentences"
 		app:layout_constraintBottom_toTopOf = "@id/layoutTag"

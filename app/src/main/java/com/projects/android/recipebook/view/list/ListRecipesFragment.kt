@@ -61,7 +61,7 @@ class ListRecipesFragment : Fragment() {
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				listRecipesViewModel.recipes.collect { recipes ->
-					binding.ricetteRecyclerView.adapter = RicetteListAdapter(recipes) { ricettaID ->
+					binding.ricetteRecyclerView.adapter = RicetteListAdapter(recipes, requireContext()) { ricettaID ->
 						findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToSingleRecipeFragment(ricettaID))
 					}
 					// Separatore tra gli item

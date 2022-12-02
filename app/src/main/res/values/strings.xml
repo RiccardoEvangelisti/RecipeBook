@@ -1,35 +1,45 @@
 <resources>
 	<string name = "app_name">Recipe Book</string>
-	<string name = "nome_ricetta">Nome Ricetta</string>
-	<string name = "preparazione_ricetta">Preparazione Ricetta</string>
-	<string name = "portata">Portata</string>
-	<string name = "tempo_di_preparazione">Tempo di Preparazione</string>
-	<string name = "aggiungi">Aggiungi</string>
-	<string name = "vegetariano">Vegetariano</string>
-	<string name = "serve_cottura">Serve Cottura</string>
-	<string name = "cerca_qualcosa">Cerca qualcosa…</string>
-	<string name = "cerca">Cerca</string>
-	<string name = "antipasto">Antipasto</string>
-	<string name = "primo">Primo</string>
-	<string name = "secondo">Secondo</string>
-	<string name = "contorno">Contorno</string>
-	<string name = "dolce">Dolce</string>
-	<string name = "_5_min">5 min</string>
-	<string name = "_30_min">30 min</string>
-	<string name = "_1_ora">1 ora</string>
-	<string name = "_2_ore">2 ore</string>
-	<string name = "_4_ore">4 ore</string>
-	<string name = "oltre">Oltre</string>
-	<string name = "pulsante_per_estendere_il_pannello_di_ricerca">Pulsante per estendere il pannello di ricerca</string>
-	<string name = "onnivoro">Onnivoro</string>
-	<string name = "crudo">Crudo</string>
-	<string name = "aggiungi_ingrediente">Aggiungi ingrediente</string>
-	<string name = "preparazione">Preparazione</string>
-	<string name = "quantita">Quantità</string>
-	<string name = "porzioni">Porzioni</string>
-	<string name = "not_veg">Not Veg</string>
-	<string name = "cooked">Cooked</string>
-	<string name = "raw">Raw</string>
-	<string name = "veg">Veg</string>
-	<string name = "take_picture">Take a picture</string>
+
+	<!-- Add Recipe Fragment -->
+	<string name = "add_recipe_fragment_recipe_name">Name</string>
+	<string name = "add_recipe_fragment_take_picture">Take a picture</string>
+	<string name = "add_recipe_fragment_is_cooked">Is Cooked</string>
+	<string name = "add_recipe_fragment_is_veg">Is Veg</string>
+	<string name = "add_recipe_fragment_portions">Portions</string>
+	<string name = "item_add_recipe_fragment_ingredient_quantity">Quantity</string>
+	<string name = "item_add_recipe_fragment_ingredient_name">Ingredient Name</string>
+	<string name = "add_recipe_fragment_preparation">Preparation</string>
+
+	<!-- Add Tag Recipe Fragment -->
+	<string name = "add_tag_recipe_search">Search</string>
+
+	<!-- Filters Fragment -->
+	<string name = "filters_fragment_search_something">Search Something…</string>
+	<string name = "filters_fragment_search">Search</string>
+	<string name = "filters_fragment_course_starter">Starter</string>
+	<string name = "filters_fragment_course_first">First</string>
+	<string name = "filters_fragment_course_second">Second</string>
+	<string name = "filters_fragment_course_side">Side</string>
+	<string name = "filters_fragment_course_dessert">Dessert</string>
+	<string name = "filters_fragment_preparation_time_5_min">5 min</string>
+	<string name = "filters_fragment_preparation_time_30_min">30 min</string>
+	<string name = "filters_fragment_preparation_time_1_hour">1 hour</string>
+	<string name = "filters_fragment_preparation_time_2_hours">2 hours</string>
+	<string name = "filters_fragment_preparation_time_4_hours">4 hours</string>
+	<string name = "filters_fragment_preparation_time_unlimited">Unlimited</string>
+	<string name = "filters_fragment_is_not_veg">Not Veg</string>
+	<string name = "filters_fragment_is_veg">Veg</string>
+	<string name = "filters_fragment_is_cooked">Cooked</string>
+	<string name = "filters_fragment_is_not_cooked">Not Cooked</string>
+
+	<!-- Single Recipe Fragment -->
+	<string name = "single_recipe_fragment_recipe_name">Name</string>
+	<string name = "single_recipe_fragment_recipe_preparation">Preparation</string>
+
+	<!-- List Recipe Fragment -->
+	<string name = "list_recipes_fragment_add_recipe">Add Recipe</string>
+	<string name = "list_recipes_fragment_extend_filter_panel">Extend the filter panel</string>
+	<string name = "item_list_recipes_fragment_cooked">Is or is not cooked</string>
+	<string name = "item_list_recipes_fragment_cooked_veg">Is or is not veg</string>
 </resources>

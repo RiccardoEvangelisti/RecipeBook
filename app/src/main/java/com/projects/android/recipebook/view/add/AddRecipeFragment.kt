@@ -117,8 +117,8 @@ class AddRecipeFragment : Fragment() {
 				addRecipeViewModel.updateRecipe { it.name = text.toString() }
 			}
 
-			photoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
-			photoAdd.setOnClickListener {
+			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
+			takePhotoAdd.setOnClickListener {
 				photoName = "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(Date())}.JPG"
 				val photoFile = File(requireContext().applicationContext.filesDir, photoName!!)
 				val photoUri = FileProvider.getUriForFile(requireContext(), "com.projects.android.recipebook.fileprovider", photoFile)

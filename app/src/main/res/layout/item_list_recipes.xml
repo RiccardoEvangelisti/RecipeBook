@@ -31,12 +31,12 @@
 		android:id = "@+id/name_item_list"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
-		android:text = "@string/nome_ricetta"
 		android:textSize = "20sp"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline7"
 		app:layout_constraintHorizontal_bias = "0.0"
 		app:layout_constraintStart_toStartOf = "@+id/guideline6"
-		app:layout_constraintTop_toTopOf = "@+id/guideline8" />
+		app:layout_constraintTop_toTopOf = "@+id/guideline8"
+		tools:text = "Name" />
 
 	<TextView
 		android:id = "@+id/course_item_list"
@@ -45,12 +45,12 @@
 		android:layout_marginTop = "16dp"
 		android:layout_marginEnd = "8dp"
 		android:layout_marginBottom = "16dp"
-		android:text = "@string/portata"
 		android:textSize = "16sp"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline11"
 		app:layout_constraintStart_toStartOf = "@+id/guideline6"
-		app:layout_constraintTop_toBottomOf = "@+id/name_item_list" />
+		app:layout_constraintTop_toBottomOf = "@+id/name_item_list"
+		tools:text = "Course" />
 
 	<TextView
 		android:id = "@+id/preparation_time_item_list"
@@ -58,13 +58,13 @@
 		android:layout_height = "0dp"
 		android:layout_marginStart = "8dp"
 		android:layout_marginEnd = "8dp"
-		android:text = "@string/tempo_di_preparazione"
 		android:textSize = "16sp"
 		app:layout_constraintBottom_toBottomOf = "@+id/course_item_list"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline10"
 		app:layout_constraintStart_toStartOf = "@+id/guideline11"
 		app:layout_constraintTop_toTopOf = "@+id/course_item_list"
-		app:layout_constraintVertical_bias = "0.49" />
+		app:layout_constraintVertical_bias = "0.49"
+		tools:text = "Preparation Time" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id = "@+id/guideline9"
@@ -93,11 +93,12 @@
 		android:layout_height = "40dp"
 		android:layout_marginStart = "8dp"
 		android:layout_marginEnd = "8dp"
+		android:contentDescription = "@string/item_list_recipes_fragment_cooked"
 		app:layout_constraintBottom_toBottomOf = "@+id/preparation_time_item_list"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline9"
 		app:layout_constraintStart_toStartOf = "@+id/guideline10"
 		app:layout_constraintTop_toTopOf = "@+id/preparation_time_item_list"
-		app:srcCompat = "@drawable/is_cooked" />
+		tools:srcCompat = "@drawable/is_cooked" />
 
 	<ImageView
 		android:id = "@+id/is_vegetarian_item_list"
@@ -105,10 +106,12 @@
 		android:layout_height = "40dp"
 		android:layout_marginStart = "8dp"
 		android:layout_marginEnd = "8dp"
+		android:contentDescription = "@string/item_list_recipes_fragment_cooked_veg"
 		app:layout_constraintBottom_toBottomOf = "@+id/preparation_time_item_list"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline7"
 		app:layout_constraintStart_toStartOf = "@+id/guideline9"
 		app:layout_constraintTop_toTopOf = "@+id/preparation_time_item_list"
-		app:srcCompat = "@drawable/is_veg" />
+		tools:ignore = "ImageContrastCheck"
+		tools:srcCompat = "@drawable/is_veg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,7 @@
 		android:layout_height = "wrap_content"
 		android:layout_marginEnd = "8dp"
 		android:layout_toStartOf = "@id/search_button_list"
-		android:hint = "@string/cerca_qualcosa"
+		android:hint = "@string/filters_fragment_search_something"
 		android:imeOptions = "actionSearch"
 		android:importantForAutofill = "no"
 		android:inputType = "textCapSentences"
@@ -36,7 +36,7 @@
 		android:layout_height = "wrap_content"
 		android:layout_alignParentEnd = "true"
 		android:backgroundTint = "@android:color/holo_orange_light"
-		android:text = "@string/cerca"
+		android:text = "@string/filters_fragment_search"
 		android:textAllCaps = "false"
 		android:textColor = "#424242"
 		app:layout_constraintBottom_toBottomOf = "@+id/search_text_list"
@@ -53,8 +53,8 @@
 		android:checked = "true"
 		android:paddingHorizontal = "1dp"
 		android:paddingVertical = "1dp"
-		android:textOff = "@string/antipasto"
-		android:textOn = "@string/antipasto"
+		android:textOff = "@string/filters_fragment_course_starter"
+		android:textOn = "@string/filters_fragment_course_starter"
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/first_filter"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline17"
@@ -70,8 +70,8 @@
 		android:checked = "true"
 		android:paddingHorizontal = "1dp"
 		android:paddingVertical = "1dp"
-		android:textOff = "@string/primo"
-		android:textOn = "@string/primo"
+		android:textOff = "@string/filters_fragment_course_first"
+		android:textOn = "@string/filters_fragment_course_first"
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/second_filter"
 		app:layout_constraintEnd_toEndOf = "@+id/starter_filter"
@@ -88,8 +88,8 @@
 		android:checked = "true"
 		android:paddingHorizontal = "1dp"
 		android:paddingVertical = "1dp"
-		android:textOff = "@string/secondo"
-		android:textOn = "@string/secondo"
+		android:textOff = "@string/filters_fragment_course_second"
+		android:textOn = "@string/filters_fragment_course_second"
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/side_filter"
 		app:layout_constraintEnd_toEndOf = "@+id/first_filter"
@@ -106,8 +106,8 @@
 		android:checked = "true"
 		android:paddingHorizontal = "1dp"
 		android:paddingVertical = "1dp"
-		android:textOff = "@string/contorno"
-		android:textOn = "@string/contorno"
+		android:textOff = "@string/filters_fragment_course_side"
+		android:textOn = "@string/filters_fragment_course_side"
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/dolceToggleButton"
 		app:layout_constraintEnd_toEndOf = "@+id/second_filter"
@@ -123,8 +123,8 @@
 		android:checked = "true"
 		android:paddingHorizontal = "1dp"
 		android:paddingVertical = "1dp"
-		android:textOff = "@string/dolce"
-		android:textOn = "@string/dolce"
+		android:textOff = "@string/filters_fragment_course_dessert"
+		android:textOn = "@string/filters_fragment_course_dessert"
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toEndOf = "@+id/side_filter"
@@ -151,7 +151,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/_5_min"
+			android:text = "@string/filters_fragment_preparation_time_5_min"
 			android:textAllCaps = "false" />
 
 		<RadioButton
@@ -159,7 +159,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/_30_min"
+			android:text = "@string/filters_fragment_preparation_time_30_min"
 			android:textAllCaps = "false" />
 
 		<RadioButton
@@ -167,7 +167,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/_1_ora"
+			android:text = "@string/filters_fragment_preparation_time_1_hour"
 			android:textAllCaps = "false" />
 
 		<RadioButton
@@ -175,7 +175,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/_2_ore"
+			android:text = "@string/filters_fragment_preparation_time_2_hours"
 			android:textAllCaps = "false" />
 
 		<RadioButton
@@ -183,7 +183,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/_4_ore"
+			android:text = "@string/filters_fragment_preparation_time_4_hours"
 			android:textAllCaps = "false" />
 
 		<RadioButton
@@ -191,7 +191,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:gravity = "center"
-			android:text = "@string/oltre"
+			android:text = "@string/filters_fragment_preparation_time_unlimited"
 			app:useMaterialThemeColors = "false"
 			tools:ignore = "TextContrastCheck" />
 
@@ -203,7 +203,7 @@
 		android:layout_height = "wrap_content"
 		android:checked = "true"
 		android:minHeight = "48dp"
-		android:text = "@string/veg"
+		android:text = "@string/filters_fragment_is_veg"
 		app:layout_constraintBottom_toTopOf = "@+id/nonVegetarianoSwitch"
 		app:layout_constraintEnd_toEndOf = "@+id/nonVegetarianoSwitch"
 		app:layout_constraintHorizontal_bias = "1.0"
@@ -217,7 +217,7 @@
 		android:layout_height = "wrap_content"
 		android:checked = "false"
 		android:minHeight = "48dp"
-		android:text = "@string/not_veg"
+		android:text = "@string/filters_fragment_is_not_veg"
 		app:layout_constraintBottom_toTopOf = "@+id/serveCotturaSwitch"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "@+id/guideline14"
@@ -229,7 +229,7 @@
 		android:layout_height = "wrap_content"
 		android:checked = "true"
 		android:minHeight = "48dp"
-		android:text = "@string/cooked"
+		android:text = "@string/filters_fragment_is_cooked"
 		app:layout_constraintBottom_toTopOf = "@+id/nonServeCotturaSwitch"
 		app:layout_constraintEnd_toEndOf = "@+id/nonVegetarianoSwitch"
 		app:layout_constraintStart_toStartOf = "@+id/nonVegetarianoSwitch"
@@ -242,7 +242,7 @@
 		android:layout_height = "wrap_content"
 		android:checked = "true"
 		android:minHeight = "48dp"
-		android:text = "@string/raw"
+		android:text = "@string/filters_fragment_is_not_cooked"
 		app:layout_constraintBottom_toTopOf = "@+id/divider4"
 		app:layout_constraintEnd_toEndOf = "@+id/serveCotturaSwitch"
 		app:layout_constraintStart_toStartOf = "@+id/serveCotturaSwitch"
