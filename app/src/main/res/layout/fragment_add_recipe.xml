@@ -64,7 +64,7 @@
 			app:layout_constraintGuide_begin = "79dp" />
 
 		<ToggleButton
-			android:id = "@+id/is_vegetarian_add"
+			android:id = "@+id/is_veg_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:checked = "true"
@@ -87,7 +87,7 @@
 			android:textOn = "@string/add_recipe_fragment_is_cooked"
 			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
-			app:layout_constraintStart_toEndOf = "@+id/is_vegetarian_add"
+			app:layout_constraintStart_toEndOf = "@+id/is_veg_add"
 			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
 			tools:ignore = "TextContrastCheck" />
 

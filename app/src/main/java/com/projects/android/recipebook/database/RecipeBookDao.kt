@@ -39,9 +39,9 @@ interface RecipeBookDao {
 					}
 				}
 			}
-			isVegetarian?.let {
+			isVeg?.let {
 				query += " "
-				query += "AND recipeBook.isVegetarian IS $isVegetarian"
+				query += "AND recipeBook.isVeg IS $isVeg"
 			}
 			preparationTime?.let {
 				query += " "

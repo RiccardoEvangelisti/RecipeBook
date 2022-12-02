@@ -40,8 +40,8 @@ class ListHolderRecipes(private val binding: ItemListRecipesBinding, private val
 			nameItemList.text = recipe.name
 			courseItemList.text = recipe.course.toString()
 			preparationTimeItemList.text = recipe.preparationTime.toString()
-			isVegetarianItemList.setImageDrawable(
-				AppCompatResources.getDrawable(context, if (recipe.isVegetarian) R.drawable.is_veg else R.drawable.is_not_veg)
+			isVegItemList.setImageDrawable(
+				AppCompatResources.getDrawable(context, if (recipe.isVeg) R.drawable.is_veg else R.drawable.is_not_veg)
 			)
 			isCookedItemList.setImageDrawable(
 				AppCompatResources.getDrawable(context, if (recipe.isCooked) R.drawable.is_cooked else R.drawable.is_not_cooked)

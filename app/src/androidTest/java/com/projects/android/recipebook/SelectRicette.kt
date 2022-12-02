@@ -145,9 +145,9 @@ class SelectRicette {
 			assertTrue("Test nome e course", res.isNotEmpty() && Utils.equals(recipe, res[0][0]))
 
 			filtro = Filters()
-			filtro.isVegetarian = false
+			filtro.isVeg = false
 			res = dao.getRecipes(filtro).toList()
-			assertTrue("Test isVegetarian", res.isNotEmpty() && Utils.equals(recipe, res[0][0]))
+			assertTrue("Test isVeg", res.isNotEmpty() && Utils.equals(recipe, res[0][0]))
 
 			filtro = Filters()
 			filtro.preparationTime = PreparationTime.THIRTY_MIN
@@ -162,7 +162,7 @@ class SelectRicette {
 			filtro = Filters()
 			filtro.string = "pollo"
 			filtro.courses = MutableList(1, init = { Course.SECOND })
-			filtro.isVegetarian = false
+			filtro.isVeg = false
 			filtro.preparationTime = PreparationTime.THIRTY_MIN
 			filtro.isCooked = true
 			res = dao.getRecipes(filtro).toList()

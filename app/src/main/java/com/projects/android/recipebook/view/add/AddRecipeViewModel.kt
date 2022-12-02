@@ -30,7 +30,7 @@ class AddRecipeViewModel : ViewModel() {
 		_state.value = AddRecipeState().also {
 			it.course = Course.SECOND
 			it.preparationTime = PreparationTime.THIRTY_MIN
-			it.isVegetarian = true
+			it.isVeg = true
 			it.isCooked = true
 			it.ingredientsList = mutableListOf()
 		}

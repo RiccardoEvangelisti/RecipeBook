@@ -91,7 +91,7 @@ class FiltersFragment : Fragment() {
 				}
 
 				if (!(isVegFilter.isChecked && isNotVegFilter.isChecked)) {
-					filter.isVegetarian = isVegFilter.isChecked
+					filter.isVeg = isVegFilter.isChecked
 				}
 
 				if (!(isCookedFilter.isChecked && isNotCookedFilter.isChecked)) {

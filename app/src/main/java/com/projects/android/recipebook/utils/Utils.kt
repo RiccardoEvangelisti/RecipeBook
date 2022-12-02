@@ -18,7 +18,7 @@ class Utils {
 			for (ir2 in r2.ingredientsList) {
 				if (!r1.ingredientsList.any { ir1 -> equals(ir2, ir1) }) return false
 			}
-			if (r1.isVegetarian != r2.isVegetarian) return false
+			if (r1.isVeg != r2.isVeg) return false
 			if (r1.preparationTime != r2.preparationTime) return false
 			if (r1.isCooked != r2.isCooked) return false
 			return true

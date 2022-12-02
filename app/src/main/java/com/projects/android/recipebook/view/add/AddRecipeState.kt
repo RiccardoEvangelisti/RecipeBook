@@ -17,21 +17,21 @@ class AddRecipeState {
 	var preparationEditable: Editable? = null
 	private var preparation: Preparation? = null
 	var ingredientsList: MutableList<Ingredient>? = null
-	var isVegetarian: Boolean? = null
+	var isVeg: Boolean? = null
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null
 	var photoFileName: String? = null
 
 	fun toRecipe(): Recipe {
 		return Recipe(
-			0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVegetarian!!, preparationTime!!, isCooked!!, photoFileName
+			0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVeg!!, preparationTime!!, isCooked!!, photoFileName
 		)
 	}
 
 	fun checkRecipe(): String? {
 		if (name.isNullOrBlank()) return "Enter the name"
 		if (name!!.contains("#")) return "The name cannot contain the # symbol"
-		if (isVegetarian == null) return "Specify if veg"
+		if (isVeg == null) return "Specify if veg"
 		if (isCooked == null) return "Specify if it's cooked"
 		if (portions == null) return "Enter the portions"
 		if (course == null) return "Choose the course"

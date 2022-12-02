@@ -151,7 +151,6 @@
 			android:id = "@+id/five_min_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_5_min"
 			android:textAlignment = "viewStart"
 			android:textAllCaps = "false" />
@@ -160,7 +159,6 @@
 			android:id = "@+id/thirty_min_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_30_min"
 			android:textAlignment = "viewStart"
 			android:textAllCaps = "false" />
@@ -169,7 +167,6 @@
 			android:id = "@+id/one_hour_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_1_hour"
 			android:textAlignment = "viewStart"
 			android:textAllCaps = "false" />
@@ -178,7 +175,6 @@
 			android:id = "@+id/two_hours_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_2_hours"
 			android:textAlignment = "viewStart"
 			android:textAllCaps = "false" />
@@ -187,7 +183,6 @@
 			android:id = "@+id/four_hours_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_4_hours"
 			android:textAlignment = "viewStart"
 			android:textAllCaps = "false" />
@@ -196,7 +191,6 @@
 			android:id = "@+id/unlimited_filter"
 			android:layout_width = "match_parent"
 			android:layout_height = "48dp"
-			android:gravity = "center"
 			android:text = "@string/filters_fragment_preparation_time_unlimited"
 			android:textAlignment = "viewStart"
 			app:useMaterialThemeColors = "true"

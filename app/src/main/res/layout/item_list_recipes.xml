@@ -101,7 +101,7 @@
 		tools:srcCompat = "@drawable/is_cooked" />
 
 	<ImageView
-		android:id = "@+id/is_vegetarian_item_list"
+		android:id = "@+id/is_veg_item_list"
 		android:layout_width = "0dp"
 		android:layout_height = "40dp"
 		android:layout_marginStart = "8dp"

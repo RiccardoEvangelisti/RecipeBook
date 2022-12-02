@@ -125,8 +125,8 @@ class AddRecipeFragment : Fragment() {
 				takePhoto.launch(photoUri)
 			}
 
-			isVegetarianAdd.setOnCheckedChangeListener { _, b ->
-				addRecipeViewModel.updateRecipe { it.isVegetarian = b }
+			isVegAdd.setOnCheckedChangeListener { _, b ->
+				addRecipeViewModel.updateRecipe { it.isVeg = b }
 			}
 			isCookedAdd.setOnCheckedChangeListener { _, b ->
 				addRecipeViewModel.updateRecipe { it.isCooked = b }
@@ -371,8 +371,8 @@ class AddRecipeFragment : Fragment() {
 									nameAdd.setText(state.name)
 								}
 							}
-							state.isVegetarian?.let {
-								isVegetarianAdd.isChecked = state.isVegetarian!!
+							state.isVeg?.let {
+								isVegAdd.isChecked = state.isVeg!!
 							}
 							state.isCooked?.let {
 								isCookedAdd.isChecked = state.isCooked!!

@@ -7,7 +7,7 @@
 	<fragment
 		android:id = "@+id/fragmentListRecipes"
 		android:name = "com.projects.android.recipebook.view.list.ListRecipesFragment"
-		android:label = "fragment_ricette_list"
+		android:label = "fragment_list_recipes"
 		tools:layout = "@layout/fragment_list_recipes">
 		<action
 			android:id = "@+id/from_ListRecipesFragment_to_singleRecipeFragment"
@@ -20,7 +20,7 @@
 	<fragment
 		android:id = "@+id/fragmentSingleRecipe"
 		android:name = "com.projects.android.recipebook.view.single.SingleRecipeFragment"
-		android:label = "RicettaSingolaFragment"
+		android:label = "fragment_single_recipe"
 		tools:layout = "@layout/fragment_single_recipe">
 		<argument
 			android:name = "recipeID"
@@ -33,7 +33,7 @@
 	<fragment
 		android:id = "@+id/fragmentAddRecipe"
 		android:name = "com.projects.android.recipebook.view.add.AddRecipeFragment"
-		android:label = "fragment_aggiungi_recipe"
+		android:label = "fragment_add_recipe"
 		tools:layout = "@layout/fragment_add_recipe" >
 		<action
 			android:id = "@+id/from_addRecipeFragment_to_singleRecipeFragment"

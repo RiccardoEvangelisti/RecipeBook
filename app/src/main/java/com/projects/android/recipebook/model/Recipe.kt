@@ -14,7 +14,7 @@ data class Recipe(
 	val portions: String,
 	val preparation: Preparation,
 	val ingredientsList: MutableList<Ingredient>,
-	val isVegetarian: Boolean,
+	val isVeg: Boolean,
 	val preparationTime: PreparationTime,
 	val isCooked: Boolean,
 	val photoFileName: String? = null
