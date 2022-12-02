@@ -38,7 +38,7 @@ class ListRecipesFragment : Fragment() {
 
 		// RECYCLER VIEW
 		_binding = FragmentListRecipesBinding.inflate(inflater, container, false)
-		binding.ricetteRecyclerView.layoutManager = LinearLayoutManager(context)
+		binding.recipesRecyclerViewList.layoutManager = LinearLayoutManager(context)
 		return binding.root
 	}
 
@@ -47,13 +47,13 @@ class ListRecipesFragment : Fragment() {
 
 		binding.apply {
 
-			dropFiltri.setOnClickListener {
-				if (filtersLayout.visibility == VISIBLE) {
-					filtersLayout.visibility = GONE
-					dropFiltri.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_down_24))
+			expandFiltersList.setOnClickListener {
+				if (filtersLayoutList.visibility == VISIBLE) {
+					filtersLayoutList.visibility = GONE
+					expandFiltersList.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_down_24))
 				} else {
-					filtersLayout.visibility = VISIBLE
-					dropFiltri.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_up_24))
+					filtersLayoutList.visibility = VISIBLE
+					expandFiltersList.setImageIcon(Icon.createWithResource(context, R.drawable.ic_baseline_keyboard_arrow_up_24))
 				}
 			}
 		}
@@ -61,16 +61,16 @@ class ListRecipesFragment : Fragment() {
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				listRecipesViewModel.recipes.collect { recipes ->
-					binding.ricetteRecyclerView.adapter = RicetteListAdapter(recipes, requireContext()) { ricettaID ->
-						findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToSingleRecipeFragment(ricettaID))
+					binding.recipesRecyclerViewList.adapter = ListRecipesAdapter(recipes, requireContext()) { recipeID ->
+						findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToSingleRecipeFragment(recipeID))
 					}
-					// Separatore tra gli item
-					binding.ricetteRecyclerView.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+					// Separator between items
+					binding.recipesRecyclerViewList.addItemDecoration(DividerItemDecoration(context, VERTICAL))
 				}
 			}
 		}
 
-		binding.addRecipeFAB.setOnClickListener {
+		binding.addRecipeFABList.setOnClickListener {
 			findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToAddRecipeFragment())
 		}
 	}

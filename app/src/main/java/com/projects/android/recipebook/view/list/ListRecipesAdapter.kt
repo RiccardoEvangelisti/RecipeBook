@@ -2,8 +2,6 @@ package com.projects.android.recipebook.view.list
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
@@ -11,32 +9,32 @@ import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.ItemListRecipesBinding
 import com.projects.android.recipebook.model.Recipe
 
-class RicetteListAdapter(private val ricette: List<Recipe>, private val context: Context, private val onRicettaClicked: (ricettaID: Int) -> Unit) :
-	RecyclerView.Adapter<RicetteListHolder>() {
+class ListRecipesAdapter(private val recipes: List<Recipe>, private val context: Context, private val onRecipeClicked: (recipeID: Int) -> Unit) :
+	RecyclerView.Adapter<ListHolderRecipes>() {
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RicetteListHolder {
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolderRecipes {
 		val inflater = LayoutInflater.from(parent.context)
 		val binding = ItemListRecipesBinding.inflate(inflater, parent, false)
-		return RicetteListHolder(binding, context)
+		return ListHolderRecipes(binding, context)
 	}
 
-	override fun onBindViewHolder(holder: RicetteListHolder, position: Int) {
-		val ricetta = ricette[position]
-		holder.bind(ricetta, onRicettaClicked)
+	override fun onBindViewHolder(holder: ListHolderRecipes, position: Int) {
+		val recipe = recipes[position]
+		holder.bind(recipe, onRecipeClicked)
 	}
 
 	override fun getItemCount(): Int {
-		return ricette.size
+		return recipes.size
 	}
 }
 
-class RicetteListHolder(private val binding: ItemListRecipesBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+class ListHolderRecipes(private val binding: ItemListRecipesBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
-	fun bind(recipe: Recipe, onRicettaClicked: (ricettaID: Int) -> Unit) {
+	fun bind(recipe: Recipe, onRecipeClicked: (recipeID: Int) -> Unit) {
 
 		binding.apply {
 			root.setOnClickListener {
-				onRicettaClicked(recipe.id)
+				onRecipeClicked(recipe.id)
 			}
 
 			nameItemList.text = recipe.name

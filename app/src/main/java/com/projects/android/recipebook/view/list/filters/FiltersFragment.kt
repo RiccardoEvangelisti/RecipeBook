@@ -39,66 +39,66 @@ class FiltersFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		binding.apply {
-			searchTextList.setOnEditorActionListener { _, actionId, _ ->
+			stringFilter.setOnEditorActionListener { _, actionId, _ ->
 				return@setOnEditorActionListener when (actionId) {
 					EditorInfo.IME_ACTION_SEARCH -> {
-						searchButtonList.performClick()
+						searchButtonFilter.performClick()
 						true
 					}
 					else -> false
 				}
 			}
 
-			searchButtonList.setOnClickListener {
-				val filtro = Filters()
+			searchButtonFilter.setOnClickListener {
+				val filter = Filters()
 
-				if (!searchTextList.text.isNullOrBlank()) {
-					filtro.string = searchTextList.text.toString()
+				if (!stringFilter.text.isNullOrBlank()) {
+					filter.string = stringFilter.text.toString()
 				}
 
-				filtro.courses = mutableListOf()
-				if (!starterFilter.isChecked && !firstFilter.isChecked && !secondFilter.isChecked && !sideFilter.isChecked && !dolceToggleButton.isChecked) {
+				filter.courses = mutableListOf()
+				if (!starterFilter.isChecked && !firstFilter.isChecked && !secondFilter.isChecked && !sideFilter.isChecked && !dessertFilter.isChecked) {
 					starterFilter.toggle()
 					firstFilter.toggle()
 					secondFilter.toggle()
 					sideFilter.toggle()
-					dolceToggleButton.toggle()
+					dessertFilter.toggle()
 				}
 				if (starterFilter.isChecked) {
-					filtro.courses?.add(Course.STARTER)
+					filter.courses?.add(Course.STARTER)
 				}
 				if (firstFilter.isChecked) {
-					filtro.courses?.add(Course.FIRST)
+					filter.courses?.add(Course.FIRST)
 				}
 				if (secondFilter.isChecked) {
-					filtro.courses?.add(Course.SECOND)
+					filter.courses?.add(Course.SECOND)
 				}
 				if (sideFilter.isChecked) {
-					filtro.courses?.add(Course.SIDE)
+					filter.courses?.add(Course.SIDE)
 				}
-				if (dolceToggleButton.isChecked) {
-					filtro.courses?.add(Course.DESSERT)
+				if (dessertFilter.isChecked) {
+					filter.courses?.add(Course.DESSERT)
 				}
 
-				filtro.preparationTime = when (tempoPrepRadioGroup.checkedRadioButtonId) {
-					R.id.cinqueMinRadioButton -> PreparationTime.FIVE_MIN
-					R.id.trentaMinRadioButton -> PreparationTime.THIRTY_MIN
-					R.id.unaOraRadioButton -> PreparationTime.ONE_HOUR
-					R.id.dueOreRadioButton -> PreparationTime.TWO_HOURS
-					R.id.quattroOreRadioButton -> PreparationTime.FOUR_HOURS
-					R.id.oltreRadioButton -> PreparationTime.UNLIMITED
+				filter.preparationTime = when (preparationTimeFilter.checkedRadioButtonId) {
+					R.id.five_min_filter -> PreparationTime.FIVE_MIN
+					R.id.thirty_min_filter -> PreparationTime.THIRTY_MIN
+					R.id.one_hour_filter -> PreparationTime.ONE_HOUR
+					R.id.two_hours_filter -> PreparationTime.TWO_HOURS
+					R.id.four_hours_filter -> PreparationTime.FOUR_HOURS
+					R.id.unlimited_filter -> PreparationTime.UNLIMITED
 					else -> null
 				}
 
-				if (!(vegetarianoSwitch.isChecked && nonVegetarianoSwitch.isChecked)) {
-					filtro.isVegetarian = vegetarianoSwitch.isChecked
+				if (!(isVegFilter.isChecked && isNotVegFilter.isChecked)) {
+					filter.isVegetarian = isVegFilter.isChecked
 				}
 
-				if (!(serveCotturaSwitch.isChecked && nonServeCotturaSwitch.isChecked)) {
-					filtro.isCooked = serveCotturaSwitch.isChecked
+				if (!(isCookedFilter.isChecked && isNotCookedFilter.isChecked)) {
+					filter.isCooked = isCookedFilter.isChecked
 				}
 
-				listRecipesViewModel.getRicette(filtro)
+				listRecipesViewModel.getRecipes(filter)
 
 				activity?.currentFocus?.let { view ->
 					val imm = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -106,27 +106,25 @@ class FiltersFragment : Fragment() {
 				}
 			}
 
-			vegetarianoSwitch.setOnClickListener {
-				// se ho spento vegetarianoSwitch ed è già spento nonVegetarianoSwitch
-				if (!vegetarianoSwitch.isChecked && !nonVegetarianoSwitch.isChecked) {
-					nonVegetarianoSwitch.isChecked = true
+			isVegFilter.setOnClickListener {
+				if (!isVegFilter.isChecked && !isNotVegFilter.isChecked) {
+					isNotVegFilter.isChecked = true
 				}
 			}
-			nonVegetarianoSwitch.setOnClickListener {
-				// se ho spento nonVegetarianoSwitch ed è già spento vegetarianoSwitch
-				if (!nonVegetarianoSwitch.isChecked && !vegetarianoSwitch.isChecked) {
-					vegetarianoSwitch.isChecked = true
+			isNotVegFilter.setOnClickListener {
+				if (!isNotVegFilter.isChecked && !isVegFilter.isChecked) {
+					isVegFilter.isChecked = true
 				}
 			}
 
-			serveCotturaSwitch.setOnClickListener {
-				if (!serveCotturaSwitch.isChecked && !nonServeCotturaSwitch.isChecked) {
-					nonServeCotturaSwitch.isChecked = true
+			isCookedFilter.setOnClickListener {
+				if (!isCookedFilter.isChecked && !isNotCookedFilter.isChecked) {
+					isNotCookedFilter.isChecked = true
 				}
 			}
-			nonServeCotturaSwitch.setOnClickListener {
-				if (!nonServeCotturaSwitch.isChecked && !serveCotturaSwitch.isChecked) {
-					serveCotturaSwitch.isChecked = true
+			isNotCookedFilter.setOnClickListener {
+				if (!isNotCookedFilter.isChecked && !isCookedFilter.isChecked) {
+					isCookedFilter.isChecked = true
 				}
 			}
 		}

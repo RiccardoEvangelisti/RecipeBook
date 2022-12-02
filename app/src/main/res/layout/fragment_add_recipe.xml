@@ -13,14 +13,14 @@
 		android:layout_height = "wrap_content">
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline1"
+			android:id = "@+id/guideline1_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
 			app:layout_constraintGuide_begin = "20dp" />
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline2"
+			android:id = "@+id/guideline2_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
@@ -38,10 +38,10 @@
 			android:singleLine = "true"
 			android:textColor = "@color/black"
 			android:textColorHint = "#757575"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline15"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline3_add"
 			app:layout_constraintEnd_toStartOf = "@+id/take_photo_add"
 			app:layout_constraintHorizontal_bias = "0.494"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toTopOf = "parent" />
 
 		<ImageButton
@@ -52,12 +52,12 @@
 			android:minHeight = "48dp"
 			android:src = "@drawable/ic_baseline_photo_camera_24"
 			app:layout_constraintBottom_toBottomOf = "@+id/name_add"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/name_add"
 			app:layout_constraintTop_toTopOf = "@+id/name_add" />
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline15"
+			android:id = "@+id/guideline3_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
@@ -71,10 +71,10 @@
 			android:minHeight = "48dp"
 			android:textOff = "@string/add_recipe_fragment_is_veg"
 			android:textOn = "@string/add_recipe_fragment_is_veg"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline3"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
 			app:layout_constraintEnd_toStartOf = "@+id/is_cooked_add"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
-			app:layout_constraintTop_toTopOf = "@+id/guideline15"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
+			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
 			tools:ignore = "TextContrastCheck" />
 
 		<ToggleButton
@@ -85,14 +85,14 @@
 			android:minHeight = "48dp"
 			android:textOff = "@string/add_recipe_fragment_is_cooked"
 			android:textOn = "@string/add_recipe_fragment_is_cooked"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline3"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/is_vegetarian_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline15"
+			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
 			tools:ignore = "TextContrastCheck" />
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline3"
+			android:id = "@+id/guideline4_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
@@ -106,7 +106,7 @@
 			android:minHeight = "48dp"
 			app:layout_constraintBottom_toBottomOf = "@+id/preparation_time_add"
 			app:layout_constraintEnd_toStartOf = "@+id/preparation_time_add"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toTopOf = "@+id/preparation_time_add"
 			tools:ignore = "SpeakableTextPresentCheck" />
 
@@ -135,14 +135,14 @@
 			android:textAllCaps = "false"
 			android:textColorHint = "#757575"
 			android:textSize = "18sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline4"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline5_add"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/preparation_time_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline3"
+			app:layout_constraintTop_toTopOf = "@+id/guideline4_add"
 			tools:ignore = "SpeakableTextPresentCheck" />
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline4"
+			android:id = "@+id/guideline5_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
@@ -175,7 +175,7 @@
 			android:textColorHint = "#757575"
 			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_add"
 			app:layout_constraintEnd_toStartOf = "@+id/unit_ingredient_add"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_add" />
 
 		<EditText
@@ -189,13 +189,13 @@
 			android:minHeight = "48dp"
 			android:singleLine = "true"
 			android:textColorHint = "#757575"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline5"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline6_add"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/unit_ingredient_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline4" />
+			app:layout_constraintTop_toTopOf = "@+id/guideline5_add" />
 
 		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline5"
+			android:id = "@+id/guideline6_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
@@ -207,17 +207,17 @@
 			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
-			app:layout_constraintTop_toTopOf = "@+id/guideline5"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
+			app:layout_constraintTop_toTopOf = "@+id/guideline6_add"
 			app:layout_constraintVertical_bias = "0.0" />
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toBottomOf = "@+id/ingredients_container_add"
 			app:layout_constraintVertical_bias = "0.0">
 

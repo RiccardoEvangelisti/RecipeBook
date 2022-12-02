@@ -22,30 +22,30 @@ class AddRecipeState {
 	var isCooked: Boolean? = null
 	var photoFileName: String? = null
 
-	fun toRicetta(): Recipe {
+	fun toRecipe(): Recipe {
 		return Recipe(
 			0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVegetarian!!, preparationTime!!, isCooked!!, photoFileName
 		)
 	}
 
-	fun checkRicetta(): String? {
-		if (name.isNullOrBlank()) return "Inserire un nome"
-		if (name!!.contains("#")) return "Non può contenere il simbolo #"
-		if (isVegetarian == null) return "Specificare se vegetariana"
-		if (isCooked == null) return "Specificare se serve cottura"
-		if (portions == null) return "Inserire le porzioni"
-		if (course == null) return "Inserire una course"
-		if (preparationTime == null) return "Inserire un tempo di preparazione"
-		if (ingredientsList == null || ingredientsList!!.isEmpty()) return "Inserire almeno un ingrediente"
-		for (ingrediente in ingredientsList!!) {
-			if (ingrediente.name.isBlank()) return "Inserire il nome a tutti gli ingredienti"
-			if (ingrediente.quantity.isBlank() && ingrediente.unitOfMeasure != UnitOfMeasure.TOTASTE) return "Inserire una quantità a tutti gli ingredienti"
+	fun checkRecipe(): String? {
+		if (name.isNullOrBlank()) return "Enter the name"
+		if (name!!.contains("#")) return "The name cannot contain the # symbol"
+		if (isVegetarian == null) return "Specify if veg"
+		if (isCooked == null) return "Specify if it's cooked"
+		if (portions == null) return "Enter the portions"
+		if (course == null) return "Choose the course"
+		if (preparationTime == null) return "Enter a preparation time"
+		if (ingredientsList == null || ingredientsList!!.isEmpty()) return "Insert al least one ingredient"
+		for (ingredient in ingredientsList!!) {
+			if (ingredient.name.isBlank()) return "Enter the name of all ingredients"
+			if (ingredient.quantity.isBlank() && ingredient.unitOfMeasure != UnitOfMeasure.TO_TASTE) return "Enter the quantity of all ingredients"
 		}
-		if (preparationEditable.isNullOrBlank()) return "Inserire una preparazione"
+		if (preparationEditable.isNullOrBlank()) return "Enter the preparation"
 		return null
 	}
 
-	fun formatRicetta() {
+	fun formatRecipe() {
 		name = name!!.trim()
 
 		// search for every span, replace it with "#" and save the tag id into the preparation.tags array
@@ -57,8 +57,8 @@ class AddRecipeState {
 		val prepText = preparationEditable!!.trim().toString()
 		preparation = Preparation(prepText, tagsList)
 
-		for (ingrediente in ingredientsList!!) {
-			ingrediente.name = ingrediente.name.trim()
+		for (ingredient in ingredientsList!!) {
+			ingredient.name = ingredient.name.trim()
 		}
 	}
 }

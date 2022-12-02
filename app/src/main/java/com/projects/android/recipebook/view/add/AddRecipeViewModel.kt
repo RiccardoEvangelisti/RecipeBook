@@ -51,12 +51,12 @@ class AddRecipeViewModel : ViewModel() {
 	}
 
 	fun checkRecipe(): String? {
-		return _state.value?.checkRicetta()
+		return _state.value?.checkRecipe()
 	}
 
 	override fun onCleared() {
 		super.onCleared()
-		_state.value?.formatRicetta()
-		_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRicetta()) }
+		_state.value?.formatRecipe()
+		_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
 	}
 }

@@ -10,7 +10,7 @@ enum class UnitOfMeasure(value: String) {
 	MILLILITERS("ml"),
 
 	@SerializedName("2")
-	TOTASTE("T.T.");
+	TO_TASTE("T.T.");
 
 	private val valueString: String = value
 

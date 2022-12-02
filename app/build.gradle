@@ -22,7 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // Per aggiungere l'export scheme di Room
+        // Roo export scheme
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
@@ -46,7 +46,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    // Abilitazione del ViewBinding
+    // ViewBinding
     buildFeatures {
         viewBinding true
     }

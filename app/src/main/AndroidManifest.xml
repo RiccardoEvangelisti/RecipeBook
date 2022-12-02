@@ -15,7 +15,7 @@
 		android:label = "@string/app_name"
 		android:roundIcon = "@mipmap/ic_launcher_round"
 		android:supportsRtl = "true"
-		android:theme = "@style/Theme.Ricettario">
+		android:theme = "@style/Theme.RecipeBook">
 		<activity
 			android:name = "com.projects.android.recipebook.MainActivity"
 			android:exported = "true">

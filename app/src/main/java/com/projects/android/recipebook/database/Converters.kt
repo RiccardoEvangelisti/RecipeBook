@@ -26,8 +26,8 @@ class Converters {
 	}
 
 	@TypeConverter
-	fun toPreparationTime(tempoPreparazione: Int): PreparationTime {
-		return enumValues<PreparationTime>()[tempoPreparazione]
+	fun toPreparationTime(preparationTime: Int): PreparationTime {
+		return enumValues<PreparationTime>()[preparationTime]
 	}
 
 	@TypeConverter
@@ -38,10 +38,10 @@ class Converters {
 	}
 
 	@TypeConverter
-	fun toIngredientsList(ingredientiList: String): List<Ingredient> {
+	fun toIngredientsList(ingredientsList: String): List<Ingredient> {
 		val gson = Gson()
 		val type = object : TypeToken<List<Ingredient>>() {}.type
-		return gson.fromJson(ingredientiList, type)
+		return gson.fromJson(ingredientsList, type)
 	}
 
 	@TypeConverter

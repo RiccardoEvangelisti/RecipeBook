@@ -5,14 +5,17 @@
 	android:layout_width = "wrap_content"
 	android:layout_height = "wrap_content">
 
-
 	<EditText
-		android:id = "@+id/search_recipe"
+		android:id = "@+id/string_add_tag"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
+		android:layout_marginStart = "8dp"
+		android:layout_marginTop = "8dp"
+		android:layout_marginEnd = "8dp"
 		android:hint = "@string/add_tag_recipe_search"
 		android:importantForAutofill = "no"
 		android:inputType = "textCapSentences"
+		android:minHeight = "48dp"
 		app:layout_constraintBottom_toTopOf = "@id/layoutTag"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"
@@ -22,14 +25,17 @@
 		android:id = "@+id/layoutTag"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
+		android:layout_marginStart = "8dp"
+		android:layout_marginEnd = "8dp"
+		android:layout_marginBottom = "8dp"
 		android:orientation = "horizontal"
 		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toBottomOf = "@+id/search_recipe">
+		app:layout_constraintEnd_toEndOf = "@+id/string_add_tag"
+		app:layout_constraintStart_toStartOf = "@+id/string_add_tag"
+		app:layout_constraintTop_toBottomOf = "@+id/string_add_tag">
 
 		<ListView
-			android:id = "@+id/names_recipes_list"
+			android:id = "@+id/names_recipes_list_add_tag"
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent" />
 	</LinearLayout>

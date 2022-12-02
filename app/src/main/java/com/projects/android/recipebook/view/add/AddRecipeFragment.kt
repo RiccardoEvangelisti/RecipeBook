@@ -57,7 +57,7 @@ class AddRecipeFragment : Fragment() {
 			"Cannot access binding because it is null. Is the view visible?"
 		}
 
-	private var _bindingIngredientiList = mutableListOf<ItemAddIngredientBinding?>()
+	private var _bindingIngredientsList = mutableListOf<ItemAddIngredientBinding?>()
 
 	// Variables for taking photos
 	private var photoName: String? = null
@@ -78,32 +78,32 @@ class AddRecipeFragment : Fragment() {
 
 		binding.apply {
 
-			// Condizioni per navigateUp e quindi salvataggio della recipe
+			// Conditions for navigateUp
 			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
 				val check = addRecipeViewModel.checkRecipe()
 				if (!check.isNullOrBlank()) {
-					Toast.makeText(context, "ERRORE: $check", Toast.LENGTH_SHORT).show()
+					Toast.makeText(context, "ERROR: $check", Toast.LENGTH_SHORT).show()
 				} else {
 					findNavController().navigateUp()
 				}
 			}
 
 			requireContext().let {
-				// Inizializzazione spinner Course
+				// Initialization spinner Course
 				ArrayAdapter(
 					it, android.R.layout.simple_spinner_item, Course.values()
 				).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 					courseAdd.adapter = adapter
 				}
-				// Inizializzazione spinner PreparationTime
+				// Initialization spinner PreparationTime
 				ArrayAdapter(
 					it, android.R.layout.simple_spinner_item, PreparationTime.values()
 				).also { adapter ->
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 					preparationTimeAdd.adapter = adapter
 				}
-				// Inizializzazione spinner UnitaIngrediente
+				// Initialization spinner UnitOfMeasure
 				ArrayAdapter(
 					it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
 				).also { adapter ->
@@ -112,7 +112,7 @@ class AddRecipeFragment : Fragment() {
 				}
 			}
 
-			// Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
+			// Listeners UI->ViewModel (apply the changes to ViewModel when change the data on UI)
 			nameAdd.doOnTextChanged { text, _, _, _ ->
 				addRecipeViewModel.updateRecipe { it.name = text.toString() }
 			}
@@ -171,8 +171,8 @@ class AddRecipeFragment : Fragment() {
 				override fun onItemSelected(
 					parent: AdapterView<*>?, view: View, position: Int, id: Long
 				) {
-					// Gestione UnitOfMeasure.QUANTOBASTA
-					if (position == UnitOfMeasure.TOTASTE.ordinal) {
+					// Manage UnitOfMeasure.TO_TASTE
+					if (position == UnitOfMeasure.TO_TASTE.ordinal) {
 						quantityIngredientAdd.setText("")
 						quantityIngredientAdd.visibility = GONE
 					} else {
@@ -187,13 +187,13 @@ class AddRecipeFragment : Fragment() {
 			nameIngredientAdd.setOnEditorActionListener { _, actionId, _ ->
 				return@setOnEditorActionListener when (actionId) {
 					EditorInfo.IME_ACTION_DONE -> {
-						// Se nameIngredientAdd e' consistente e (quantityIngredientAdd e' consistente oppure unitaIngrediente==QUANTOBASTA)
-						if ((!quantityIngredientAdd.text.isNullOrBlank() || unitIngredientAdd.selectedItemPosition == UnitOfMeasure.TOTASTE.ordinal) && !nameIngredientAdd.text.isNullOrBlank()) {
-							// Si genera il binding
-							val bindingIngredienti = ItemAddIngredientBinding.inflate(layoutInflater)
-							_bindingIngredientiList.add(bindingIngredienti)
-							bindingIngredienti.apply {
-								// Inizializzione spinner UnitOfMeasure
+						// If nameIngredientAdd is present and (quantityIngredientAdd is present or unitIngredientAdd==TO_TASTE)
+						if ((!quantityIngredientAdd.text.isNullOrBlank() || unitIngredientAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) && !nameIngredientAdd.text.isNullOrBlank()) {
+							// Create the binding
+							val bindingIngredients = ItemAddIngredientBinding.inflate(layoutInflater)
+							_bindingIngredientsList.add(bindingIngredients)
+							bindingIngredients.apply {
+								// Initialization spinner UnitOfMeasure
 								requireContext().let {
 									ArrayAdapter(
 										it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
@@ -203,10 +203,10 @@ class AddRecipeFragment : Fragment() {
 									}
 								}
 
-								// Riempimento UI nuovo ingrediente
+								// Filling UI with new ingredient
 								quantityIngredientItemAdd.text = quantityIngredientAdd.text
 								unitIngredientItemAdd.setSelection(unitIngredientAdd.selectedItemPosition)
-								if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TOTASTE.ordinal) {
+								if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) {
 									quantityIngredientItemAdd.visibility = GONE
 								}
 								nameIngredientItemAdd.text = nameIngredientAdd.text
@@ -217,11 +217,11 @@ class AddRecipeFragment : Fragment() {
 								unitIngredientAdd.visibility = VISIBLE
 								nameIngredientAdd.text.clear()
 
-								// Si aggiunge la view al linearLayout
+								// Add the view to linearLayout
 								ingredientsContainerAdd.addView(root)
 
-								addRecipeViewModel.updateRecipe { stato ->
-									stato.ingredientsList = stato.ingredientsList.also { list ->
+								addRecipeViewModel.updateRecipe { state ->
+									state.ingredientsList = state.ingredientsList.also { list ->
 										list!!.add(
 											Ingredient(
 												nameIngredientItemAdd.text.toString(),
@@ -232,7 +232,7 @@ class AddRecipeFragment : Fragment() {
 									}
 								}
 
-								// Listeners UI->ViewModel (applicano la modifica al ViewModel al cambiamento del dato sulla UI)
+								// Listeners UI->ViewModel
 								quantityIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
 									addRecipeViewModel.updateRecipe { state ->
 										state.ingredientsList = state.ingredientsList.also { list ->
@@ -245,14 +245,14 @@ class AddRecipeFragment : Fragment() {
 									override fun onItemSelected(
 										parent: AdapterView<*>?, view: View, position: Int, id: Long
 									) {
-										if (position == UnitOfMeasure.TOTASTE.ordinal) {
+										if (position == UnitOfMeasure.TO_TASTE.ordinal) {
 											quantityIngredientItemAdd.setText("")
 											quantityIngredientItemAdd.visibility = INVISIBLE
 										} else {
 											quantityIngredientItemAdd.visibility = VISIBLE
 										}
-										addRecipeViewModel.updateRecipe { stato ->
-											stato.ingredientsList = stato.ingredientsList.also { list ->
+										addRecipeViewModel.updateRecipe { state ->
+											state.ingredientsList = state.ingredientsList.also { list ->
 												list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
 											}
 										}
@@ -262,16 +262,16 @@ class AddRecipeFragment : Fragment() {
 								}
 
 								nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-									addRecipeViewModel.updateRecipe { stato ->
-										stato.ingredientsList = stato.ingredientsList.also { list ->
+									addRecipeViewModel.updateRecipe { state ->
+										state.ingredientsList = state.ingredientsList.also { list ->
 											list!![ingredientsContainerAdd.indexOfChild(root)].name = text.toString()
 										}
 									}
 								}
 
 								deleteIngredientItemAdd.setOnClickListener {
-									addRecipeViewModel.updateRecipe { stato ->
-										stato.ingredientsList = stato.ingredientsList.also { list ->
+									addRecipeViewModel.updateRecipe { state ->
+										state.ingredientsList = state.ingredientsList.also { list ->
 											list!!.removeAt(
 												ingredientsContainerAdd.indexOfChild(
 													root
@@ -344,7 +344,7 @@ class AddRecipeFragment : Fragment() {
 									editText(preparationAdd) {
 										text.replace(
 											preparationAdd.selectionStart - 1, preparationAdd.selectionStart, spannableText
-										) // replacing the digitated "#"
+										) // replacing the inserted "#"
 										text.append(" ")
 									}
 									addRecipeViewModel.updateRecipe {
@@ -360,14 +360,14 @@ class AddRecipeFragment : Fragment() {
 			preparationAdd.addTextChangedListener(textWatcherPreparationAdd)
 		}
 
-		// Colleziono lo StateFlow del ViewModel e con esso aggiorno la UI (ViewModel->UI)
+		// ViewModel->UI (Collect the ViewModel StateFlow and with it update the UI)
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				addRecipeViewModel.state.collect { state ->
 					state?.let {
 						binding.apply {
 							state.name?.let {
-								if (nameAdd.text.toString() != state.name) { // previene un infinite-loop con il listener
+								if (nameAdd.text.toString() != state.name) { // it prevents an infinite-loop with the listener
 									nameAdd.setText(state.name)
 								}
 							}
@@ -394,17 +394,17 @@ class AddRecipeFragment : Fragment() {
 								}
 							}
 							state.ingredientsList?.let {
-								for (i in _bindingIngredientiList.indices) {
-									_bindingIngredientiList[i]!!.apply {
-										val ingrediente = state.ingredientsList!![i]
-										if (nameIngredientItemAdd.text.toString() != ingrediente.name) {
-											nameIngredientItemAdd.setText(ingrediente.name)
+								for (i in _bindingIngredientsList.indices) {
+									_bindingIngredientsList[i]!!.apply {
+										val ingredient = state.ingredientsList!![i]
+										if (nameIngredientItemAdd.text.toString() != ingredient.name) {
+											nameIngredientItemAdd.setText(ingredient.name)
 										}
-										if (quantityIngredientItemAdd.text.toString() != ingrediente.quantity) {
-											quantityIngredientItemAdd.setText(ingrediente.quantity)
+										if (quantityIngredientItemAdd.text.toString() != ingredient.quantity) {
+											quantityIngredientItemAdd.setText(ingredient.quantity)
 										}
-										if (unitIngredientItemAdd.selectedItemPosition != ingrediente.unitOfMeasure.ordinal) {
-											unitIngredientItemAdd.setSelection(ingrediente.unitOfMeasure.ordinal)
+										if (unitIngredientItemAdd.selectedItemPosition != ingredient.unitOfMeasure.ordinal) {
+											unitIngredientItemAdd.setSelection(ingredient.unitOfMeasure.ordinal)
 										}
 									}
 								}
@@ -419,8 +419,8 @@ class AddRecipeFragment : Fragment() {
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
-		for (i in _bindingIngredientiList.indices) {
-			_bindingIngredientiList[i] = null
+		for (i in _bindingIngredientsList.indices) {
+			_bindingIngredientsList[i] = null
 		}
 	}
 

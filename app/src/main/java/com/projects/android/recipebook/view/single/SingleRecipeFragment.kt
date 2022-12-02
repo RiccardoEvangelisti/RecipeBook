@@ -61,7 +61,7 @@ class SingleRecipeFragment : Fragment() {
 			if (binding.nameSingle.text.isNotBlank()) {
 				findNavController().navigateUp()
 			} else {
-				Toast.makeText(context, "ERRORE: Inserire un Nome Recipe", Toast.LENGTH_SHORT).show()
+				Toast.makeText(context, "ERROR: Enter the name", Toast.LENGTH_SHORT).show()
 			}
 		}
 
@@ -73,7 +73,7 @@ class SingleRecipeFragment : Fragment() {
 			}
 
 			preparationSingle.doOnTextChanged { _, _, _, _ ->
-				//recipeSingolaViewModel.updateRecipe { it.copy(preparation = text.toString()) } //TODO
+				 //TODO
 			}
 		}
 
@@ -83,7 +83,7 @@ class SingleRecipeFragment : Fragment() {
 					state?.apply {
 						recipe?.let {
 							binding.apply {
-								if (nameSingle.text.toString() != recipe!!.name) { // previene un infinite-loop con il listener
+								if (nameSingle.text.toString() != recipe!!.name) {
 									nameSingle.setText(recipe!!.name)
 								}
 

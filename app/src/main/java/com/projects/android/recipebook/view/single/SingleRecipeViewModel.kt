@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SingleRecipeViewModel(ricettaID: Int) : ViewModel() {
+class SingleRecipeViewModel(recipeID: Int) : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
@@ -22,7 +22,7 @@ class SingleRecipeViewModel(ricettaID: Int) : ViewModel() {
 		viewModelScope.launch {
 			_state.value = SingleRecipeState().also {
 				it.tagNames = mutableListOf<String>().also { tagNames ->
-					it.recipe = recipeBookRepository.getSingleRecipe(ricettaID).also { recipe ->
+					it.recipe = recipeBookRepository.getSingleRecipe(recipeID).also { recipe ->
 						for (tag in recipe.preparation.tags) {
 							tagNames.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
 						}

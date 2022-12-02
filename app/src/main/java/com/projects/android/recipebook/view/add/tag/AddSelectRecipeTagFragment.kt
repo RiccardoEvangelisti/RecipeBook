@@ -58,14 +58,14 @@ class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogF
 			ArrayAdapter(
 				requireContext(), android.R.layout.simple_list_item_1, listItems
 			).also {
-				namesRecipesList.adapter = it
+				namesRecipesListAddTag.adapter = it
 			}
 
-			searchRecipe.doAfterTextChanged { text ->
+			stringAddTag.doAfterTextChanged { text ->
 				viewModel.getRecipes(Filters().also { it.string = text.toString() })
 			}
 
-			namesRecipesList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+			namesRecipesListAddTag.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
 				listener.ready(viewModel.recipes.value!![position])
 				this@AddSelectRecipeTagFragment.dismiss()
 			}
@@ -78,7 +78,7 @@ class AddSelectRecipeTagFragment(private var listener: DialogListener) : DialogF
 							binding.apply {
 								listItems.clear()
 								listItems.addAll(recipes.map { it.name })
-								(namesRecipesList.adapter as ArrayAdapter<*>).notifyDataSetChanged()
+								(namesRecipesListAddTag.adapter as ArrayAdapter<*>).notifyDataSetChanged()
 							}
 						}
 					}

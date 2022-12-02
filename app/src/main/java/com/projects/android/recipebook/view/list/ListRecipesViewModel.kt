@@ -16,7 +16,7 @@ class ListRecipesViewModel : ViewModel() {
 
 	private val _recipes: MutableStateFlow<List<Recipe>> = MutableStateFlow(emptyList())
 	val recipes: StateFlow<List<Recipe>>
-		get() = _recipes.asStateFlow() // all'esterno una versione readonly
+		get() = _recipes.asStateFlow()
 
 	init {
 		viewModelScope.launch {
@@ -24,9 +24,9 @@ class ListRecipesViewModel : ViewModel() {
 		}
 	}
 
-	fun getRicette(filtro: Filters) {
+	fun getRecipes(filter: Filters) {
 		viewModelScope.launch {
-			recipeBookRepository.getRecipes(filtro).collect { recipes -> _recipes.value = recipes }
+			recipeBookRepository.getRecipes(filter).collect { recipes -> _recipes.value = recipes }
 		}
 	}
 }

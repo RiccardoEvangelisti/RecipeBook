@@ -34,8 +34,8 @@ interface RecipeBookDao {
 						}
 					}
 					query += ")"
-					it.forEach { portata ->
-						args.add(portata.ordinal.toString())
+					it.forEach { course ->
+						args.add(course.ordinal.toString())
 					}
 				}
 			}
