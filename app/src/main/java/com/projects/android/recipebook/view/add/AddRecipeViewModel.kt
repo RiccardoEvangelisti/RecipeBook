@@ -61,7 +61,9 @@ class AddRecipeViewModel : ViewModel() {
 
 	override fun onCleared() {
 		super.onCleared()
-		_state.value?.formatRecipe()
-		_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
+		if (!_state.value?.canceled!!) {
+			_state.value?.formatRecipe()
+			_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
+		}
 	}
 }

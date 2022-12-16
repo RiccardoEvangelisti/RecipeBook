@@ -70,7 +70,7 @@ class AddRecipeCheckErrors {
 		}
 
 		fun checkQuantityIngredientItem(quantityIngredientItemLayoutAdd: TextInputLayout, quantity: String, unitOfMeasure: UnitOfMeasure): Boolean {
-			if (quantity.isBlank() && unitOfMeasure != UnitOfMeasure.TO_TASTE) {
+			if ((quantity.isBlank() || quantity.toInt() <= 0) && unitOfMeasure != UnitOfMeasure.TO_TASTE) {
 				quantityIngredientItemLayoutAdd.error = "Required"
 				return false
 			} else {

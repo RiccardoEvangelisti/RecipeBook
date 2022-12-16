@@ -14,13 +14,14 @@ import com.projects.android.recipebook.view.add.tag.TagSpan
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 
 class AddRecipeState {
+	var canceled: Boolean = false
 	var name: String? = null
 	var course: Course? = null
 	var portions: String? = null
 	var preparationEditable: Editable? = null
 	private var preparation: Preparation? = null
 	var ingredientsList: MutableList<Ingredient>? = null
-	var unitIngredient: UnitOfMeasure?=null
+	var unitIngredient: UnitOfMeasure? = null
 	var isVeg: Boolean? = null
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null
@@ -63,6 +64,9 @@ class AddRecipeState {
 
 		for (ingredient in ingredientsList!!) {
 			ingredient.name = ingredient.name.trim()
+			if (ingredient.unitOfMeasure != UnitOfMeasure.TO_TASTE) {
+				ingredient.quantity = ingredient.quantity.toInt().toString()
+			}
 		}
 	}
 }

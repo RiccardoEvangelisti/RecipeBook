@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.ItemListRecipesBinding
 import com.projects.android.recipebook.model.Recipe
+import com.projects.android.recipebook.model.enums.Course
 
 class ListRecipesAdapter(private val recipes: List<Recipe>, private val context: Context, private val onRecipeClicked: (recipeID: Int) -> Unit) :
 	RecyclerView.Adapter<ListHolderRecipes>() {
@@ -38,7 +39,17 @@ class ListHolderRecipes(private val binding: ItemListRecipesBinding, private val
 			}
 
 			nameItemList.text = recipe.name
-			courseItemList.text = recipe.course.toString()
+			courseItemList.setImageDrawable(
+				AppCompatResources.getDrawable(
+					context, when (recipe.course) {
+						Course.STARTER -> R.drawable.starter
+						Course.FIRST -> R.drawable.first
+						Course.SECOND -> R.drawable.second
+						Course.SIDE -> R.drawable.side
+						else -> R.drawable.dessert
+					}
+				)
+			)
 			preparationTimeItemList.text = recipe.preparationTime.toString()
 			isVegItemList.setImageDrawable(
 				AppCompatResources.getDrawable(context, if (recipe.isVeg) R.drawable.is_veg else R.drawable.is_not_veg)

@@ -7,10 +7,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.*
 import android.text.method.LinkMovementMethod
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.*
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
@@ -20,6 +18,8 @@ import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
@@ -77,6 +78,9 @@ class AddRecipeFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
+		// APPBAR: MENU
+		setupMenu()
 
 		binding.apply {
 
@@ -217,6 +221,7 @@ class AddRecipeFragment : Fragment() {
 								(unitIngredientAdd.editText as AutoCompleteTextView).setText(UnitOfMeasure.GRAM.toString(), false)
 								unitIngredientAdd.visibility = VISIBLE
 								nameIngredientAdd.text?.clear()
+								nameIngredientLayoutAdd.error = null
 
 								// Add the view to linearLayout
 								ingredientsContainerAdd.addView(root)
@@ -436,5 +441,30 @@ class AddRecipeFragment : Fragment() {
 		editText.removeTextChangedListener(textWatcherPreparationAdd)
 		edit()
 		editText.addTextChangedListener(textWatcherPreparationAdd)
+	}
+
+	// APPBAR: MENU
+	private fun setupMenu() {
+		(requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+			override fun onPrepareMenu(menu: Menu) {
+				// Handle for example visibility of menu items
+			}
+
+			override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+				menuInflater.inflate(R.menu.fragment_menu_add_recipe, menu)
+			}
+
+			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+				return when (menuItem.itemId) {
+					R.id.cancel -> {
+						addRecipeViewModel.state.value?.canceled = true
+						findNavController().navigateUp()
+						true
+					}
+
+					else -> false
+				}
+			}
+		}, viewLifecycleOwner, Lifecycle.State.RESUMED)
 	}
 }

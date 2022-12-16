@@ -2,6 +2,7 @@
 	<string name = "app_name">Recipe Book</string>
 
 	<!-- Add Recipe Fragment -->
+	<string name = "menu_add_recipe_cancel">Cancel</string>
 	<string name = "add_recipe_fragment_recipe_name">Name</string>
 	<string name = "add_recipe_fragment_take_picture">Take a picture</string>
 	<string name = "add_recipe_fragment_is_cooked">Is Cooked</string>
@@ -44,6 +45,7 @@
 	<string name = "list_recipes_fragment_add_recipe">Add Recipe</string>
 	<string name = "list_recipes_fragment_extend_filter_panel">Extend the filter panel</string>
 	<string name = "item_list_recipes_fragment_cooked">Is or is not cooked</string>
-	<string name = "item_list_recipes_fragment_cooked_veg">Is or is not veg</string>
+	<string name = "item_list_recipes_fragment_veg">Is or is not veg</string>
+	<string name = "item_list_recipes_fragment_course">Course</string>
 
 </resources>
