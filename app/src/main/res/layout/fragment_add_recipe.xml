@@ -26,23 +26,33 @@
 			android:orientation = "vertical"
 			app:layout_constraintGuide_end = "20dp" />
 
-		<EditText
-			android:id = "@+id/name_add"
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id = "@+id/name_layout_add"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginEnd = "16dp"
-			android:hint = "@string/add_recipe_fragment_recipe_name"
-			android:importantForAutofill = "no"
-			android:inputType = "textCapSentences"
-			android:minHeight = "48dp"
-			android:singleLine = "true"
-			android:textColor = "@color/black"
-			android:textColorHint = "#757575"
+			android:background = "@android:color/transparent"
+			app:boxBackgroundColor = "@android:color/transparent"
+
 			app:layout_constraintBottom_toTopOf = "@+id/guideline3_add"
 			app:layout_constraintEnd_toStartOf = "@+id/take_photo_add"
 			app:layout_constraintHorizontal_bias = "0.494"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
-			app:layout_constraintTop_toTopOf = "parent" />
+			app:layout_constraintTop_toTopOf = "parent">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id = "@+id/name_add"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:layout_marginEnd = "16dp"
+				android:hint = "@string/add_recipe_fragment_recipe_name"
+				android:importantForAutofill = "no"
+				android:inputType = "textCapSentences"
+				android:minHeight = "48dp"
+				android:singleLine = "true"
+				android:textColor = "@color/black"
+				android:textColorHint = "#757575" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<ImageButton
 			android:id = "@+id/take_photo_add"
@@ -51,10 +61,10 @@
 			android:contentDescription = "@string/add_recipe_fragment_take_picture"
 			android:minHeight = "48dp"
 			android:src = "@drawable/ic_baseline_photo_camera_24"
-			app:layout_constraintBottom_toBottomOf = "@+id/name_add"
+			app:layout_constraintBottom_toBottomOf = "@+id/name_layout_add"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
-			app:layout_constraintStart_toEndOf = "@+id/name_add"
-			app:layout_constraintTop_toTopOf = "@+id/name_add" />
+			app:layout_constraintStart_toEndOf = "@+id/name_layout_add"
+			app:layout_constraintTop_toTopOf = "@+id/name_layout_add" />
 
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline3_add"
@@ -116,37 +126,51 @@
 			android:layout_height = "wrap_content"
 			android:background = "@null"
 			android:minHeight = "48dp"
-			app:layout_constraintBottom_toBottomOf = "@+id/portions_add"
-			app:layout_constraintEnd_toStartOf = "@+id/portions_add"
+			app:layout_constraintBottom_toBottomOf = "@+id/portions_layout_add"
+			app:layout_constraintEnd_toStartOf = "@+id/portions_layout_add"
 			app:layout_constraintStart_toEndOf = "@+id/course_add"
-			app:layout_constraintTop_toTopOf = "@+id/portions_add"
+			app:layout_constraintTop_toTopOf = "@+id/portions_layout_add"
 			tools:ignore = "SpeakableTextPresentCheck" />
 
-		<EditText
-			android:id = "@+id/portions_add"
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id = "@+id/portions_layout_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:hint = "@string/add_recipe_fragment_portions"
-			android:importantForAutofill = "no"
-			android:inputType = "numberDecimal"
-			android:minHeight = "48dp"
-			android:singleLine = "true"
-			android:textAlignment = "center"
-			android:textAllCaps = "false"
-			android:textColorHint = "#757575"
-			android:textSize = "18sp"
+			android:background = "@android:color/transparent"
+			app:boxBackgroundColor = "@android:color/transparent"
 			app:layout_constraintBottom_toTopOf = "@+id/guideline5_add"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/preparation_time_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline4_add"
-			tools:ignore = "SpeakableTextPresentCheck" />
+			app:layout_constraintTop_toTopOf = "@+id/guideline4_add">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id = "@+id/portions_add"
+				android:layout_width = "80dp"
+				android:layout_height = "wrap_content"
+				android:ellipsize = "start"
+				android:gravity = "center_horizontal"
+				android:hint = "@string/add_recipe_fragment_portions"
+				android:importantForAutofill = "no"
+				android:inputType = "numberDecimal"
+				android:minHeight = "48dp"
+				android:paddingStart = "8dp"
+				android:paddingLeft = "8dp"
+				android:paddingEnd = "8dp"
+				android:paddingRight = "8dp"
+				android:singleLine = "true"
+				android:textAlignment = "center"
+				android:textAllCaps = "false"
+				android:textColorHint = "#757575"
+				tools:ignore = "SpeakableTextPresentCheck" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline5_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "196dp" />
+			app:layout_constraintGuide_begin = "228dp" />
 
 		<Spinner
 			android:id = "@+id/unit_ingredient_add"
@@ -155,51 +179,72 @@
 			android:background = "#D5D6D6"
 			android:gravity = "center"
 			android:minHeight = "48dp"
-			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_add"
-			app:layout_constraintEnd_toStartOf = "@+id/name_ingredient_add"
-			app:layout_constraintStart_toEndOf = "@+id/quantity_ingredient_add"
-			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_add"
+			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_layout_add"
+			app:layout_constraintEnd_toStartOf = "@+id/name_ingredient_layout_add"
+			app:layout_constraintStart_toEndOf = "@+id/quantity_ingredient_layout_add"
+			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_layout_add"
 			tools:ignore = "SpeakableTextPresentCheck" />
 
-		<EditText
-			android:id = "@+id/quantity_ingredient_add"
+		<com.google.android.material.textfield.TextInputLayout
+			android:id = "@+id/quantity_ingredient_layout_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:hint = "@string/item_add_recipe_fragment_ingredient_quantity"
-			android:imeOptions = "actionDone"
-			android:importantForAutofill = "no"
-			android:inputType = "number"
-			android:minHeight = "48dp"
-			android:singleLine = "true"
-			android:textAlignment = "center"
-			android:textColorHint = "#757575"
-			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_add"
+			android:background = "@android:color/transparent"
+			app:boxBackgroundColor = "@android:color/transparent"
+			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_layout_add"
 			app:layout_constraintEnd_toStartOf = "@+id/unit_ingredient_add"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
-			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_add" />
+			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_layout_add">
 
-		<EditText
-			android:id = "@+id/name_ingredient_add"
+			<com.google.android.material.textfield.TextInputEditText
+				android:id = "@+id/quantity_ingredient_add"
+				android:layout_width = "100dp"
+				android:layout_height = "match_parent"
+				android:ellipsize = "start"
+				android:gravity = "center_horizontal"
+				android:hint = "@string/item_add_recipe_fragment_ingredient_quantity"
+				android:imeOptions = "actionDone"
+				android:importantForAutofill = "no"
+				android:inputType = "number"
+				android:minHeight = "48dp"
+				android:singleLine = "true"
+				android:textAlignment = "center"
+				android:textColorHint = "#757575" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id = "@+id/name_ingredient_layout_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:hint = "@string/item_add_recipe_fragment_ingredient_name"
-			android:imeOptions = "actionDone"
-			android:importantForAutofill = "no"
-			android:inputType = "textCapSentences"
-			android:minHeight = "48dp"
-			android:singleLine = "true"
-			android:textColorHint = "#757575"
+			android:background = "@android:color/transparent"
+			app:boxBackgroundColor = "@android:color/transparent"
 			app:layout_constraintBottom_toTopOf = "@+id/guideline6_add"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/unit_ingredient_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline5_add" />
+			app:layout_constraintTop_toTopOf = "@+id/guideline5_add">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id = "@+id/name_ingredient_add"
+				android:layout_width = "170dp"
+				android:layout_height = "wrap_content"
+				android:ellipsize = "start"
+				android:gravity = "center_horizontal"
+				android:hint = "@string/item_add_recipe_fragment_ingredient_name"
+				android:imeOptions = "actionDone"
+				android:importantForAutofill = "no"
+				android:inputType = "textCapSentences"
+				android:minHeight = "48dp"
+				android:singleLine = "true"
+				android:textColorHint = "#757575" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline6_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "259dp" />
+			app:layout_constraintGuide_begin = "317dp" />
 
 		<LinearLayout
 			android:id = "@+id/ingredients_container_add"
@@ -213,10 +258,15 @@
 			app:layout_constraintVertical_bias = "0.0" />
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id = "@+id/preparation_layout_add"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginTop = "16dp"
+			android:background = "@android:color/transparent"
+			app:boxBackgroundColor = "@android:color/transparent"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
+			app:layout_constraintHorizontal_bias = "0.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toBottomOf = "@+id/ingredients_container_add"
 			app:layout_constraintVertical_bias = "0.0">
@@ -225,12 +275,12 @@
 				android:id = "@+id/preparation_add"
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:layout_marginTop = "16dp"
 				android:autoLink = "all"
 				android:hint = "@string/add_recipe_fragment_preparation"
 				android:importantForAutofill = "no"
 				android:inputType = "textCapSentences|textMultiLine"
-				android:scrollbars = "vertical" />
+				android:scrollbars = "vertical"
+				android:textColorHint = "#757575" />
 		</com.google.android.material.textfield.TextInputLayout>
 
 

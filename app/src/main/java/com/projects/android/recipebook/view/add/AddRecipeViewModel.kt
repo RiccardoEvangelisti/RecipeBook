@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projects.android.recipebook.database.Filters
 import com.projects.android.recipebook.database.RecipeBookRepository
+import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
+import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
@@ -37,11 +39,13 @@ class AddRecipeViewModel : ViewModel() {
 	}
 
 	fun updateRecipe(onUpdate: (AddRecipeState) -> Unit) {
-		_state.update { it.also {
-			if (it != null) {
-				onUpdate(it)
+		_state.update {
+			it.also {
+				if (it != null) {
+					onUpdate(it)
+				}
 			}
-		} }
+		}
 	}
 
 	fun getRecipes(filters: Filters) {
@@ -50,8 +54,8 @@ class AddRecipeViewModel : ViewModel() {
 		}
 	}
 
-	fun checkRecipe(): String? {
-		return _state.value?.checkRecipe()
+	fun checkRecipe(binding: FragmentAddRecipeBinding, bindingIngredientsList: MutableList<ItemAddIngredientBinding?>): Boolean {
+		return _state.value!!.checkRecipe(binding, bindingIngredientsList)
 	}
 
 	override fun onCleared() {

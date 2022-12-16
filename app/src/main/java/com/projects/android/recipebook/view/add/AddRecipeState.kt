@@ -2,13 +2,15 @@ package com.projects.android.recipebook.view.add
 
 import android.text.Editable
 import androidx.core.text.getSpans
+import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
+import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.Preparation
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
-import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.view.add.tag.TagSpan
+import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 
 class AddRecipeState {
 	var name: String? = null
@@ -28,21 +30,21 @@ class AddRecipeState {
 		)
 	}
 
-	fun checkRecipe(): String? {
-		if (name.isNullOrBlank()) return "Enter the name"
-		if (name!!.contains("#")) return "The name cannot contain the # symbol"
-		if (isVeg == null) return "Specify if veg"
-		if (isCooked == null) return "Specify if it's cooked"
-		if (portions == null) return "Enter the portions"
-		if (course == null) return "Choose the course"
-		if (preparationTime == null) return "Enter a preparation time"
-		if (ingredientsList == null || ingredientsList!!.isEmpty()) return "Insert al least one ingredient"
-		for (ingredient in ingredientsList!!) {
-			if (ingredient.name.isBlank()) return "Enter the name of all ingredients"
-			if (ingredient.quantity.isBlank() && ingredient.unitOfMeasure != UnitOfMeasure.TO_TASTE) return "Enter the quantity of all ingredients"
-		}
-		if (preparationEditable.isNullOrBlank()) return "Enter the preparation"
-		return null
+	fun checkRecipe(binding: FragmentAddRecipeBinding, bindingIngredientsList: MutableList<ItemAddIngredientBinding?>): Boolean {
+		// name
+		return AddRecipeCheckErrors.checkName(binding.nameLayoutAdd, name) &&
+				// isVeg
+				AddRecipeCheckErrors.checkIsVeg(isVeg) &&
+				// isCooked
+				AddRecipeCheckErrors.checkIsCooked(isCooked) &&
+				// course
+				AddRecipeCheckErrors.checkCourse(course) &&
+				// portions
+				AddRecipeCheckErrors.checkPortions(binding.portionsLayoutAdd, portions) &&
+				// ingredients
+				AddRecipeCheckErrors.checkIngredients(binding.nameIngredientLayoutAdd, bindingIngredientsList, ingredientsList) &&
+				// preparation
+				AddRecipeCheckErrors.checkPreparation(binding.preparationLayoutAdd, preparationEditable)
 	}
 
 	fun formatRecipe() {

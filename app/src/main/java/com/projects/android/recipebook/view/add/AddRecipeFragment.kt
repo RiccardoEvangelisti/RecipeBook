@@ -15,7 +15,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -36,6 +35,7 @@ import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment
 import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment.DialogListener
 import com.projects.android.recipebook.view.add.tag.TagSpan
+import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -78,16 +78,25 @@ class AddRecipeFragment : Fragment() {
 
 		binding.apply {
 
-			// Conditions for navigateUp
+			// Conditions for navigateUp: if there are no errors, navigateUp
 			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-				val check = addRecipeViewModel.checkRecipe()
-				if (!check.isNullOrBlank()) {
-					Toast.makeText(context, "ERROR: $check", Toast.LENGTH_SHORT).show()
-				} else {
-					findNavController().navigateUp()
-				}
+				if (addRecipeViewModel.checkRecipe(binding, _bindingIngredientsList)) findNavController().navigateUp()
 			}
 
+			// ERRORS HANDLERS
+			nameAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+				if (!hasFocus) AddRecipeCheckErrors.checkName(nameLayoutAdd, addRecipeViewModel.state.value?.name)
+			}
+			portionsAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+				if (!hasFocus) AddRecipeCheckErrors.checkPortions(
+					portionsLayoutAdd, addRecipeViewModel.state.value?.portions
+				)
+			}
+			preparationAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+				if (!hasFocus) AddRecipeCheckErrors.checkPreparation(preparationLayoutAdd, addRecipeViewModel.state.value?.preparationEditable)
+			}
+
+			// Initializations
 			requireContext().let {
 				// Initialization spinner Course
 				ArrayAdapter(
@@ -211,11 +220,25 @@ class AddRecipeFragment : Fragment() {
 								}
 								nameIngredientItemAdd.text = nameIngredientAdd.text
 
+								// ERROR HANDLERS
+								quantityIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+									if (!hasFocus) AddRecipeCheckErrors.checkQuantityIngredientItem(
+										quantityIngredientItemLayoutAdd,
+										quantityIngredientItemAdd.text.toString(),
+										unitIngredientItemAdd.selectedItem as UnitOfMeasure
+									)
+								}
+								nameIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+									if (!hasFocus) AddRecipeCheckErrors.checkNameIngredientItem(
+										nameIngredientItemLayoutAdd, nameIngredientItemAdd.text.toString()
+									)
+								}
+
 								// Cleanup
-								quantityIngredientAdd.text.clear()
+								quantityIngredientAdd.text?.clear()
 								unitIngredientAdd.setSelection(0)
 								unitIngredientAdd.visibility = VISIBLE
-								nameIngredientAdd.text.clear()
+								nameIngredientAdd.text?.clear()
 
 								// Add the view to linearLayout
 								ingredientsContainerAdd.addView(root)

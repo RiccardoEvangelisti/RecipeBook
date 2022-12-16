@@ -11,31 +11,44 @@
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
 		android:orientation = "vertical"
-		app:layout_constraintGuide_begin = "40dp" />
+		app:layout_constraintGuide_begin = "48dp" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id = "@+id/guideline7"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
 		android:orientation = "vertical"
-		app:layout_constraintGuide_end = "40dp" />
+		app:layout_constraintGuide_end = "48dp" />
 
-	<EditText
-		android:id = "@+id/quantity_ingredient_item_add"
+	<com.google.android.material.textfield.TextInputLayout
+		android:id = "@+id/quantity_ingredient_item_layout_add"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
-		android:hint = "@string/item_add_recipe_fragment_ingredient_quantity"
-		android:importantForAutofill = "no"
-		android:inputType = "number"
-		android:minHeight = "48dp"
-		android:singleLine = "true"
-		android:textAlignment = "center"
-		android:textColorHint = "#757575"
-		android:textSize = "16sp"
+		android:background = "@android:color/transparent"
+		app:boxBackgroundColor = "@android:color/transparent"
 		app:layout_constraintBottom_toBottomOf = "@+id/unit_ingredient_item_add"
 		app:layout_constraintEnd_toStartOf = "@+id/unit_ingredient_item_add"
 		app:layout_constraintStart_toStartOf = "@+id/guideline6"
-		app:layout_constraintTop_toTopOf = "@+id/unit_ingredient_item_add" />
+		app:layout_constraintTop_toTopOf = "@+id/unit_ingredient_item_add">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id = "@+id/quantity_ingredient_item_add"
+			android:layout_width = "75dp"
+			android:layout_height = "wrap_content"
+			android:hint = "@string/item_add_recipe_fragment_ingredient_quantity"
+			android:importantForAutofill = "no"
+			android:inputType = "number"
+			android:minHeight = "48dp"
+			android:paddingStart = "8dp"
+			android:paddingLeft = "8dp"
+			android:paddingEnd = "8dp"
+			android:paddingRight = "8dp"
+			android:singleLine = "true"
+			android:textAlignment = "center"
+			android:textColorHint = "#757575"
+			android:textSize = "15sp" />
+	</com.google.android.material.textfield.TextInputLayout>
+
 
 	<Spinner
 		android:id = "@+id/unit_ingredient_item_add"
@@ -43,36 +56,45 @@
 		android:layout_height = "wrap_content"
 		android:background = "@null"
 		android:minHeight = "48dp"
-		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item_add"
-		app:layout_constraintEnd_toStartOf = "@+id/name_ingredient_item_add"
-		app:layout_constraintStart_toEndOf = "@+id/quantity_ingredient_item_add"
-		app:layout_constraintTop_toTopOf = "@+id/name_ingredient_item_add"
+		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item__layout_add"
+		app:layout_constraintEnd_toStartOf = "@+id/name_ingredient_item__layout_add"
+		app:layout_constraintStart_toEndOf = "@+id/quantity_ingredient_item_layout_add"
+		app:layout_constraintTop_toTopOf = "@+id/name_ingredient_item__layout_add"
 		tools:ignore = "SpeakableTextPresentCheck" />
 
-	<EditText
-		android:id = "@+id/name_ingredient_item_add"
+	<com.google.android.material.textfield.TextInputLayout
+		android:id = "@+id/name_ingredient_item__layout_add"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
-		android:hint = "@string/item_add_recipe_fragment_ingredient_name"
-		android:imeOptions = "actionDone"
-		android:importantForAutofill = "no"
-		android:inputType = "textCapSentences"
-		android:minHeight = "48dp"
-		android:singleLine = "true"
-		android:textColorHint = "#757575"
-		android:textSize = "16sp"
+		android:background = "@android:color/transparent"
+		app:boxBackgroundColor = "@android:color/transparent"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toStartOf = "@+id/delete_ingredient_item_add"
 		app:layout_constraintStart_toEndOf = "@+id/unit_ingredient_item_add"
-		app:layout_constraintTop_toTopOf = "parent" />
+		app:layout_constraintTop_toTopOf = "parent">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id = "@+id/name_ingredient_item_add"
+			android:layout_width = "150dp"
+			android:layout_height = "wrap_content"
+			android:hint = "@string/item_add_recipe_fragment_ingredient_name"
+			android:imeOptions = "actionDone"
+			android:importantForAutofill = "no"
+			android:inputType = "textCapSentences"
+			android:minHeight = "48dp"
+			android:singleLine = "true"
+			android:textColorHint = "#757575"
+			android:textSize = "15sp" />
+	</com.google.android.material.textfield.TextInputLayout>
 
 	<ImageButton
 		android:id = "@+id/delete_ingredient_item_add"
 		android:layout_width = "48dp"
 		android:layout_height = "48dp"
+		android:layout_marginStart = "8dp"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline7"
-		app:layout_constraintStart_toEndOf = "@+id/name_ingredient_item_add"
+		app:layout_constraintStart_toEndOf = "@+id/name_ingredient_item__layout_add"
 		app:layout_constraintTop_toTopOf = "parent"
 		app:srcCompat = "@drawable/ic_baseline_delete_24"
 		tools:ignore = "ContentDescription,SpeakableTextPresentCheck" />
