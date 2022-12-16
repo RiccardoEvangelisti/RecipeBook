@@ -13,7 +13,9 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -100,24 +102,21 @@ class AddRecipeFragment : Fragment() {
 			requireContext().let {
 				// Initialization spinner Course
 				ArrayAdapter(
-					it, android.R.layout.simple_spinner_item, Course.values()
+					it, android.R.layout.simple_spinner_dropdown_item, Course.values()
 				).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					courseAdd.adapter = adapter
+					(courseAdd.editText as AutoCompleteTextView).setAdapter(adapter)
 				}
 				// Initialization spinner PreparationTime
 				ArrayAdapter(
-					it, android.R.layout.simple_spinner_item, PreparationTime.values()
+					it, android.R.layout.simple_spinner_dropdown_item, PreparationTime.values()
 				).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					preparationTimeAdd.adapter = adapter
+					(preparationTimeAdd.editText as AutoCompleteTextView).setAdapter(adapter)
 				}
 				// Initialization spinner UnitOfMeasure
 				ArrayAdapter(
-					it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
+					it, android.R.layout.simple_spinner_dropdown_item, UnitOfMeasure.values()
 				).also { adapter ->
-					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-					unitIngredientAdd.adapter = adapter
+					(unitIngredientAdd.editText as AutoCompleteTextView).setAdapter(adapter)
 				}
 			}
 
@@ -141,32 +140,15 @@ class AddRecipeFragment : Fragment() {
 				addRecipeViewModel.updateRecipe { it.isCooked = b }
 			}
 
-			courseAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View?, position: Int, id: Long
-				) {
-					parent!!.let {
-						addRecipeViewModel.updateRecipe {
-							it.course = parent.adapter.getItem(position) as Course
-						}
-					}
+			(courseAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
+				addRecipeViewModel.updateRecipe {
+					it.course = Course.values()[position]
 				}
 			}
 
-			preparationTimeAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onNothingSelected(parent: AdapterView<*>?) {
-				}
-
-				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View?, position: Int, id: Long
-				) {
-					parent!!.let {
-						addRecipeViewModel.updateRecipe {
-							it.preparationTime = parent.adapter.getItem(position) as PreparationTime
-						}
-					}
+			(preparationTimeAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
+				addRecipeViewModel.updateRecipe {
+					it.preparationTime = PreparationTime.values()[position]
 				}
 			}
 
@@ -176,28 +158,25 @@ class AddRecipeFragment : Fragment() {
 				}
 			}
 
-			unitIngredientAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-				override fun onItemSelected(
-					parent: AdapterView<*>?, view: View, position: Int, id: Long
-				) {
-					// Manage UnitOfMeasure.TO_TASTE
-					if (position == UnitOfMeasure.TO_TASTE.ordinal) {
-						quantityIngredientAdd.setText("")
-						quantityIngredientAdd.visibility = GONE
-					} else {
-						quantityIngredientAdd.visibility = VISIBLE
-					}
-					nameIngredientAdd.requestFocus()
+			(unitIngredientAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
+				// Manage UnitOfMeasure.TO_TASTE
+				if (position == UnitOfMeasure.TO_TASTE.ordinal) {
+					quantityIngredientAdd.setText("")
+					quantityIngredientAdd.visibility = GONE
+				} else {
+					quantityIngredientAdd.visibility = VISIBLE
 				}
-
-				override fun onNothingSelected(parent: AdapterView<*>?) {}
+				addRecipeViewModel.updateRecipe {
+					it.unitIngredient = UnitOfMeasure.values()[position]
+				}
+				nameIngredientAdd.requestFocus()
 			}
 
 			nameIngredientAdd.setOnEditorActionListener { _, actionId, _ ->
 				return@setOnEditorActionListener when (actionId) {
 					EditorInfo.IME_ACTION_DONE -> {
 						// If nameIngredientAdd is present and (quantityIngredientAdd is present or unitIngredientAdd==TO_TASTE)
-						if ((!quantityIngredientAdd.text.isNullOrBlank() || unitIngredientAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) && !nameIngredientAdd.text.isNullOrBlank()) {
+						if ((!quantityIngredientAdd.text.isNullOrBlank() || addRecipeViewModel.state.value?.unitIngredient == UnitOfMeasure.TO_TASTE) && !nameIngredientAdd.text.isNullOrBlank()) {
 							// Create the binding
 							val bindingIngredients = ItemAddIngredientBinding.inflate(layoutInflater)
 							_bindingIngredientsList.add(bindingIngredients)
@@ -205,16 +184,15 @@ class AddRecipeFragment : Fragment() {
 								// Initialization spinner UnitOfMeasure
 								requireContext().let {
 									ArrayAdapter(
-										it, android.R.layout.simple_spinner_item, UnitOfMeasure.values()
+										it, android.R.layout.simple_spinner_dropdown_item, UnitOfMeasure.values()
 									).also { adapter ->
-										adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 										unitIngredientItemAdd.adapter = adapter
 									}
 								}
 
 								// Filling UI with new ingredient
 								quantityIngredientItemAdd.text = quantityIngredientAdd.text
-								unitIngredientItemAdd.setSelection(unitIngredientAdd.selectedItemPosition)
+								unitIngredientItemAdd.setSelection(addRecipeViewModel.state.value?.unitIngredient!!.ordinal)
 								if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) {
 									quantityIngredientItemAdd.visibility = GONE
 								}
@@ -236,7 +214,7 @@ class AddRecipeFragment : Fragment() {
 
 								// Cleanup
 								quantityIngredientAdd.text?.clear()
-								unitIngredientAdd.setSelection(0)
+								(unitIngredientAdd.editText as AutoCompleteTextView).setText(UnitOfMeasure.GRAM.toString(), false)
 								unitIngredientAdd.visibility = VISIBLE
 								nameIngredientAdd.text?.clear()
 
@@ -401,10 +379,10 @@ class AddRecipeFragment : Fragment() {
 								isCookedAdd.isChecked = state.isCooked!!
 							}
 							state.course?.let {
-								courseAdd.setSelection(state.course!!.ordinal)
+								(courseAdd.editText as AutoCompleteTextView).setText(state.course.toString(), false)
 							}
 							state.preparationTime?.let {
-								preparationTimeAdd.setSelection(state.preparationTime!!.ordinal)
+								(preparationTimeAdd.editText as AutoCompleteTextView).setText(state.preparationTime.toString(), false)
 							}
 							state.portions?.let {
 								if (portionsAdd.text.toString() != state.portions.toString()) {

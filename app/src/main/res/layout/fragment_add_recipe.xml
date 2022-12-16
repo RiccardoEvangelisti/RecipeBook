@@ -29,11 +29,12 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/name_layout_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginTop = "16dp"
 			android:background = "@android:color/transparent"
 			app:boxBackgroundColor = "@android:color/transparent"
-
 			app:layout_constraintBottom_toTopOf = "@+id/guideline3_add"
 			app:layout_constraintEnd_toStartOf = "@+id/take_photo_add"
 			app:layout_constraintHorizontal_bias = "0.494"
@@ -71,7 +72,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "79dp" />
+			app:layout_constraintGuide_begin = "86dp" />
 
 		<ToggleButton
 			android:id = "@+id/is_veg_add"
@@ -83,7 +84,7 @@
 			android:textOn = "@string/add_recipe_fragment_is_veg"
 			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
 			app:layout_constraintEnd_toStartOf = "@+id/is_cooked_add"
-			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
+			app:layout_constraintStart_toEndOf = "@+id/portions_layout_add"
 			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
 			tools:ignore = "TextContrastCheck" />
 
@@ -106,43 +107,56 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "142dp" />
+			app:layout_constraintGuide_begin = "182dp" />
 
-		<Spinner
+
+		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/course_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:background = "@null"
-			android:minHeight = "48dp"
-			app:layout_constraintBottom_toBottomOf = "@+id/preparation_time_add"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline5_add"
 			app:layout_constraintEnd_toStartOf = "@+id/preparation_time_add"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
-			app:layout_constraintTop_toTopOf = "@+id/preparation_time_add"
-			tools:ignore = "SpeakableTextPresentCheck" />
+			app:layout_constraintTop_toTopOf = "@+id/guideline4_add">
 
-		<Spinner
+			<AutoCompleteTextView
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:hint = "@string/add_recipe_fragment_course"
+				android:inputType = "none" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/preparation_time_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:background = "@null"
-			android:minHeight = "48dp"
-			app:layout_constraintBottom_toBottomOf = "@+id/portions_layout_add"
-			app:layout_constraintEnd_toStartOf = "@+id/portions_layout_add"
+			android:hint = "@string/add_recipe_fragment_preparation_time"
+			app:layout_constraintBottom_toTopOf = "@+id/guideline5_add"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/course_add"
-			app:layout_constraintTop_toTopOf = "@+id/portions_layout_add"
-			tools:ignore = "SpeakableTextPresentCheck" />
+			app:layout_constraintTop_toTopOf = "@+id/guideline4_add">
+
+			<AutoCompleteTextView
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:inputType = "none"
+				android:textColorHint = "#757575" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/portions_layout_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:background = "@android:color/transparent"
 			app:boxBackgroundColor = "@android:color/transparent"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline5_add"
-			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
-			app:layout_constraintStart_toEndOf = "@+id/preparation_time_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline4_add">
+			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
+			app:layout_constraintEnd_toStartOf = "@+id/is_veg_add"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
+			app:layout_constraintTop_toTopOf = "@+id/guideline3_add">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id = "@+id/portions_add"
@@ -165,28 +179,36 @@
 				tools:ignore = "SpeakableTextPresentCheck" />
 		</com.google.android.material.textfield.TextInputLayout>
 
+
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline5_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "228dp" />
+			app:layout_constraintGuide_begin = "250dp" />
 
-		<Spinner
+		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/unit_ingredient_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:background = "#D5D6D6"
-			android:gravity = "center"
-			android:minHeight = "48dp"
+			android:layout_marginStart = "16dp"
+			android:layout_marginEnd = "16dp"
 			app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_layout_add"
 			app:layout_constraintEnd_toStartOf = "@+id/name_ingredient_layout_add"
 			app:layout_constraintStart_toEndOf = "@+id/quantity_ingredient_layout_add"
-			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_layout_add"
-			tools:ignore = "SpeakableTextPresentCheck" />
+			app:layout_constraintTop_toTopOf = "@+id/name_ingredient_layout_add">
+
+			<AutoCompleteTextView
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent"
+				android:inputType = "none"
+				tools:ignore = "SpeakableTextPresentCheck" />
+		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/quantity_ingredient_layout_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:background = "@android:color/transparent"
@@ -198,7 +220,7 @@
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id = "@+id/quantity_ingredient_add"
-				android:layout_width = "100dp"
+				android:layout_width = "80dp"
 				android:layout_height = "match_parent"
 				android:ellipsize = "start"
 				android:gravity = "center_horizontal"
@@ -207,6 +229,8 @@
 				android:importantForAutofill = "no"
 				android:inputType = "number"
 				android:minHeight = "48dp"
+				android:paddingStart = "8dp"
+				android:paddingEnd = "8dp"
 				android:singleLine = "true"
 				android:textAlignment = "center"
 				android:textColorHint = "#757575" />
@@ -215,6 +239,7 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/name_ingredient_layout_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:background = "@android:color/transparent"
@@ -226,7 +251,7 @@
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id = "@+id/name_ingredient_add"
-				android:layout_width = "170dp"
+				android:layout_width = "150dp"
 				android:layout_height = "wrap_content"
 				android:ellipsize = "start"
 				android:gravity = "center_horizontal"
@@ -235,6 +260,8 @@
 				android:importantForAutofill = "no"
 				android:inputType = "textCapSentences"
 				android:minHeight = "48dp"
+				android:paddingStart = "8dp"
+				android:paddingEnd = "8dp"
 				android:singleLine = "true"
 				android:textColorHint = "#757575" />
 		</com.google.android.material.textfield.TextInputLayout>
@@ -244,7 +271,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "317dp" />
+			app:layout_constraintGuide_begin = "345dp" />
 
 		<LinearLayout
 			android:id = "@+id/ingredients_container_add"
@@ -259,6 +286,7 @@
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/preparation_layout_add"
+			style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
 			android:layout_marginTop = "16dp"

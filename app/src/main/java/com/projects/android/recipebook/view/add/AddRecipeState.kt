@@ -9,6 +9,7 @@ import com.projects.android.recipebook.model.Preparation
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
+import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.view.add.tag.TagSpan
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 
@@ -19,6 +20,7 @@ class AddRecipeState {
 	var preparationEditable: Editable? = null
 	private var preparation: Preparation? = null
 	var ingredientsList: MutableList<Ingredient>? = null
+	var unitIngredient: UnitOfMeasure?=null
 	var isVeg: Boolean? = null
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null

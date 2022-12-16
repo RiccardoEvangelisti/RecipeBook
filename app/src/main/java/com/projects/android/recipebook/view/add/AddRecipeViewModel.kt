@@ -34,6 +34,7 @@ class AddRecipeViewModel : ViewModel() {
 			it.preparationTime = PreparationTime.THIRTY_MIN
 			it.isVeg = true
 			it.isCooked = true
+			it.portions = 1.toString()
 			it.ingredientsList = mutableListOf()
 		}
 	}
