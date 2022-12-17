@@ -14,6 +14,7 @@ import com.projects.android.recipebook.view.add.tag.TagSpan
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 
 class AddRecipeState {
+	var editMode: Boolean = false
 	var canceled: Boolean = false
 	var name: String? = null
 	var course: Course? = null

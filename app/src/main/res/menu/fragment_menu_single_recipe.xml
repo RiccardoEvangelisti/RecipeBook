@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/menu_delete_recipe"
         app:showAsAction="ifRoom|withText" />
+    <item
+        android:id = "@+id/edit_recipe"
+        android:icon = "@drawable/ic_baseline_edit_24"
+        android:title = "@string/menu_edit_recipe"
+        app:showAsAction = "ifRoom|withText" />
 </menu>

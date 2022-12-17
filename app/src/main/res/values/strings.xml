@@ -38,6 +38,7 @@
 
 	<!-- Single Recipe Fragment -->
 	<string name = "menu_delete_recipe">Delete Recipe</string>
+	<string name = "menu_edit_recipe">Edit Recipe</string>
 	<string name = "single_recipe_fragment_recipe_name">Name</string>
 	<string name = "single_recipe_fragment_recipe_preparation">Preparation</string>
 

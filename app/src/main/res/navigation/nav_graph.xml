@@ -28,15 +28,22 @@
 		<action
 			android:id = "@+id/self_singleRecipeFragment"
 			app:destination = "@id/fragmentSingleRecipe" />
+		<action
+			android:id = "@+id/from_singleRecipeFragment_to_addRecipeFragment"
+			app:destination = "@id/fragmentAddRecipe" />
 	</fragment>
 
 	<fragment
 		android:id = "@+id/fragmentAddRecipe"
 		android:name = "com.projects.android.recipebook.view.add.AddRecipeFragment"
 		android:label = "fragment_add_recipe"
-		tools:layout = "@layout/fragment_add_recipe" >
+		tools:layout = "@layout/fragment_add_recipe">
 		<action
 			android:id = "@+id/from_addRecipeFragment_to_singleRecipeFragment"
 			app:destination = "@id/fragmentSingleRecipe" />
+
+		<argument
+			android:name = "recipeID"
+			app:argType = "integer" />
 	</fragment>
 </navigation>

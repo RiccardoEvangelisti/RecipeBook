@@ -27,6 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
@@ -51,7 +52,12 @@ class AddRecipeFragment : Fragment() {
 	private var textWatcherPreparationAdd: TextWatcher? = null
 
 	// VIEW MODEL
-	private val addRecipeViewModel: AddRecipeViewModel by viewModels()
+	private val addRecipeViewModel: AddRecipeViewModel by viewModels() {
+		AddRecipeViewModelFactory(args.recipeID)
+	}
+
+	// SAFE ARGS
+	private val args: AddRecipeFragmentArgs by navArgs()
 
 	// VIEW BINDING
 	private var _binding: FragmentAddRecipeBinding? = null
@@ -66,7 +72,7 @@ class AddRecipeFragment : Fragment() {
 	private var photoName: String? = null
 	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
 		if (didTakePhoto && photoName != null) {
-			addRecipeViewModel.updateRecipe { it.photoFileName = photoName }
+			addRecipeViewModel.updateState { it.photoFileName = photoName }
 		}
 	}
 
@@ -126,7 +132,7 @@ class AddRecipeFragment : Fragment() {
 
 			// Listeners UI->ViewModel (apply the changes to ViewModel when change the data on UI)
 			nameAdd.doOnTextChanged { text, _, _, _ ->
-				addRecipeViewModel.updateRecipe { it.name = text.toString() }
+				addRecipeViewModel.updateState { it.name = text.toString() }
 			}
 
 			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
@@ -138,26 +144,26 @@ class AddRecipeFragment : Fragment() {
 			}
 
 			isVegAdd.setOnCheckedChangeListener { _, b ->
-				addRecipeViewModel.updateRecipe { it.isVeg = b }
+				addRecipeViewModel.updateState { it.isVeg = b }
 			}
 			isCookedAdd.setOnCheckedChangeListener { _, b ->
-				addRecipeViewModel.updateRecipe { it.isCooked = b }
+				addRecipeViewModel.updateState { it.isCooked = b }
 			}
 
 			(courseAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
-				addRecipeViewModel.updateRecipe {
+				addRecipeViewModel.updateState {
 					it.course = Course.values()[position]
 				}
 			}
 
 			(preparationTimeAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
-				addRecipeViewModel.updateRecipe {
+				addRecipeViewModel.updateState {
 					it.preparationTime = PreparationTime.values()[position]
 				}
 			}
 
 			portionsAdd.doOnTextChanged { text, _, _, _ ->
-				addRecipeViewModel.updateRecipe {
+				addRecipeViewModel.updateState {
 					it.portions = text.toString()
 				}
 			}
@@ -170,7 +176,7 @@ class AddRecipeFragment : Fragment() {
 				} else {
 					quantityIngredientAdd.visibility = VISIBLE
 				}
-				addRecipeViewModel.updateRecipe {
+				addRecipeViewModel.updateState {
 					it.unitIngredient = UnitOfMeasure.values()[position]
 				}
 				nameIngredientAdd.requestFocus()
@@ -204,7 +210,7 @@ class AddRecipeFragment : Fragment() {
 				override fun afterTextChanged(text: Editable?) {
 					if (!text.isNullOrBlank()) {
 
-						addRecipeViewModel.updateRecipe {
+						addRecipeViewModel.updateState {
 							it.preparationEditable = text
 						}
 
@@ -216,7 +222,7 @@ class AddRecipeFragment : Fragment() {
 										text.delete(text.getSpanStart(it[0]), text.getSpanEnd(it[0]))
 										text.removeSpan(it[0])
 									}
-									addRecipeViewModel.updateRecipe { state ->
+									addRecipeViewModel.updateState { state ->
 										state.preparationEditable = text
 									}
 								}
@@ -247,7 +253,7 @@ class AddRecipeFragment : Fragment() {
 										) // replacing the inserted "#"
 										text.append(" ")
 									}
-									addRecipeViewModel.updateRecipe {
+									addRecipeViewModel.updateState {
 										it.preparationEditable = text
 									}
 								}
@@ -387,7 +393,7 @@ class AddRecipeFragment : Fragment() {
 				ingredientsContainerAdd.addView(root)
 
 				if (toInsert) {
-					addRecipeViewModel.updateRecipe { state ->
+					addRecipeViewModel.updateState { state ->
 						state.ingredientsList = state.ingredientsList.also { list ->
 							list!!.add(
 								Ingredient(
@@ -402,7 +408,7 @@ class AddRecipeFragment : Fragment() {
 
 				// Listeners UI->ViewModel
 				quantityIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-					addRecipeViewModel.updateRecipe { state ->
+					addRecipeViewModel.updateState { state ->
 						state.ingredientsList = state.ingredientsList.also { list ->
 							list!![ingredientsContainerAdd.indexOfChild(root)].quantity = text.toString()
 						}
@@ -419,7 +425,7 @@ class AddRecipeFragment : Fragment() {
 						} else {
 							quantityIngredientItemAdd.visibility = VISIBLE
 						}
-						addRecipeViewModel.updateRecipe { state ->
+						addRecipeViewModel.updateState { state ->
 							state.ingredientsList = state.ingredientsList.also { list ->
 								list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
 							}
@@ -430,7 +436,7 @@ class AddRecipeFragment : Fragment() {
 				}
 
 				nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-					addRecipeViewModel.updateRecipe { state ->
+					addRecipeViewModel.updateState { state ->
 						state.ingredientsList = state.ingredientsList.also { list ->
 							list!![ingredientsContainerAdd.indexOfChild(root)].name = text.toString()
 						}
@@ -438,7 +444,7 @@ class AddRecipeFragment : Fragment() {
 				}
 
 				deleteIngredientItemAdd.setOnClickListener {
-					addRecipeViewModel.updateRecipe { state ->
+					addRecipeViewModel.updateState { state ->
 						state.ingredientsList = state.ingredientsList.also { list ->
 							list!!.removeAt(
 								ingredientsContainerAdd.indexOfChild(

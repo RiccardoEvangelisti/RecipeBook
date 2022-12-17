@@ -71,7 +71,7 @@ class ListRecipesFragment : Fragment() {
 		}
 
 		binding.addRecipeFABList.setOnClickListener {
-			findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToAddRecipeFragment())
+			findNavController().navigate(ListRecipesFragmentDirections.fromListRecipesFragmentToAddRecipeFragment(-2))
 		}
 	}
 

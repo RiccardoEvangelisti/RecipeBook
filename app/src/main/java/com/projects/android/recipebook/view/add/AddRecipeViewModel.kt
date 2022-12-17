@@ -1,6 +1,8 @@
 package com.projects.android.recipebook.view.add
 
+import android.text.Editable
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.projects.android.recipebook.database.Filters
 import com.projects.android.recipebook.database.RecipeBookRepository
@@ -15,7 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AddRecipeViewModel : ViewModel() {
+class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 
 	private val recipeBookRepository = RecipeBookRepository.get()
 
@@ -29,22 +31,40 @@ class AddRecipeViewModel : ViewModel() {
 		get() = _recipes.asStateFlow()
 
 	init {
-		_state.value = AddRecipeState().also {
-			it.course = Course.SECOND
-			it.preparationTime = PreparationTime.THIRTY_MIN
-			it.isVeg = true
-			it.isCooked = true
-			it.portions = 1.toString()
-			it.ingredientsList = mutableListOf()
+		viewModelScope.launch {
+			// If the navigation comes from SingleRecipe, enable the edit mode
+			if (recipeID >= 0) {
+				recipeBookRepository.getSingleRecipe(recipeID).also { recipe ->
+					_state.value = AddRecipeState().also {
+						it.editMode = true
+						it.name = recipe.name
+						it.portions = recipe.portions
+						it.isVeg = recipe.isVeg
+						it.isCooked = recipe.isCooked
+						it.course = recipe.course
+						it.preparationTime = recipe.preparationTime
+						it.preparationEditable = Editable.Factory.getInstance().newEditable(recipe.preparation.text)
+						it.ingredientsList = recipe.ingredientsList
+					}
+				}
+			} else {
+				// Default values
+				_state.value = AddRecipeState().also {
+					it.course = Course.SECOND
+					it.preparationTime = PreparationTime.THIRTY_MIN
+					it.isVeg = true
+					it.isCooked = true
+					it.portions = 1.toString()
+					it.ingredientsList = mutableListOf()
+				}
+			}
 		}
 	}
 
-	fun updateRecipe(onUpdate: (AddRecipeState) -> Unit) {
+	fun updateState(onUpdate: (AddRecipeState) -> Unit) {
 		_state.update {
-			it.also {
-				if (it != null) {
-					onUpdate(it)
-				}
+			it?.also {
+				onUpdate(it)
 			}
 		}
 	}
@@ -63,7 +83,16 @@ class AddRecipeViewModel : ViewModel() {
 		super.onCleared()
 		if (!_state.value?.canceled!!) {
 			_state.value?.formatRecipe()
-			_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
+			if (state.value!!.editMode) {
+				_state.value?.let { state -> recipeBookRepository.updateRecipe(state.toRecipe()) }
+			} else {
+				_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
+			}
 		}
 	}
+}
+
+class AddRecipeViewModelFactory(private val recipeID: Int) : ViewModelProvider.Factory {
+
+	override fun <T : ViewModel> create(modelClass: Class<T>): T = AddRecipeViewModel(recipeID) as T
 }

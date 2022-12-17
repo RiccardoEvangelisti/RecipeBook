@@ -7,6 +7,9 @@ plugins {
 
     // SafeArgs
     id 'androidx.navigation.safeargs'
+
+    // Parcelize
+    id "kotlin-parcelize"
 }
 
 android {
@@ -82,7 +85,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 
     // Fragments
-    implementation 'androidx.fragment:fragment-ktx:1.5.4'
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
 
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'

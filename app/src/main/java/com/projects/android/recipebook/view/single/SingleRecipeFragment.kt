@@ -73,7 +73,7 @@ class SingleRecipeFragment : Fragment() {
 			}
 
 			preparationSingle.doOnTextChanged { _, _, _, _ ->
-				 //TODO
+				//TODO
 			}
 		}
 
@@ -150,6 +150,11 @@ class SingleRecipeFragment : Fragment() {
 							singleRecipeViewModel.deleteRecipe()
 						}
 						findNavController().navigateUp()
+						true
+					}
+
+					R.id.edit_recipe -> {
+						findNavController().navigate(SingleRecipeFragmentDirections.fromSingleRecipeFragmentToAddRecipeFragment(singleRecipeViewModel.state.value!!.recipe!!.id))
 						true
 					}
 
