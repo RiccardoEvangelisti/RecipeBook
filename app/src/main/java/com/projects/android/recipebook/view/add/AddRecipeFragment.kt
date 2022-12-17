@@ -6,7 +6,6 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
 import android.text.*
-import android.text.method.LinkMovementMethod
 import android.view.*
 import android.view.View.*
 import android.view.inputmethod.EditorInfo
@@ -14,7 +13,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -32,13 +30,9 @@ import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
-import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
-import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment
-import com.projects.android.recipebook.view.add.tag.AddSelectRecipeTagFragment.DialogListener
-import com.projects.android.recipebook.view.add.tag.TagSpan
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
 import java.io.File
@@ -48,11 +42,9 @@ import java.util.*
 class AddRecipeFragment : Fragment() {
 
 	private var container: ViewGroup? = null
-	private var isDeleting = false
-	private var textWatcherPreparationAdd: TextWatcher? = null
 
 	// VIEW MODEL
-	private val addRecipeViewModel: AddRecipeViewModel by viewModels() {
+	private val addRecipeViewModel: AddRecipeViewModel by viewModels {
 		AddRecipeViewModelFactory(args.recipeID)
 	}
 
@@ -105,7 +97,7 @@ class AddRecipeFragment : Fragment() {
 				)
 			}
 			preparationAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-				if (!hasFocus) AddRecipeCheckErrors.checkPreparation(preparationLayoutAdd, addRecipeViewModel.state.value?.preparationEditable)
+				if (!hasFocus) AddRecipeCheckErrors.checkPreparation(preparationLayoutAdd, addRecipeViewModel.state.value?.preparation)
 			}
 
 			// Initializations
@@ -196,74 +188,11 @@ class AddRecipeFragment : Fragment() {
 				}
 			}
 
-			textWatcherPreparationAdd = object : TextWatcher {
-
-				// Detects if the user is deleting text
-				override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-					if (after < count) {
-						isDeleting = true
-					}
-				}
-
-				override fun onTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
-
-				override fun afterTextChanged(text: Editable?) {
-					if (!text.isNullOrBlank()) {
-
-						addRecipeViewModel.updateState {
-							it.preparationEditable = text
-						}
-
-						if (isDeleting) {
-							// when deleting, if detects a span, deletes it entirely
-							text.getSpans(preparationAdd.selectionStart, preparationAdd.selectionEnd, TagSpan::class.java).also {
-								if (it.isNotEmpty()) {
-									editText(preparationAdd) {
-										text.delete(text.getSpanStart(it[0]), text.getSpanEnd(it[0]))
-										text.removeSpan(it[0])
-									}
-									addRecipeViewModel.updateState { state ->
-										state.preparationEditable = text
-									}
-								}
-							}
-							isDeleting = false
-						}
-					}
-
-					if (!text.isNullOrBlank() && preparationAdd.selectionEnd > 0) {
-						if (text[preparationAdd.selectionEnd - 1] == "#".toCharArray()[0]) {
-							AddSelectRecipeTagFragment(object : DialogListener {
-								override fun cancelled() {
-									editText(preparationAdd) {
-										text.delete(preparationAdd.selectionStart - 1, preparationAdd.selectionStart)
-									}
-								}
-
-								override fun ready(recipe: Recipe) {
-									val name = "#${recipe.name}" // add "#" in span
-									val spannableText: Spannable = SpannableString(name)
-									spannableText.setSpan(TagSpan(recipe.id.toString()) {
-										findNavController().navigate(AddRecipeFragmentDirections.fromAddRecipeFragmentToSingleRecipeFragment(recipe.id))
-									}, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-									preparationAdd.movementMethod = LinkMovementMethod.getInstance()
-									editText(preparationAdd) {
-										text.replace(
-											preparationAdd.selectionStart - 1, preparationAdd.selectionStart, spannableText
-										) // replacing the inserted "#"
-										text.append(" ")
-									}
-									addRecipeViewModel.updateState {
-										it.preparationEditable = text
-									}
-								}
-							}).show(childFragmentManager, AddSelectRecipeTagFragment.TAG)
-						}
-					}
+			preparationAdd.doOnTextChanged { text, _, _, _ ->
+				addRecipeViewModel.updateState {
+					it.preparation = text.toString()
 				}
 			}
-
-			preparationAdd.addTextChangedListener(textWatcherPreparationAdd)
 		}
 
 		// ViewModel->UI (Collect the ViewModel StateFlow and with it update the UI)
@@ -294,10 +223,13 @@ class AddRecipeFragment : Fragment() {
 									portionsAdd.setText(state.portions.toString())
 								}
 							}
-							state.preparationEditable?.let {
-								if (preparationAdd.text != state.preparationEditable) {
-									preparationAdd.text = state.preparationEditable
+							state.preparation?.let {
+								if (preparationAdd.text.toString() != state.preparation!!) {
+									preparationAdd.setText(state.preparation!!)
 								}
+							}
+							state.unitIngredient?.let {
+								(unitIngredientAdd.editText as AutoCompleteTextView).setText(state.unitIngredient.toString(), false)
 							}
 							state.ingredientsList?.let {
 								// if the UI is different from state
@@ -464,12 +396,6 @@ class AddRecipeFragment : Fragment() {
 		val packageManager: PackageManager = requireActivity().packageManager
 		val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
 		return resolvedActivity != null
-	}
-
-	private fun editText(editText: EditText, edit: () -> Unit) {
-		editText.removeTextChangedListener(textWatcherPreparationAdd)
-		edit()
-		editText.addTextChangedListener(textWatcherPreparationAdd)
 	}
 
 	// APPBAR: MENU

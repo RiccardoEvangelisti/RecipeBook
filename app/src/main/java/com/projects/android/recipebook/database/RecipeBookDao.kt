@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface RecipeBookDao {
 
 	@Query("SELECT rowid, * FROM recipebook WHERE rowid=(:id)")
-	suspend fun getSingleRecipe(id: Int): Recipe
+	fun getSingleRecipe(id: Int): Flow<Recipe>
 
 	@RawQuery(observedEntities = [Recipe::class])
 	fun getRecipes(query: SimpleSQLiteQuery): Flow<List<Recipe>>

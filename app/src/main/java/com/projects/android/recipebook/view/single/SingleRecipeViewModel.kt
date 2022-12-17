@@ -20,24 +20,22 @@ class SingleRecipeViewModel(recipeID: Int) : ViewModel() {
 
 	init {
 		viewModelScope.launch {
-			_state.value = SingleRecipeState().also {
-				it.tagNames = mutableListOf<String>().also { tagNames ->
-					it.recipe = recipeBookRepository.getSingleRecipe(recipeID).also { recipe ->
-						for (tag in recipe.preparation.tags) {
-							tagNames.add(recipeBookRepository.getSingleRecipe(tag.toInt()).name)
-						}
-					}
+			recipeBookRepository.getSingleRecipe(recipeID).collect { recipe ->
+				_state.value = SingleRecipeState().also {
+					it.recipe = recipe
 				}
 			}
 		}
 	}
 
 	fun updateRecipe(onUpdate: (SingleRecipeState) -> Unit) {
-		_state.update { it.also {
-			if (it != null) {
-				onUpdate(it)
+		_state.update {
+			it.also {
+				if (it != null) {
+					onUpdate(it)
+				}
 			}
-		} }
+		}
 	}
 
 	fun deleteRecipe() {

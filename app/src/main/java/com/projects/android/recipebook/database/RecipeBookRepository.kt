@@ -32,7 +32,7 @@ class RecipeBookRepository private constructor(context: Context, private val cor
 		return database.recipeBookDao().getRecipes(filters)
 	}
 
-	suspend fun getSingleRecipe(id: Int): Recipe {
+	fun getSingleRecipe(id: Int): Flow<Recipe> {
 		return database.recipeBookDao().getSingleRecipe(id)
 	}
 

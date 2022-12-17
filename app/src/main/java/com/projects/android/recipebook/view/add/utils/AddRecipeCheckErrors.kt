@@ -1,6 +1,5 @@
 package com.projects.android.recipebook.view.add.utils
 
-import android.text.Editable
 import com.google.android.material.textfield.TextInputLayout
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.Ingredient
@@ -89,8 +88,8 @@ class AddRecipeCheckErrors {
 			return true
 		}
 
-		fun checkPreparation(preparationLayoutAdd: TextInputLayout, preparationEditable: Editable?): Boolean {
-			if (preparationEditable.isNullOrBlank()) {
+		fun checkPreparation(preparationLayoutAdd: TextInputLayout, preparation: String?): Boolean {
+			if (preparation.isNullOrBlank()) {
 				preparationLayoutAdd.error = "Required"
 				return false
 			} else {

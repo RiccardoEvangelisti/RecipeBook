@@ -1,10 +1,6 @@
 package com.projects.android.recipebook.view.single
 
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.method.LinkMovementMethod
 import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -22,7 +18,6 @@ import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
 import com.projects.android.recipebook.utils.PictureUtils.Companion.getScaledBitmap
-import com.projects.android.recipebook.view.add.tag.TagSpan
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -86,22 +81,9 @@ class SingleRecipeFragment : Fragment() {
 								if (nameSingle.text.toString() != recipe!!.name) {
 									nameSingle.setText(recipe!!.name)
 								}
-
-								preparationSingle.setText(recipe!!.preparation.text) // set the text with all "#"
-								var startTag = -1
-								for ((i, name) in tagNames!!.withIndex()) { // for every "#"
-									startTag = preparationSingle.text.indexOf("#".first(), startTag + 1, true) // take the index of first "#"
-
-									val spannableText: Spannable = SpannableString("#$name")
-									spannableText.setSpan(
-										TagSpan(recipe!!.preparation.tags[i]) {
-											findNavController().navigate(SingleRecipeFragmentDirections.selfSingleRecipeFragment(recipe!!.preparation.tags[i].toInt()))
-										}, 0, spannableText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-									) // create a span with id and name of tag
-									preparationSingle.movementMethod = LinkMovementMethod.getInstance()
-									preparationSingle.text.replace(startTag, startTag + 1, spannableText) // replace old "#"
+								if (preparationSingle.text.toString() != recipe!!.preparation) {
+									preparationSingle.setText(recipe!!.preparation)
 								}
-
 								if (photoSingle.tag != recipe!!.photoFileName) { // Update photo only when the name is different
 									val photoFile = recipe!!.photoFileName?.let {
 										File(requireContext().applicationContext.filesDir, it)

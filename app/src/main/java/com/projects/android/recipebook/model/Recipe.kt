@@ -12,7 +12,7 @@ data class Recipe(
 	var name: String,
 	val course: Course,
 	val portions: String,
-	val preparation: Preparation,
+	val preparation: String,
 	val ingredientsList: MutableList<Ingredient>,
 	val isVeg: Boolean,
 	val preparationTime: PreparationTime,

@@ -7,9 +7,6 @@ plugins {
 
     // SafeArgs
     id 'androidx.navigation.safeargs'
-
-    // Parcelize
-    id "kotlin-parcelize"
 }
 
 android {

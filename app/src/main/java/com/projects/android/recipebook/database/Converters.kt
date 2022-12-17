@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.projects.android.recipebook.model.Ingredient
-import com.projects.android.recipebook.model.Preparation
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 
@@ -42,19 +41,5 @@ class Converters {
 		val gson = Gson()
 		val type = object : TypeToken<List<Ingredient>>() {}.type
 		return gson.fromJson(ingredientsList, type)
-	}
-
-	@TypeConverter
-	fun fromPreparation(preparation: Preparation): String {
-		val gson = Gson()
-		val type = object : TypeToken<Preparation>() {}.type
-		return gson.toJson(preparation, type)
-	}
-
-	@TypeConverter
-	fun toPreparation(preparation: String): Preparation {
-		val gson = Gson()
-		val type = object : TypeToken<Preparation>() {}.type
-		return gson.fromJson(preparation, type)
 	}
 }

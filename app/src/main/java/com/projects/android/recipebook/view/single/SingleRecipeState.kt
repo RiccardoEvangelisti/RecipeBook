@@ -4,5 +4,4 @@ import com.projects.android.recipebook.model.Recipe
 
 class SingleRecipeState {
 	var recipe: Recipe? = null
-	var tagNames: MutableList<String>? = null
 }
