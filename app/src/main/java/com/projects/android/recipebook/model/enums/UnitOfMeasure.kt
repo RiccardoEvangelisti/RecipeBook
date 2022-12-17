@@ -17,4 +17,16 @@ enum class UnitOfMeasure(value: String) {
 	override fun toString(): String {
 		return valueString
 	}
+
+	companion object {
+
+		fun of(string: String): UnitOfMeasure? {
+			return when (string) {
+				GRAM.valueString -> GRAM
+				MILLILITERS.valueString -> MILLILITERS
+				TO_TASTE.valueString -> TO_TASTE
+				else -> null
+			}
+		}
+	}
 }

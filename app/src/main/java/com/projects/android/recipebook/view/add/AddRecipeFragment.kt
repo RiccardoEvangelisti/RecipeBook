@@ -181,113 +181,7 @@ class AddRecipeFragment : Fragment() {
 					EditorInfo.IME_ACTION_DONE -> {
 						// If nameIngredientAdd is present and (quantityIngredientAdd is present or unitIngredientAdd==TO_TASTE)
 						if ((!quantityIngredientAdd.text.isNullOrBlank() || addRecipeViewModel.state.value?.unitIngredient == UnitOfMeasure.TO_TASTE) && !nameIngredientAdd.text.isNullOrBlank()) {
-							// Create the binding
-							val bindingIngredients = ItemAddIngredientBinding.inflate(layoutInflater)
-							_bindingIngredientsList.add(bindingIngredients)
-							bindingIngredients.apply {
-								// Initialization spinner UnitOfMeasure
-								requireContext().let {
-									ArrayAdapter(
-										it, android.R.layout.simple_spinner_dropdown_item, UnitOfMeasure.values()
-									).also { adapter ->
-										unitIngredientItemAdd.adapter = adapter
-									}
-								}
-
-								// Filling UI with new ingredient
-								quantityIngredientItemAdd.text = quantityIngredientAdd.text
-								unitIngredientItemAdd.setSelection(addRecipeViewModel.state.value?.unitIngredient!!.ordinal)
-								if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) {
-									quantityIngredientItemAdd.visibility = GONE
-								}
-								nameIngredientItemAdd.text = nameIngredientAdd.text
-
-								// ERROR HANDLERS
-								quantityIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-									if (!hasFocus) AddRecipeCheckErrors.checkQuantityIngredientItem(
-										quantityIngredientItemLayoutAdd,
-										quantityIngredientItemAdd.text.toString(),
-										unitIngredientItemAdd.selectedItem as UnitOfMeasure
-									)
-								}
-								nameIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-									if (!hasFocus) AddRecipeCheckErrors.checkNameIngredientItem(
-										nameIngredientItemLayoutAdd, nameIngredientItemAdd.text.toString()
-									)
-								}
-
-								// Cleanup
-								quantityIngredientAdd.text?.clear()
-								(unitIngredientAdd.editText as AutoCompleteTextView).setText(UnitOfMeasure.GRAM.toString(), false)
-								unitIngredientAdd.visibility = VISIBLE
-								nameIngredientAdd.text?.clear()
-								nameIngredientLayoutAdd.error = null
-
-								// Add the view to linearLayout
-								ingredientsContainerAdd.addView(root)
-
-								addRecipeViewModel.updateRecipe { state ->
-									state.ingredientsList = state.ingredientsList.also { list ->
-										list!!.add(
-											Ingredient(
-												nameIngredientItemAdd.text.toString(),
-												quantityIngredientItemAdd.text.toString(),
-												unitIngredientItemAdd.selectedItem as UnitOfMeasure
-											)
-										)
-									}
-								}
-
-								// Listeners UI->ViewModel
-								quantityIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-									addRecipeViewModel.updateRecipe { state ->
-										state.ingredientsList = state.ingredientsList.also { list ->
-											list!![ingredientsContainerAdd.indexOfChild(root)].quantity = text.toString()
-										}
-									}
-								}
-
-								unitIngredientItemAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-									override fun onItemSelected(
-										parent: AdapterView<*>?, view: View, position: Int, id: Long
-									) {
-										if (position == UnitOfMeasure.TO_TASTE.ordinal) {
-											quantityIngredientItemAdd.setText("")
-											quantityIngredientItemAdd.visibility = INVISIBLE
-										} else {
-											quantityIngredientItemAdd.visibility = VISIBLE
-										}
-										addRecipeViewModel.updateRecipe { state ->
-											state.ingredientsList = state.ingredientsList.also { list ->
-												list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
-											}
-										}
-									}
-
-									override fun onNothingSelected(parent: AdapterView<*>?) {}
-								}
-
-								nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
-									addRecipeViewModel.updateRecipe { state ->
-										state.ingredientsList = state.ingredientsList.also { list ->
-											list!![ingredientsContainerAdd.indexOfChild(root)].name = text.toString()
-										}
-									}
-								}
-
-								deleteIngredientItemAdd.setOnClickListener {
-									addRecipeViewModel.updateRecipe { state ->
-										state.ingredientsList = state.ingredientsList.also { list ->
-											list!!.removeAt(
-												ingredientsContainerAdd.indexOfChild(
-													root
-												)
-											)
-										}
-									}
-									ingredientsContainerAdd.removeView(root)
-								}
-							}
+							addIngredient(true)
 						}
 						true
 					}
@@ -400,17 +294,32 @@ class AddRecipeFragment : Fragment() {
 								}
 							}
 							state.ingredientsList?.let {
-								for (i in _bindingIngredientsList.indices) {
-									_bindingIngredientsList[i]!!.apply {
-										val ingredient = state.ingredientsList!![i]
-										if (nameIngredientItemAdd.text.toString() != ingredient.name) {
-											nameIngredientItemAdd.setText(ingredient.name)
-										}
-										if (quantityIngredientItemAdd.text.toString() != ingredient.quantity) {
-											quantityIngredientItemAdd.setText(ingredient.quantity)
-										}
-										if (unitIngredientItemAdd.selectedItemPosition != ingredient.unitOfMeasure.ordinal) {
-											unitIngredientItemAdd.setSelection(ingredient.unitOfMeasure.ordinal)
+								// if the UI is different from state
+								if (_bindingIngredientsList.size != state.ingredientsList!!.size) {
+									// clear layout of all ingredients
+									for (i in _bindingIngredientsList.indices) {
+										_bindingIngredientsList[i] = null
+									}
+									// set new values and insert new ingredient
+									for (ingredient in state.ingredientsList!!) {
+										quantityIngredientAdd.setText(ingredient.quantity)
+										nameIngredientAdd.setText(ingredient.name)
+										(unitIngredientAdd.editText as AutoCompleteTextView).setText(ingredient.unitOfMeasure.toString(), false)
+										addIngredient(false)
+									}
+								} else {
+									for (i in _bindingIngredientsList.indices) {
+										_bindingIngredientsList[i]!!.apply {
+											val ingredient = state.ingredientsList!![i]
+											if (nameIngredientItemAdd.text.toString() != ingredient.name) {
+												nameIngredientItemAdd.setText(ingredient.name)
+											}
+											if (quantityIngredientItemAdd.text.toString() != ingredient.quantity) {
+												quantityIngredientItemAdd.setText(ingredient.quantity)
+											}
+											if (unitIngredientItemAdd.selectedItemPosition != ingredient.unitOfMeasure.ordinal) {
+												unitIngredientItemAdd.setSelection(ingredient.unitOfMeasure.ordinal)
+											}
 										}
 									}
 								}
@@ -427,6 +336,120 @@ class AddRecipeFragment : Fragment() {
 		_binding = null
 		for (i in _bindingIngredientsList.indices) {
 			_bindingIngredientsList[i] = null
+		}
+	}
+
+	private fun addIngredient(toInsert: Boolean) {
+		binding.apply {
+			// Create the binding
+			val bindingIngredients = ItemAddIngredientBinding.inflate(layoutInflater)
+			_bindingIngredientsList.add(bindingIngredients)
+			bindingIngredients.apply {
+				// Initialization spinner UnitOfMeasure
+				requireContext().let {
+					ArrayAdapter(
+						it, android.R.layout.simple_spinner_dropdown_item, UnitOfMeasure.values()
+					).also { adapter ->
+						unitIngredientItemAdd.adapter = adapter
+					}
+				}
+
+				// Filling UI with new ingredient
+				quantityIngredientItemAdd.text = quantityIngredientAdd.text
+				unitIngredientItemAdd.setSelection(UnitOfMeasure.of((unitIngredientAdd.editText as AutoCompleteTextView).text.toString())!!.ordinal)
+				if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) {
+					quantityIngredientItemAdd.visibility = GONE
+				}
+				nameIngredientItemAdd.text = nameIngredientAdd.text
+
+				// ERROR HANDLERS
+				quantityIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+					if (!hasFocus) AddRecipeCheckErrors.checkQuantityIngredientItem(
+						quantityIngredientItemLayoutAdd,
+						quantityIngredientItemAdd.text.toString(),
+						unitIngredientItemAdd.selectedItem as UnitOfMeasure
+					)
+				}
+				nameIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+					if (!hasFocus) AddRecipeCheckErrors.checkNameIngredientItem(
+						nameIngredientItemLayoutAdd, nameIngredientItemAdd.text.toString()
+					)
+				}
+
+				// Cleanup
+				quantityIngredientAdd.text?.clear()
+				(unitIngredientAdd.editText as AutoCompleteTextView).setText(UnitOfMeasure.GRAM.toString(), false)
+				unitIngredientAdd.visibility = VISIBLE
+				nameIngredientAdd.text?.clear()
+				nameIngredientLayoutAdd.error = null
+
+				// Add the view to linearLayout
+				ingredientsContainerAdd.addView(root)
+
+				if (toInsert) {
+					addRecipeViewModel.updateRecipe { state ->
+						state.ingredientsList = state.ingredientsList.also { list ->
+							list!!.add(
+								Ingredient(
+									nameIngredientItemAdd.text.toString(),
+									quantityIngredientItemAdd.text.toString(),
+									unitIngredientItemAdd.selectedItem as UnitOfMeasure
+								)
+							)
+						}
+					}
+				}
+
+				// Listeners UI->ViewModel
+				quantityIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
+					addRecipeViewModel.updateRecipe { state ->
+						state.ingredientsList = state.ingredientsList.also { list ->
+							list!![ingredientsContainerAdd.indexOfChild(root)].quantity = text.toString()
+						}
+					}
+				}
+
+				unitIngredientItemAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+					override fun onItemSelected(
+						parent: AdapterView<*>?, view: View, position: Int, id: Long
+					) {
+						if (position == UnitOfMeasure.TO_TASTE.ordinal) {
+							quantityIngredientItemAdd.setText("")
+							quantityIngredientItemAdd.visibility = INVISIBLE
+						} else {
+							quantityIngredientItemAdd.visibility = VISIBLE
+						}
+						addRecipeViewModel.updateRecipe { state ->
+							state.ingredientsList = state.ingredientsList.also { list ->
+								list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
+							}
+						}
+					}
+
+					override fun onNothingSelected(parent: AdapterView<*>?) {}
+				}
+
+				nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
+					addRecipeViewModel.updateRecipe { state ->
+						state.ingredientsList = state.ingredientsList.also { list ->
+							list!![ingredientsContainerAdd.indexOfChild(root)].name = text.toString()
+						}
+					}
+				}
+
+				deleteIngredientItemAdd.setOnClickListener {
+					addRecipeViewModel.updateRecipe { state ->
+						state.ingredientsList = state.ingredientsList.also { list ->
+							list!!.removeAt(
+								ingredientsContainerAdd.indexOfChild(
+									root
+								)
+							)
+						}
+					}
+					ingredientsContainerAdd.removeView(root)
+				}
+			}
 		}
 	}
 
