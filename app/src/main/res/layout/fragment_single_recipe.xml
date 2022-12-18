@@ -3,6 +3,7 @@
 <androidx.core.widget.NestedScrollView
 	xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
 	android:layout_height = "match_parent"
 	android:fillViewport = "true">
@@ -11,46 +12,50 @@
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent">
 
-		<EditText
-			android:id = "@+id/name_single"
-			android:layout_width = "316dp"
-			android:layout_height = "48dp"
-			android:layout_marginTop = "16dp"
-			android:importantForAutofill = "no"
-			android:inputType = "text"
-			android:text = "@string/single_recipe_fragment_recipe_name"
-			android:textColor = "@color/black"
-			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toTopOf = "parent" />
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline1_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_begin = "20dp" />
 
-		<EditText
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline2_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_end = "20dp" />
+
+		<TextView
+			android:id = "@+id/name_single"
+			android:layout_width = "0dp"
+			android:layout_height = "wrap_content"
+			android:textSize = "20sp"
+			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toTopOf = "@+id/guideline3_single"
+			tools:text = "Name" />
+
+		<TextView
 			android:id = "@+id/preparation_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginStart = "16dp"
-			android:layout_marginTop = "8dp"
-			android:layout_marginEnd = "16dp"
 			android:autoLink = "all"
 			android:importantForAutofill = "no"
-			android:inputType = "textCapSentences|textMultiLine"
-			android:minHeight = "48dp"
 			android:scrollbars = "vertical"
-			android:text = "@string/single_recipe_fragment_recipe_preparation"
-			android:textColor = "@color/black"
-			android:textColorHint = "#757575"
+			android:textSize = "20sp"
 			app:autoSizeTextType = "uniform"
 			app:layout_constraintBottom_toTopOf = "@+id/photoSingle"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
-			app:layout_constraintTop_toBottomOf = "@+id/name_single" />
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/name_single"
+			tools:text = "Preparazione" />
 
 		<ImageView
 			android:id = "@+id/photoSingle"
 			android:layout_width = "310dp"
 			android:layout_height = "402dp"
-			android:layout_marginTop = "8dp"
 			android:background = "@color/black"
 			android:cropToPadding = "true"
 			android:scaleType = "centerInside"
@@ -58,5 +63,13 @@
 			app:layout_constraintEnd_toEndOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent"
 			app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline3_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "horizontal"
+			app:layout_constraintGuide_begin = "20dp" />
+
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.doOnLayout
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -61,15 +61,7 @@ class SingleRecipeFragment : Fragment() {
 		}
 
 		binding.apply {
-			nameSingle.doOnTextChanged { text, _, _, _ ->
-				singleRecipeViewModel.updateRecipe {
-					it.recipe?.name = text.toString()
-				}
-			}
 
-			preparationSingle.doOnTextChanged { _, _, _, _ ->
-				//TODO
-			}
 		}
 
 		viewLifecycleOwner.lifecycleScope.launch {
@@ -128,10 +120,13 @@ class SingleRecipeFragment : Fragment() {
 			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 				return when (menuItem.itemId) {
 					R.id.delete_recipe -> {
-						viewLifecycleOwner.lifecycleScope.launch {
-							singleRecipeViewModel.deleteRecipe()
-						}
-						findNavController().navigateUp()
+						AlertDialog.Builder(requireContext()).setTitle("Confirm to Delete?").setIcon(R.drawable.ic_baseline_dangerous_24)
+							.setPositiveButton(android.R.string.ok) { _, _ ->
+								viewLifecycleOwner.lifecycleScope.launch {
+									singleRecipeViewModel.deleteRecipe()
+								}
+								findNavController().navigateUp()
+							}.setNegativeButton(android.R.string.cancel, null).show()
 						true
 					}
 
