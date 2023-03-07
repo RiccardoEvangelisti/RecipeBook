@@ -39,6 +39,7 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 						it.preparationTime = recipe.preparationTime
 						it.preparation = recipe.preparation
 						it.ingredientsList = recipe.ingredientsList
+						it.photoFileName = recipe.photoFileName
 					}
 				}
 			} else {
