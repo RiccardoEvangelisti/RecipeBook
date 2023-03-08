@@ -10,6 +10,8 @@ import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
 import java.io.File
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 class PictureUtils {
@@ -55,17 +57,21 @@ class PictureUtils {
 			return rotatedImg
 		}
 
-		fun getFileFromString(context: Context, photoName: String): File {
-			return File(context.applicationContext.filesDir, photoName)
-		}
-
-		fun getUriFromString(context: Context, photoName: String): Uri {
-			val photoFile = getFileFromString(context, photoName)
+		fun getUriForFile(context: Context, photoFile: File): Uri {
 			return FileProvider.getUriForFile(context, "com.projects.android.recipebook.fileprovider", photoFile)
 		}
 
-		fun deletePicture(context: Context, photoFileName: String): Boolean {
-			return getFileFromString(context, photoFileName).delete()
+		fun createTempPicture(): File {
+			return File.createTempFile("IMG_${SimpleDateFormat("yyyyMMdd_HHmmss_", Locale.ITALY).format(Date())}", ".JPG")
+		}
+
+		fun getCachedPicture(context: Context, photoName: String):File{
+			return File(context.applicationContext.cacheDir, photoName)
+		}
+
+		fun createPicture(context: Context, photoName: String): File {
+			val imagePath = File(context.applicationContext.filesDir, "pictures").also { it.mkdirs() }
+			return File(imagePath, photoName)
 		}
 	}
 }

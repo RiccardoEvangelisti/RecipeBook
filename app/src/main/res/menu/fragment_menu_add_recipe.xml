@@ -5,4 +5,8 @@
         android:id="@+id/cancel"
         android:title="@string/menu_add_recipe_cancel"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/save"
+        android:title="@string/menu_add_recipe_save"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -3,6 +3,7 @@
 
 	<!-- Add Recipe Fragment -->
 	<string name = "menu_add_recipe_cancel">Cancel</string>
+	<string name = "menu_add_recipe_save">Save</string>
 	<string name = "add_recipe_fragment_recipe_name">Name</string>
 	<string name = "add_recipe_fragment_take_picture">Take a picture</string>
 	<string name = "add_recipe_fragment_is_cooked">Is Cooked</string>
