@@ -17,9 +17,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
+import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.utils.PictureUtils.Companion.getScaledBitmap
 import kotlinx.coroutines.launch
-import java.io.File
 
 class SingleRecipeFragment : Fragment() {
 
@@ -78,7 +78,7 @@ class SingleRecipeFragment : Fragment() {
 								}
 								if (photoSingle.tag != recipe!!.photoFileName) { // Update photo only when the name is different
 									val photoFile = recipe!!.photoFileName?.let {
-										File(requireContext().applicationContext.filesDir, it)
+										PictureUtils.createPicture(requireContext(), it)
 									}
 									if (photoFile?.exists() == true) {
 										photoSingle.doOnLayout { measuredView ->

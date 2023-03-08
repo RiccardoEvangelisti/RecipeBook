@@ -1,5 +1,8 @@
 package com.projects.android.recipebook.view.add
 
+import android.content.Context
+import android.os.FileUtils
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -9,11 +12,14 @@ import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
+import com.projects.android.recipebook.utils.PictureUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 
@@ -69,10 +75,22 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 		return _state.value!!.checkRecipe(binding, bindingIngredientsList)
 	}
 
-	override fun onCleared() {
+	fun saveRecipe(context: Context) {
 		super.onCleared()
 		if (!_state.value?.canceled!!) {
 			_state.value?.formatRecipe()
+			_state.value?.photoFileName?.let {
+				// delete previous
+				_state.value?.photoFileNamePrevious?.let { photoFileNamePrevious ->
+					if (PictureUtils.createPicture(context, photoFileNamePrevious).delete().not()) {
+						Toast.makeText(
+							context, "Fail to delete previous picture", Toast.LENGTH_SHORT
+						).show()
+					}
+				}
+				// save new
+				FileUtils.copy(FileInputStream(PictureUtils.getCachedPicture(context, it)), FileOutputStream(PictureUtils.createPicture(context, it)))
+			}
 			if (state.value!!.editMode) {
 				_state.value?.let { state -> recipeBookRepository.updateRecipe(state.toRecipe()) }
 			} else {

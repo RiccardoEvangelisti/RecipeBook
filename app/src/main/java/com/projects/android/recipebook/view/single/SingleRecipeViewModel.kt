@@ -1,6 +1,7 @@
 package com.projects.android.recipebook.view.single
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -42,7 +43,11 @@ class SingleRecipeViewModel(recipeID: Int) : ViewModel() {
 
 	fun deleteRecipe(context: Context) {
 		_state.value?.recipe?.photoFileName?.let {
-			PictureUtils.deletePicture(context, it)
+			if (!PictureUtils.createPicture(context, it).delete()) {
+				Toast.makeText(
+					context, "Fail to delete picture", Toast.LENGTH_SHORT
+				).show()
+			}
 		}
 		_state.value?.recipe?.let { recipeBookRepository.deleteRecipe(it) }
 	}

@@ -23,6 +23,7 @@ class AddRecipeState {
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null
 	var photoFileName: String? = null
+	var photoFileNamePrevious: String? = null
 
 	fun toRecipe(): Recipe {
 		return Recipe(

@@ -36,7 +36,7 @@ import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
+import java.io.File
 import java.util.*
 
 class AddRecipeFragment : Fragment() {
@@ -61,17 +61,17 @@ class AddRecipeFragment : Fragment() {
 	private var _bindingIngredientsList = mutableListOf<ItemAddIngredientBinding?>()
 
 	// Variables for taking photos
-	private var photoName: String? = null
+	private var photoFile: File? = null
 	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
-		if (didTakePhoto && photoName != null) {
-			addRecipeViewModel.state.value?.photoFileName?.let {
-				if (PictureUtils.deletePicture(requireContext(), it).not()) {
-					Toast.makeText(
-						activity, "Fail to delete previous picture", Toast.LENGTH_SHORT
-					).show()
-				}
+		if (didTakePhoto && photoFile != null) {
+			addRecipeViewModel.updateState {
+				it.photoFileNamePrevious = it.photoFileName
+				it.photoFileName = photoFile!!.name
 			}
-			addRecipeViewModel.updateState { it.photoFileName = photoName }
+		} else {
+			Toast.makeText(
+				activity, "Fail to save picture", Toast.LENGTH_SHORT
+			).show()
 		}
 	}
 
@@ -136,9 +136,9 @@ class AddRecipeFragment : Fragment() {
 
 			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 			takePhotoAdd.setOnClickListener {
-				photoName = "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(Date())}.JPG"
-				val photoUri = PictureUtils.getUriFromString(requireContext(), photoName!!)
-				takePhoto.launch(photoUri)
+				photoFile = PictureUtils.createTempPicture().also {
+					takePhoto.launch(PictureUtils.getUriForFile(requireContext(), it))
+				}
 			}
 
 			isVegAdd.setOnCheckedChangeListener { _, b ->
@@ -419,6 +419,11 @@ class AddRecipeFragment : Fragment() {
 				return when (menuItem.itemId) {
 					R.id.cancel -> {
 						addRecipeViewModel.state.value?.canceled = true
+						findNavController().navigateUp()
+						true
+					}
+					R.id.save -> {
+						addRecipeViewModel.saveRecipe(requireContext())
 						findNavController().navigateUp()
 						true
 					}
