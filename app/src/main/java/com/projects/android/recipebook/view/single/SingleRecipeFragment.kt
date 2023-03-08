@@ -71,10 +71,10 @@ class SingleRecipeFragment : Fragment() {
 						recipe?.let {
 							binding.apply {
 								if (nameSingle.text.toString() != recipe!!.name) {
-									nameSingle.setText(recipe!!.name)
+									nameSingle.text = recipe!!.name
 								}
 								if (preparationSingle.text.toString() != recipe!!.preparation) {
-									preparationSingle.setText(recipe!!.preparation)
+									preparationSingle.text = recipe!!.preparation
 								}
 								if (photoSingle.tag != recipe!!.photoFileName) { // Update photo only when the name is different
 									val photoFile = recipe!!.photoFileName?.let {
@@ -123,7 +123,7 @@ class SingleRecipeFragment : Fragment() {
 						AlertDialog.Builder(requireContext()).setTitle("Confirm to Delete?").setIcon(R.drawable.ic_baseline_dangerous_24)
 							.setPositiveButton(android.R.string.ok) { _, _ ->
 								viewLifecycleOwner.lifecycleScope.launch {
-									singleRecipeViewModel.deleteRecipe()
+									singleRecipeViewModel.deleteRecipe(requireContext())
 								}
 								findNavController().navigateUp()
 							}.setNegativeButton(android.R.string.cancel, null).show()

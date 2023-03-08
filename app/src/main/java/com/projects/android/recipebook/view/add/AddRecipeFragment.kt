@@ -13,9 +13,9 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
@@ -33,9 +33,9 @@ import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
+import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,6 +64,13 @@ class AddRecipeFragment : Fragment() {
 	private var photoName: String? = null
 	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
 		if (didTakePhoto && photoName != null) {
+			addRecipeViewModel.state.value?.photoFileName?.let {
+				if (PictureUtils.deletePicture(requireContext(), it).not()) {
+					Toast.makeText(
+						activity, "Fail to delete previous picture", Toast.LENGTH_SHORT
+					).show()
+				}
+			}
 			addRecipeViewModel.updateState { it.photoFileName = photoName }
 		}
 	}
@@ -130,8 +137,7 @@ class AddRecipeFragment : Fragment() {
 			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 			takePhotoAdd.setOnClickListener {
 				photoName = "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(Date())}.JPG"
-				val photoFile = File(requireContext().applicationContext.filesDir, photoName!!)
-				val photoUri = FileProvider.getUriForFile(requireContext(), "com.projects.android.recipebook.fileprovider", photoFile)
+				val photoUri = PictureUtils.getUriFromString(requireContext(), photoName!!)
 				takePhoto.launch(photoUri)
 			}
 

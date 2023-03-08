@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.net.Uri
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
 import java.io.File
@@ -51,6 +53,19 @@ class PictureUtils {
 			val rotatedImg = Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
 			img.recycle()
 			return rotatedImg
+		}
+
+		fun getFileFromString(context: Context, photoName: String): File {
+			return File(context.applicationContext.filesDir, photoName)
+		}
+
+		fun getUriFromString(context: Context, photoName: String): Uri {
+			val photoFile = getFileFromString(context, photoName)
+			return FileProvider.getUriForFile(context, "com.projects.android.recipebook.fileprovider", photoFile)
+		}
+
+		fun deletePicture(context: Context, photoFileName: String): Boolean {
+			return getFileFromString(context, photoFileName).delete()
 		}
 	}
 }

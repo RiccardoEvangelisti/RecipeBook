@@ -1,9 +1,11 @@
 package com.projects.android.recipebook.view.single
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.projects.android.recipebook.database.RecipeBookRepository
+import com.projects.android.recipebook.utils.PictureUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,7 +40,10 @@ class SingleRecipeViewModel(recipeID: Int) : ViewModel() {
 		}
 	}
 
-	fun deleteRecipe() {
+	fun deleteRecipe(context: Context) {
+		_state.value?.recipe?.photoFileName?.let {
+			PictureUtils.deletePicture(context, it)
+		}
 		_state.value?.recipe?.let { recipeBookRepository.deleteRecipe(it) }
 	}
 
