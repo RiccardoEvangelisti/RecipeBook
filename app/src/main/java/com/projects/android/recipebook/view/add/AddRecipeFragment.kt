@@ -136,7 +136,7 @@ class AddRecipeFragment : Fragment() {
 
 			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
 			takePhotoAdd.setOnClickListener {
-				photoFile = PictureUtils.createTempPicture().also {
+				photoFile = PictureUtils.createTempPicture(requireContext()).also {
 					takePhoto.launch(PictureUtils.getUriForFile(requireContext(), it))
 				}
 			}
