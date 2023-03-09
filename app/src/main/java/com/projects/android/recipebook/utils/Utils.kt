@@ -1,5 +1,6 @@
 package com.projects.android.recipebook.utils
 
+import android.content.Context
 import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.Recipe
 
@@ -29,6 +30,17 @@ class Utils {
 			if (i1.quantity != i2.quantity) return false
 			if (i1.unitOfMeasure != i2.unitOfMeasure) return false
 			return true
+		}
+
+		fun clearCache(context: Context) {
+			val dir = context.applicationContext.cacheDir
+			if (dir.isDirectory) {
+				if (dir.listFiles() != null) {
+					for (file in dir.listFiles()!!) {
+						file.delete()
+					}
+				}
+			}
 		}
 	}
 }

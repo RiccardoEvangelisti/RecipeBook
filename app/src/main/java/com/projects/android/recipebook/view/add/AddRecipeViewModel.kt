@@ -80,7 +80,7 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 		if (!_state.value?.canceled!!) {
 			_state.value?.formatRecipe()
 			_state.value?.photoFileName?.let {
-				// delete previous
+				// delete previous picture
 				_state.value?.photoFileNamePrevious?.let { photoFileNamePrevious ->
 					if (PictureUtils.createPicture(context, photoFileNamePrevious).delete().not()) {
 						Toast.makeText(
@@ -88,8 +88,10 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 						).show()
 					}
 				}
-				// save new
+				// save new picture
 				FileUtils.copy(FileInputStream(PictureUtils.getCachedPicture(context, it)), FileOutputStream(PictureUtils.createPicture(context, it)))
+				// delete temp file
+				PictureUtils.getCachedPicture(context, it).delete()
 			}
 			if (state.value!!.editMode) {
 				_state.value?.let { state -> recipeBookRepository.updateRecipe(state.toRecipe()) }

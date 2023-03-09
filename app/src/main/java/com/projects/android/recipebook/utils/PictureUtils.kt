@@ -62,7 +62,7 @@ class PictureUtils {
 		}
 
 		fun createTempPicture(context: Context): File {
-			val cachePath = File(context.cacheDir.path).also { it.mkdirs() }
+			val cachePath = context.applicationContext.cacheDir.also { it.mkdirs() }
 			return File.createTempFile("IMG_${SimpleDateFormat("yyyyMMdd_HHmmss_", Locale.ITALY).format(Date())}", ".JPG", cachePath)
 				.also { it.deleteOnExit() }
 		}
