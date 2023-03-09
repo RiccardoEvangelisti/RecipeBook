@@ -61,11 +61,13 @@ class PictureUtils {
 			return FileProvider.getUriForFile(context, "com.projects.android.recipebook.fileprovider", photoFile)
 		}
 
-		fun createTempPicture(): File {
-			return File.createTempFile("IMG_${SimpleDateFormat("yyyyMMdd_HHmmss_", Locale.ITALY).format(Date())}", ".JPG")
+		fun createTempPicture(context: Context): File {
+			val cachePath = context.applicationContext.cacheDir.also { it.mkdirs() }
+			return File.createTempFile("IMG_${SimpleDateFormat("yyyyMMdd_HHmmss_", Locale.ITALY).format(Date())}", ".JPG", cachePath)
+				.also { it.deleteOnExit() }
 		}
 
-		fun getCachedPicture(context: Context, photoName: String):File{
+		fun getCachedPicture(context: Context, photoName: String): File {
 			return File(context.applicationContext.cacheDir, photoName)
 		}
 
