@@ -22,12 +22,12 @@ class AddRecipeState {
 	var isVeg: Boolean? = null
 	var preparationTime: PreparationTime? = null
 	var isCooked: Boolean? = null
-	var photoFileName: String? = null
-	var photoFileNamePrevious: String? = null
+	var pictureFileName: String? = null
+	var pictureFileNamePrevious: String? = null
 
 	fun toRecipe(): Recipe {
 		return Recipe(
-			id ?: 0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVeg!!, preparationTime!!, isCooked!!, photoFileName
+			id ?: 0, name!!, course!!, portions!!, preparation!!, ingredientsList!!, isVeg!!, preparationTime!!, isCooked!!, pictureFileName
 		)
 	}
 
@@ -50,7 +50,6 @@ class AddRecipeState {
 
 	fun formatRecipe() {
 		name = name!!.trim()
-
 		for (ingredient in ingredientsList!!) {
 			ingredient.name = ingredient.name.trim()
 			if (ingredient.unitOfMeasure != UnitOfMeasure.TO_TASTE) {

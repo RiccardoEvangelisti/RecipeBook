@@ -17,5 +17,5 @@ data class Recipe(
 	val isVeg: Boolean,
 	val preparationTime: PreparationTime,
 	val isCooked: Boolean,
-	val photoFileName: String? = null
+	val pictureFileName: String? = null
 )

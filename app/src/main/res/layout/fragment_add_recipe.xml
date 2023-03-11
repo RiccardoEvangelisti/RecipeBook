@@ -36,7 +36,7 @@
 			android:background = "@android:color/transparent"
 			app:boxBackgroundColor = "@android:color/transparent"
 			app:layout_constraintBottom_toTopOf = "@+id/guideline3_add"
-			app:layout_constraintEnd_toStartOf = "@+id/take_photo_add"
+			app:layout_constraintEnd_toStartOf = "@+id/take_picture_add"
 			app:layout_constraintHorizontal_bias = "0.494"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
 			app:layout_constraintTop_toTopOf = "parent">
@@ -56,7 +56,7 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<ImageButton
-			android:id = "@+id/take_photo_add"
+			android:id = "@+id/take_picture_add"
 			android:layout_width = "wrap_content"
 			android:layout_height = "0dp"
 			android:contentDescription = "@string/add_recipe_fragment_take_picture"

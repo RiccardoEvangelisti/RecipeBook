@@ -1,8 +1,6 @@
 package com.projects.android.recipebook.view.add
 
 import android.content.Context
-import android.os.FileUtils
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -18,8 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 
@@ -45,7 +41,7 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 						it.preparationTime = recipe.preparationTime
 						it.preparation = recipe.preparation
 						it.ingredientsList = recipe.ingredientsList
-						it.photoFileName = recipe.photoFileName
+						it.pictureFileName = recipe.pictureFileName
 					}
 				}
 			} else {
@@ -76,27 +72,31 @@ class AddRecipeViewModel(recipeID: Int) : ViewModel() {
 	}
 
 	fun saveRecipe(context: Context) {
-		super.onCleared()
 		if (!_state.value?.canceled!!) {
 			_state.value?.formatRecipe()
-			_state.value?.photoFileName?.let {
+			_state.value?.pictureFileName?.let {
 				// delete previous picture
-				_state.value?.photoFileNamePrevious?.let { photoFileNamePrevious ->
-					if (PictureUtils.createPicture(context, photoFileNamePrevious).delete().not()) {
-						Toast.makeText(
-							context, "Fail to delete previous picture", Toast.LENGTH_SHORT
-						).show()
-					}
+				_state.value?.pictureFileNamePrevious?.let { photoFileNamePrevious ->
+					PictureUtils.deletePicture(context, photoFileNamePrevious)
 				}
 				// save new picture
-				FileUtils.copy(FileInputStream(PictureUtils.getCachedPicture(context, it)), FileOutputStream(PictureUtils.createPicture(context, it)))
+				PictureUtils.savePicture(context, it)
 				// delete temp file
-				PictureUtils.getCachedPicture(context, it).delete()
+				PictureUtils.deleteCachedPicture(context, it)
 			}
 			if (state.value!!.editMode) {
 				_state.value?.let { state -> recipeBookRepository.updateRecipe(state.toRecipe()) }
 			} else {
 				_state.value?.let { state -> recipeBookRepository.insertRecipe(state.toRecipe()) }
+			}
+		}
+	}
+
+	fun cancelInsertRecipe(context: Context) {
+		if (_state.value?.canceled!!) {
+			_state.value?.pictureFileName?.let {
+				// delete temp file
+				PictureUtils.deleteCachedPicture(context, it)
 			}
 		}
 	}

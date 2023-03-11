@@ -13,7 +13,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
@@ -33,6 +32,7 @@ import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
+import com.projects.android.recipebook.utils.ErrorUtil
 import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
@@ -60,18 +60,16 @@ class AddRecipeFragment : Fragment() {
 
 	private var _bindingIngredientsList = mutableListOf<ItemAddIngredientBinding?>()
 
-	// Variables for taking photos
-	private var photoFile: File? = null
-	private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePhoto: Boolean ->
-		if (didTakePhoto && photoFile != null) {
+	// Variables for taking pictures
+	private var pictureFile: File? = null
+	private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePicture: Boolean ->
+		if (didTakePicture && pictureFile != null) {
 			addRecipeViewModel.updateState {
-				it.photoFileNamePrevious = it.photoFileName
-				it.photoFileName = photoFile!!.name
+				it.pictureFileNamePrevious = it.pictureFileName
+				it.pictureFileName = pictureFile!!.name
 			}
 		} else {
-			Toast.makeText(
-				activity, "Fail to save picture", Toast.LENGTH_SHORT
-			).show()
+			ErrorUtil.shortToast(requireContext(), "Failure to take picture")
 		}
 	}
 
@@ -134,10 +132,10 @@ class AddRecipeFragment : Fragment() {
 				addRecipeViewModel.updateState { it.name = text.toString() }
 			}
 
-			takePhotoAdd.isEnabled = canResolveIntent(takePhoto.contract.createIntent(requireContext(), Uri.EMPTY))
-			takePhotoAdd.setOnClickListener {
-				photoFile = PictureUtils.createTempPicture(requireContext()).also {
-					takePhoto.launch(PictureUtils.getUriForFile(requireContext(), it))
+			takePictureAdd.isEnabled = canResolveIntent(takePicture.contract.createIntent(requireContext(), Uri.EMPTY))
+			takePictureAdd.setOnClickListener {
+				pictureFile = PictureUtils.createTempPicture(requireContext()).also {
+					takePicture.launch(PictureUtils.getUriForFile(requireContext(), it))
 				}
 			}
 
@@ -419,6 +417,7 @@ class AddRecipeFragment : Fragment() {
 				return when (menuItem.itemId) {
 					R.id.cancel -> {
 						addRecipeViewModel.state.value?.canceled = true
+						addRecipeViewModel.cancelInsertRecipe(requireContext())
 						findNavController().navigateUp()
 						true
 					}
