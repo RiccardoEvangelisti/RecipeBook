@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "279b2030cf21c7a0d126fd24f7166291",
+    "identityHash": "cfd3ca12118a5dc8074023ce87eb4303",
     "entities": [
       {
         "tableName": "recipeBook",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `course` INTEGER NOT NULL, `portions` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, `isVeg` INTEGER NOT NULL, `preparationTime` INTEGER NOT NULL, `isCooked` INTEGER NOT NULL, `photoFileName` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `course` INTEGER NOT NULL, `portions` TEXT NOT NULL, `preparation` TEXT NOT NULL, `ingredientsList` TEXT NOT NULL, `isVeg` INTEGER NOT NULL, `preparationTime` INTEGER NOT NULL, `isCooked` INTEGER NOT NULL, `pictureFileName` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -63,17 +63,17 @@
             "notNull": true
           },
           {
-            "fieldPath": "photoFileName",
-            "columnName": "photoFileName",
+            "fieldPath": "pictureFileName",
+            "columnName": "pictureFileName",
             "affinity": "TEXT",
             "notNull": false
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "rowid"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -119,10 +119,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "rowid"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -131,7 +131,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '279b2030cf21c7a0d126fd24f7166291')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cfd3ca12118a5dc8074023ce87eb4303')"
     ]
   }
 }

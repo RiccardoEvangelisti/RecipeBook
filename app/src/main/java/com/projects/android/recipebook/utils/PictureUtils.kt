@@ -5,10 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
+import android.os.FileUtils
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,7 +20,7 @@ class PictureUtils {
 
 	companion object {
 
-		fun getScaledBitmap(context: Context, path: String, destWidth: Int, destHeight: Int): Bitmap {
+		fun getScaledBitmap(path: String, destWidth: Int, destHeight: Int): Bitmap {
 			// Read in the dimensions of the image on disk
 			val options = BitmapFactory.Options()
 			options.inJustDecodeBounds = true
@@ -34,31 +36,11 @@ class PictureUtils {
 				minOf(heightScale, widthScale).roundToInt()
 			}
 			// Read in and create final bitmap
-			var bitmap = BitmapFactory.decodeFile(path, BitmapFactory.Options().apply { inSampleSize = sampleSize })
-
-			// Rotate image if required
-			val input: InputStream? = context.contentResolver.openInputStream(File(path).toUri())
-			bitmap = when (ExifInterface(input!!).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
-				ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90)
-				ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180)
-				ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270)
-				else -> bitmap
-			}
-			input.close()
-
-			return bitmap
+			return BitmapFactory.decodeFile(path, BitmapFactory.Options().apply { inSampleSize = sampleSize })
 		}
 
-		private fun rotateImage(img: Bitmap, degree: Int): Bitmap? {
-			val matrix = Matrix()
-			matrix.postRotate(degree.toFloat())
-			val rotatedImg = Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
-			img.recycle()
-			return rotatedImg
-		}
-
-		fun getUriForFile(context: Context, photoFile: File): Uri {
-			return FileProvider.getUriForFile(context, "com.projects.android.recipebook.fileprovider", photoFile)
+		fun getUriForFile(context: Context, pictureFile: File): Uri {
+			return FileProvider.getUriForFile(context, "com.projects.android.recipebook.fileprovider", pictureFile)
 		}
 
 		fun createTempPicture(context: Context): File {
@@ -67,13 +49,74 @@ class PictureUtils {
 				.also { it.deleteOnExit() }
 		}
 
-		fun getCachedPicture(context: Context, photoName: String): File {
-			return File(context.applicationContext.cacheDir, photoName)
+		fun getCachedPicture(context: Context, pictureName: String): File {
+			return File(context.applicationContext.cacheDir, pictureName)
 		}
 
-		fun createPicture(context: Context, photoName: String): File {
+		fun getPicture(context: Context, pictureName: String): File {
 			val imagePath = File(context.applicationContext.filesDir, "pictures").also { it.mkdirs() }
-			return File(imagePath, photoName)
+			return File(imagePath, pictureName)
+		}
+
+		fun deletePicture(context: Context, pictureName: String) {
+			if (getPicture(context, pictureName).delete().not()) {
+				ErrorUtil.shortToast(context, "Failure to delete previous picture")
+			}
+		}
+
+		fun deleteCachedPicture(context: Context, cachedPicture: String) {
+			if (getCachedPicture(context, cachedPicture).delete().not()) {
+				ErrorUtil.shortToast(context, "Failure to delete previous picture")
+			}
+		}
+
+		fun savePicture(context: Context, pictureName: String) {
+			val pictureFile = getPicture(context, pictureName)
+			try {
+				FileUtils.copy(FileInputStream(getCachedPicture(context, pictureName)), FileOutputStream(pictureFile))
+
+				val outputWidth = 1024
+				val outputQuality = 75 // (0-100)
+
+				var bitmap = BitmapFactory.decodeFile(pictureFile.absolutePath)
+
+				// Rotate image if required
+				bitmap = rotateImage(context, getUriForFile(context, pictureFile), bitmap)
+
+				val outputHeight = outputWidth * bitmap.height / bitmap.width
+
+				val outputBitmap = Bitmap.createScaledBitmap(bitmap, outputWidth, outputHeight, false)
+
+				val outputStream = FileOutputStream(pictureFile)
+				outputBitmap.compress(Bitmap.CompressFormat.JPEG, outputQuality, outputStream)
+				outputStream.flush()
+				outputStream.close()
+
+				bitmap.recycle()
+				outputBitmap.recycle()
+			} catch (e: java.io.IOException) {
+				ErrorUtil.shortToast(context, "Failure to save picture")
+			}
+		}
+
+		private fun rotateImage(context: Context, uri: Uri, bitmap: Bitmap): Bitmap? {
+			val input: InputStream? = context.contentResolver.openInputStream(uri)
+			val ret = when (ExifInterface(input!!).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+				ExifInterface.ORIENTATION_ROTATE_90 -> rotate(bitmap, 90)
+				ExifInterface.ORIENTATION_ROTATE_180 -> rotate(bitmap, 180)
+				ExifInterface.ORIENTATION_ROTATE_270 -> rotate(bitmap, 270)
+				else -> bitmap
+			}
+			input.close()
+			return ret
+		}
+
+		private fun rotate(img: Bitmap, degree: Int): Bitmap? {
+			val matrix = Matrix()
+			matrix.postRotate(degree.toFloat())
+			val rotatedImg = Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
+			img.recycle()
+			return rotatedImg
 		}
 	}
 }

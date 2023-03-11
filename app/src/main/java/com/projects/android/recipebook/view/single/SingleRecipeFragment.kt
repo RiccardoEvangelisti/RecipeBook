@@ -76,17 +76,17 @@ class SingleRecipeFragment : Fragment() {
 								if (preparationSingle.text.toString() != recipe!!.preparation) {
 									preparationSingle.text = recipe!!.preparation
 								}
-								if (photoSingle.tag != recipe!!.photoFileName) { // Update photo only when the name is different
-									val photoFile = recipe!!.photoFileName?.let {
-										PictureUtils.createPicture(requireContext(), it)
+								if (photoSingle.tag != recipe!!.pictureFileName) { // Update photo only when the name is different
+									val photoFile = recipe!!.pictureFileName?.let {
+										PictureUtils.getPicture(requireContext(), it)
 									}
 									if (photoFile?.exists() == true) {
 										photoSingle.doOnLayout { measuredView ->
 											val scaledBitmap = getScaledBitmap(
-												requireContext(), photoFile.path, measuredView.width, measuredView.height
+												photoFile.path, measuredView.width, measuredView.height
 											)
 											photoSingle.setImageBitmap(scaledBitmap)
-											photoSingle.tag = recipe!!.photoFileName
+											photoSingle.tag = recipe!!.pictureFileName
 										}
 									} else {
 										photoSingle.setImageBitmap(null)
