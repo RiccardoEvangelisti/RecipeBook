@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
@@ -36,7 +37,6 @@ import com.projects.android.recipebook.utils.ErrorUtil
 import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
-import java.io.File
 import java.util.*
 
 class AddRecipeFragment : Fragment() {
@@ -61,12 +61,18 @@ class AddRecipeFragment : Fragment() {
 	private var _bindingIngredientsList = mutableListOf<ItemAddIngredientBinding?>()
 
 	// Variables for taking pictures
-	private var pictureFile: File? = null
 	private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { didTakePicture: Boolean ->
-		if (didTakePicture && pictureFile != null) {
-			addRecipeViewModel.updateState {
-				it.pictureFileNamePrevious = it.pictureFileName
-				it.pictureFileName = pictureFile!!.name
+		if (didTakePicture && addRecipeViewModel.state.value?.pictureFileNameTemp != null) {
+			PictureUtils.getCachedPicture(requireContext(), addRecipeViewModel.state.value?.pictureFileNameTemp!!).also {
+				if (it.exists()) {
+					addRecipeViewModel.updateState { state ->
+						state.pictureFileNamePrevious = state.pictureFileName
+						state.pictureFileName = it.name
+					}
+				} else {
+					addRecipeViewModel.updateState { state -> state.pictureFileNameTemp = null }
+					ErrorUtil.shortToast(requireContext(), "Failure to take picture")
+				}
 			}
 		} else {
 			ErrorUtil.shortToast(requireContext(), "Failure to take picture")
@@ -87,9 +93,16 @@ class AddRecipeFragment : Fragment() {
 
 		binding.apply {
 
-			// Conditions for navigateUp: if there are no errors, navigateUp
+			// Conditions for navigateUp
 			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-				if (addRecipeViewModel.checkRecipe(binding, _bindingIngredientsList)) findNavController().navigateUp()
+				if (addRecipeViewModel.checkRecipe(binding, _bindingIngredientsList)) {//if there are no errors
+					AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
+						.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
+							addRecipeViewModel.state.value?.canceled = true
+							addRecipeViewModel.cancelInsertRecipe(requireContext())
+							findNavController().navigateUp()
+						}.setNegativeButton(android.R.string.cancel, null).show()
+				}
 			}
 
 			// ERRORS HANDLERS
@@ -134,7 +147,10 @@ class AddRecipeFragment : Fragment() {
 
 			takePictureAdd.isEnabled = canResolveIntent(takePicture.contract.createIntent(requireContext(), Uri.EMPTY))
 			takePictureAdd.setOnClickListener {
-				pictureFile = PictureUtils.createTempPicture(requireContext()).also {
+				PictureUtils.createTempPicture(requireContext()).also {
+					addRecipeViewModel.updateState { state ->
+						state.pictureFileNameTemp = it.name
+					}
 					takePicture.launch(PictureUtils.getUriForFile(requireContext(), it))
 				}
 			}
@@ -416,9 +432,12 @@ class AddRecipeFragment : Fragment() {
 			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 				return when (menuItem.itemId) {
 					R.id.cancel -> {
-						addRecipeViewModel.state.value?.canceled = true
-						addRecipeViewModel.cancelInsertRecipe(requireContext())
-						findNavController().navigateUp()
+						AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
+							.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
+								addRecipeViewModel.state.value?.canceled = true
+								addRecipeViewModel.cancelInsertRecipe(requireContext())
+								findNavController().navigateUp()
+							}.setNegativeButton(android.R.string.cancel, null).show()
 						true
 					}
 					R.id.save -> {
