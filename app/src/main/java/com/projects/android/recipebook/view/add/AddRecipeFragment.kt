@@ -275,8 +275,9 @@ class AddRecipeFragment : Fragment() {
 											if (quantityIngredientItemAdd.text.toString() != ingredient.quantity) {
 												quantityIngredientItemAdd.setText(ingredient.quantity)
 											}
-											if (unitIngredientItemAdd.selectedItemPosition != ingredient.unitOfMeasure.ordinal) {
-												unitIngredientItemAdd.setSelection(ingredient.unitOfMeasure.ordinal)
+											if ((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString() != ingredient.unitOfMeasure
+													.toString()) {
+												(unitIngredientItemAdd.editText as AutoCompleteTextView).setText(ingredient.unitOfMeasure.toString(), false)
 											}
 										}
 									}
@@ -308,7 +309,7 @@ class AddRecipeFragment : Fragment() {
 					ArrayAdapter(
 						it, android.R.layout.simple_spinner_dropdown_item, UnitOfMeasure.values()
 					).also { adapter ->
-						unitIngredientItemAdd.adapter = adapter
+						(unitIngredientItemAdd.editText as AutoCompleteTextView).setAdapter(adapter)
 					}
 				}
 
