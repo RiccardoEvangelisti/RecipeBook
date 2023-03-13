@@ -290,6 +290,7 @@
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
 			android:layout_marginTop = "16dp"
+			android:layout_marginBottom = "16dp"
 			android:background = "@android:color/transparent"
 			app:boxBackgroundColor = "@android:color/transparent"
 			app:layout_constraintBottom_toBottomOf = "parent"

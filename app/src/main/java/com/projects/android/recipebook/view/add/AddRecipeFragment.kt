@@ -9,7 +9,6 @@ import android.text.*
 import android.view.*
 import android.view.View.*
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -275,9 +274,10 @@ class AddRecipeFragment : Fragment() {
 											if (quantityIngredientItemAdd.text.toString() != ingredient.quantity) {
 												quantityIngredientItemAdd.setText(ingredient.quantity)
 											}
-											if ((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString() != ingredient.unitOfMeasure
-													.toString()) {
-												(unitIngredientItemAdd.editText as AutoCompleteTextView).setText(ingredient.unitOfMeasure.toString(), false)
+											if ((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString() != ingredient.unitOfMeasure.toString()) {
+												(unitIngredientItemAdd.editText as AutoCompleteTextView).setText(
+													ingredient.unitOfMeasure.toString(), false
+												)
 											}
 										}
 									}
@@ -315,8 +315,10 @@ class AddRecipeFragment : Fragment() {
 
 				// Filling UI with new ingredient
 				quantityIngredientItemAdd.text = quantityIngredientAdd.text
-				unitIngredientItemAdd.setSelection(UnitOfMeasure.of((unitIngredientAdd.editText as AutoCompleteTextView).text.toString())!!.ordinal)
-				if (unitIngredientItemAdd.selectedItemPosition == UnitOfMeasure.TO_TASTE.ordinal) {
+				(unitIngredientItemAdd.editText as AutoCompleteTextView).setText(
+					(unitIngredientAdd.editText as AutoCompleteTextView).text.toString(), false
+				)
+				if ((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString() == UnitOfMeasure.TO_TASTE.toString()) {
 					quantityIngredientItemAdd.visibility = GONE
 				}
 				nameIngredientItemAdd.text = nameIngredientAdd.text
@@ -326,7 +328,7 @@ class AddRecipeFragment : Fragment() {
 					if (!hasFocus) AddRecipeCheckErrors.checkQuantityIngredientItem(
 						quantityIngredientItemLayoutAdd,
 						quantityIngredientItemAdd.text.toString(),
-						unitIngredientItemAdd.selectedItem as UnitOfMeasure
+						UnitOfMeasure.of((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString())!!
 					)
 				}
 				nameIngredientItemAdd.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -352,7 +354,7 @@ class AddRecipeFragment : Fragment() {
 								Ingredient(
 									nameIngredientItemAdd.text.toString(),
 									quantityIngredientItemAdd.text.toString(),
-									unitIngredientItemAdd.selectedItem as UnitOfMeasure
+									UnitOfMeasure.of((unitIngredientItemAdd.editText as AutoCompleteTextView).text.toString())!!
 								)
 							)
 						}
@@ -368,24 +370,18 @@ class AddRecipeFragment : Fragment() {
 					}
 				}
 
-				unitIngredientItemAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-					override fun onItemSelected(
-						parent: AdapterView<*>?, view: View, position: Int, id: Long
-					) {
-						if (position == UnitOfMeasure.TO_TASTE.ordinal) {
-							quantityIngredientItemAdd.setText("")
-							quantityIngredientItemAdd.visibility = INVISIBLE
-						} else {
-							quantityIngredientItemAdd.visibility = VISIBLE
-						}
-						addRecipeViewModel.updateState { state ->
-							state.ingredientsList = state.ingredientsList.also { list ->
-								list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
-							}
+				(unitIngredientItemAdd.editText as AutoCompleteTextView).onItemClickListener = OnItemClickListener { _, _, position, _ ->
+					if (position == UnitOfMeasure.TO_TASTE.ordinal) {
+						quantityIngredientItemAdd.setText("")
+						quantityIngredientItemAdd.visibility = GONE
+					} else {
+						quantityIngredientItemAdd.visibility = VISIBLE
+					}
+					addRecipeViewModel.updateState { state ->
+						state.ingredientsList = state.ingredientsList.also { list ->
+							list!![ingredientsContainerAdd.indexOfChild(root)].unitOfMeasure = UnitOfMeasure.values()[position]
 						}
 					}
-
-					override fun onNothingSelected(parent: AdapterView<*>?) {}
 				}
 
 				nameIngredientItemAdd.doOnTextChanged { text, _, _, _ ->
