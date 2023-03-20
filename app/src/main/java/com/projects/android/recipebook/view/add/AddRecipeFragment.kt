@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
-import android.text.*
 import android.view.*
 import android.view.View.*
 import android.view.inputmethod.EditorInfo
@@ -32,11 +31,10 @@ import com.projects.android.recipebook.model.Ingredient
 import com.projects.android.recipebook.model.enums.Course
 import com.projects.android.recipebook.model.enums.PreparationTime
 import com.projects.android.recipebook.model.enums.UnitOfMeasure
-import com.projects.android.recipebook.utils.ErrorUtil
+import com.projects.android.recipebook.utils.ErrorUtils
 import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.view.add.utils.AddRecipeCheckErrors
 import kotlinx.coroutines.launch
-import java.util.*
 
 class AddRecipeFragment : Fragment() {
 
@@ -70,11 +68,11 @@ class AddRecipeFragment : Fragment() {
 					}
 				} else {
 					addRecipeViewModel.updateState { state -> state.pictureFileNameTemp = null }
-					ErrorUtil.shortToast(requireContext(), "Failure to take picture")
+					ErrorUtils.shortToast(requireContext(), "Failure to take picture")
 				}
 			}
 		} else {
-			ErrorUtil.shortToast(requireContext(), "Failure to take picture")
+			ErrorUtils.shortToast(requireContext(), "Failure to take picture")
 		}
 	}
 

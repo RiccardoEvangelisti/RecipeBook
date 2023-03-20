@@ -60,13 +60,13 @@ class PictureUtils {
 
 		fun deletePicture(context: Context, pictureName: String) {
 			if (getPicture(context, pictureName).delete().not()) {
-				ErrorUtil.shortToast(context, "Failure to delete previous picture")
+				ErrorUtils.shortToast(context, "Failure to delete previous picture")
 			}
 		}
 
 		fun deleteCachedPicture(context: Context, cachedPicture: String) {
 			if (getCachedPicture(context, cachedPicture).delete().not()) {
-				ErrorUtil.shortToast(context, "Failure to delete previous picture")
+				ErrorUtils.shortToast(context, "Failure to delete previous picture")
 			}
 		}
 
@@ -95,7 +95,7 @@ class PictureUtils {
 				bitmap.recycle()
 				outputBitmap.recycle()
 			} catch (e: java.io.IOException) {
-				ErrorUtil.shortToast(context, "Failure to save picture")
+				ErrorUtils.shortToast(context, "Failure to save picture")
 			}
 		}
 
