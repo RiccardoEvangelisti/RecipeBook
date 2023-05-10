@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "match_parent">
+
+	<ImageView
+		android:id = "@+id/circle_ingredient_item_single"
+		android:layout_width = "20dp"
+		android:layout_height = "20dp"
+		app:layout_constraintBottom_toBottomOf = "@+id/divider2_single"
+		app:layout_constraintEnd_toStartOf = "@+id/divider2_single"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "@+id/divider2_single"
+		app:layout_constraintVertical_bias = "1.0"
+		app:srcCompat = "@drawable/circle" />
+
+	<View
+		android:id = "@+id/divider2_single"
+		style = "@style/Divider_Horizontal"
+		android:layout_marginStart = "5dp"
+		android:background = "@color/black"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toEndOf = "@+id/circle_ingredient_item_single"
+		app:layout_constraintTop_toTopOf = "parent" />
+
+	<TextView
+		android:id = "@+id/name_ingredient_item_single"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_marginStart = "5dp"
+		android:textSize = "25sp"
+		app:layout_constraintBottom_toTopOf = "@+id/divider2_single"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline2_ingredient_item_single"
+		app:layout_constraintHorizontal_bias = "0.0"
+		app:layout_constraintStart_toEndOf = "@+id/circle_ingredient_item_single"
+		app:layout_constraintTop_toTopOf = "parent"
+		app:layout_constraintVertical_bias = "1.0"
+		tools:text = "Ingredient" />
+
+	<TextView
+		android:id = "@+id/quantity_ingredient_item_single"
+		android:layout_width = "wrap_content"
+		android:layout_height = "0dp"
+		android:layout_marginEnd = "2dp"
+		android:gravity = "end"
+		android:textSize = "25sp"
+		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item_single"
+		app:layout_constraintEnd_toStartOf = "@+id/guideline1_ingredient_item_single"
+		app:layout_constraintHorizontal_bias = "1.0"
+		app:layout_constraintStart_toStartOf = "@+id/guideline2_ingredient_item_single"
+		app:layout_constraintTop_toTopOf = "@+id/name_ingredient_item_single"
+		app:layout_constraintVertical_bias = "0.0"
+		tools:text = "100" />
+
+	<TextView
+		android:id = "@+id/unitOfMeasure_ingredient_item_single"
+		android:layout_width = "wrap_content"
+		android:layout_height = "0dp"
+		android:layout_marginStart = "2dp"
+		android:gravity = "start"
+		android:textSize = "25sp"
+		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item_single"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintHorizontal_bias = "0.0"
+		app:layout_constraintStart_toStartOf = "@+id/guideline1_ingredient_item_single"
+		app:layout_constraintTop_toTopOf = "@+id/name_ingredient_item_single"
+		tools:text = "g" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline1_ingredient_item_single"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_end = "26dp" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id = "@+id/guideline2_ingredient_item_single"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		app:layout_constraintGuide_end = "73dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
