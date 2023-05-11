@@ -38,10 +38,15 @@
 	<string name = "filters_fragment_is_not_cooked">Not Cooked</string>
 
 	<!-- Single Recipe Fragment -->
-	<string name = "menu_delete_recipe">Delete Recipe</string>
-	<string name = "menu_edit_recipe">Edit Recipe</string>
-	<string name = "single_recipe_fragment_recipe_name">Name</string>
-	<string name = "single_recipe_fragment_recipe_preparation">Preparation</string>
+	<string name = "menu_delete_recipe">Delete</string>
+	<string name = "menu_edit_recipe">Edit</string>
+	<string name = "single_recipe_fragment_course_label">course:</string>
+	<string name = "single_recipe_fragment_prepTime_label">prep. time:</string>
+	<string name = "single_recipe_fragment_portions_label">portions:</string>
+	<string name = "single_recipe_fragment_isCooked">is cooked</string>
+	<string name = "single_recipe_fragment_isNotCooked">is not cooked</string>
+	<string name = "single_recipe_fragment_isVeg">is veg</string>
+	<string name = "single_recipe_fragment_isNotVeg">is not veg</string>
 
 	<!-- List Recipe Fragment -->
 	<string name = "list_recipes_fragment_add_recipe">Add Recipe</string>

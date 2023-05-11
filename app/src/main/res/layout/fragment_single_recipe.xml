@@ -26,21 +26,223 @@
 			android:orientation = "vertical"
 			app:layout_constraintGuide_end = "20dp" />
 
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline3_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "horizontal"
+			app:layout_constraintGuide_begin = "20dp" />
+
 		<TextView
 			android:id = "@+id/name_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:textSize = "20sp"
-			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
+			android:gravity = "center|center_vertical"
+			android:lineSpacingMultiplier = "0.8"
+			android:textAllCaps = "true"
+			android:textSize = "60sp"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
 			app:layout_constraintTop_toTopOf = "@+id/guideline3_single"
 			tools:text = "Name" />
 
+		<androidx.constraintlayout.widget.Barrier
+			android:id = "@+id/barrier1_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			app:barrierDirection = "bottom"
+			app:constraint_referenced_ids = "name_single"
+			tools:layout_editor_absoluteY = "96dp" />
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline5_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_percent = "0.45" />
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id = "@+id/guideline6_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical"
+			app:layout_constraintGuide_percent = "0.55" />
+
+		<TextView
+			android:id = "@+id/course_label_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "32dp"
+			android:layout_marginBottom = "8dp"
+			android:text = "@string/single_recipe_fragment_course_label"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toTopOf = "@+id/prepTime_label_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
+			app:layout_constraintHorizontal_bias = "1.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toTopOf = "@+id/barrier1_single" />
+
+		<TextView
+			android:id = "@+id/prepTime_label_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
+			android:layout_marginBottom = "8dp"
+			android:text = "@string/single_recipe_fragment_prepTime_label"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toTopOf = "@+id/portions_label_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
+			app:layout_constraintHorizontal_bias = "1.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/course_label_single" />
+
+		<TextView
+			android:id = "@+id/portions_label_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
+			android:layout_marginBottom = "8dp"
+			android:text = "@string/single_recipe_fragment_portions_label"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toTopOf = "@+id/divider1_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
+			app:layout_constraintHorizontal_bias = "1.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/prepTime_label_single" />
+
+		<TextView
+			android:id = "@+id/course_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "32dp"
+			android:layout_marginBottom = "8dp"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toTopOf = "@+id/prepTime_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
+			app:layout_constraintTop_toTopOf = "@+id/barrier1_single"
+			tools:text = "dessert" />
+
+		<TextView
+			android:id = "@+id/prepTime_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
+			android:layout_marginBottom = "8dp"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toTopOf = "@+id/portions_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
+			app:layout_constraintTop_toBottomOf = "@+id/course_single"
+			tools:text = "30 minutes" />
+
+		<TextView
+			android:id = "@+id/portions_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
+			android:textSize = "25sp"
+			app:layout_constraintBottom_toBottomOf = "@+id/portions_label_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintHorizontal_bias = "0.0"
+			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
+			app:layout_constraintTop_toBottomOf = "@+id/prepTime_single"
+			tools:text = "1" />
+
+		<View
+			android:id = "@+id/divider1_single"
+			style = "@style/Divider_Horizontal"
+			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "8dp"
+			android:layout_marginEnd = "32dp"
+			android:layout_marginBottom = "8dp"
+			android:background = "@color/black"
+			app:layout_constraintBottom_toTopOf = "@+id/isCookedPicture_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/portions_label_single" />
+
+		<ImageView
+			android:id = "@+id/isCookedPicture_single"
+			android:layout_width = "55dp"
+			android:layout_height = "55dp"
+			android:layout_marginTop = "8dp"
+			app:layout_constraintBottom_toTopOf = "@+id/isCooked_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
+			app:layout_constraintHorizontal_bias = "0.80"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/divider1_single"
+			app:srcCompat = "@drawable/is_cooked" />
+
+		<TextView
+			android:id = "@+id/isCooked_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginBottom = "8dp"
+			android:textSize = "20sp"
+			app:layout_constraintBottom_toTopOf = "@+id/divider2_single"
+			app:layout_constraintEnd_toEndOf = "@+id/isCookedPicture_single"
+			app:layout_constraintStart_toStartOf = "@+id/isCookedPicture_single"
+			app:layout_constraintTop_toBottomOf = "@+id/isCookedPicture_single"
+			tools:text = "is cooked" />
+
+		<ImageView
+			android:id = "@+id/isVegPicture_single"
+			android:layout_width = "55dp"
+			android:layout_height = "55dp"
+			app:layout_constraintBottom_toTopOf = "@+id/isCooked_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintHorizontal_bias = "0.20"
+			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
+			app:layout_constraintTop_toTopOf = "@+id/isCookedPicture_single"
+			app:srcCompat = "@drawable/is_veg" />
+
+		<TextView
+			android:id = "@+id/isVeg_single"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:textSize = "20sp"
+			app:layout_constraintBottom_toBottomOf = "@+id/isCooked_single"
+			app:layout_constraintEnd_toEndOf = "@+id/isVegPicture_single"
+			app:layout_constraintStart_toStartOf = "@+id/isVegPicture_single"
+			app:layout_constraintTop_toBottomOf = "@+id/isVegPicture_single"
+			tools:text = "is veg" />
+
+		<View
+			android:id = "@+id/divider2_single"
+			style = "@style/Divider_Horizontal"
+			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "8dp"
+			android:layout_marginEnd = "32dp"
+			android:background = "@color/black"
+			app:layout_constraintBottom_toTopOf = "@+id/ingredients_container_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/isCooked_single" />
+
+		<LinearLayout
+			android:id = "@+id/ingredients_container_single"
+			android:layout_width = "0dp"
+			android:layout_height = "wrap_content"
+			android:layout_marginStart = "60dp"
+			android:layout_marginTop = "32dp"
+			android:layout_marginEnd = "60dp"
+			android:layout_marginBottom = "8dp"
+			android:orientation = "vertical"
+			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
+			app:layout_constraintTop_toBottomOf = "@+id/divider2_single" />
+
 		<TextView
 			android:id = "@+id/preparation_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "24dp"
+			android:layout_marginEnd = "32dp"
 			android:autoLink = "all"
 			android:importantForAutofill = "no"
 			android:scrollbars = "vertical"
@@ -49,27 +251,22 @@
 			app:layout_constraintBottom_toTopOf = "@+id/photoSingle"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toBottomOf = "@+id/name_single"
+			app:layout_constraintTop_toBottomOf = "@+id/ingredients_container_single"
 			tools:text = "Preparazione" />
 
 		<ImageView
 			android:id = "@+id/photoSingle"
-			android:layout_width = "310dp"
-			android:layout_height = "402dp"
-			android:background = "@color/black"
+			android:layout_width = "0dp"
+			android:layout_height = "500dp"
+			android:layout_marginTop = "64dp"
+			android:layout_marginBottom = "64dp"
+			android:background = "#00000000"
 			android:cropToPadding = "true"
 			android:scaleType = "centerInside"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
 			app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline3_single"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "20dp" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
