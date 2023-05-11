@@ -340,7 +340,7 @@ class AddRecipeFragment : Fragment() {
 				// Cleanup
 				quantityIngredientAdd.text?.clear()
 				(unitIngredientAdd.editText as AutoCompleteTextView).setText(UnitOfMeasure.GRAM.toString(), false)
-				unitIngredientAdd.visibility = VISIBLE
+				quantityIngredientAdd.visibility = VISIBLE
 				nameIngredientAdd.text?.clear()
 				nameIngredientLayoutAdd.error = null
 

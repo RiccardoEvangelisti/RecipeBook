@@ -2,9 +2,8 @@ package com.projects.android.recipebook.view.single
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.doOnLayout
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
 import com.projects.android.recipebook.databinding.ItemSingleIngredientBinding
+import com.projects.android.recipebook.model.enums.UnitOfMeasure
 import com.projects.android.recipebook.utils.PictureUtils
 import com.projects.android.recipebook.utils.PictureUtils.Companion.getScaledBitmap
 import kotlinx.coroutines.launch
@@ -54,101 +54,118 @@ class SingleRecipeFragment : Fragment() {
 		// APPBAR: MENU
 		setupMenu()
 
-		// Custom back navigation
-		activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-			if (binding.nameSingle.text.isNotBlank()) {
-				findNavController().navigateUp()
-			} else {
-				Toast.makeText(context, "ERROR: Enter the name", Toast.LENGTH_SHORT).show()
-			}
-		}
-
-		binding.apply {
-
-		}
-
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				singleRecipeViewModel.state.collect { state ->
 					state?.apply {
 						recipe?.let {
 							binding.apply {
+								// name
 								if (nameSingle.text.toString() != recipe!!.name) {
 									nameSingle.text = recipe!!.name
 								}
 
+								// course
 								if (courseSingle.text.toString() != recipe!!.course.toString()) {
 									courseSingle.text = recipe!!.course.toString()
 								}
 
+								// preparation time
 								if (prepTimeSingle.text.toString() != recipe!!.preparationTime.toString()) {
 									prepTimeSingle.text = recipe!!.preparationTime.toString()
 								}
 
+								// portions
 								if (portionsSingle.text.toString() != recipe!!.portions) {
 									portionsSingle.text = recipe!!.portions
 								}
 
-								if (recipe!!.isCooked && isCookedSingle.text.toString() != resources.getString(
-										R.string.single_recipe_fragment_isCooked
-									)
-								) {
-									isCookedSingle.text = resources.getString(
-										R.string.single_recipe_fragment_isCooked
-									)
-								}
-								if (!recipe!!.isCooked && isCookedSingle.text.toString() != resources.getString(
-										R.string.single_recipe_fragment_isNotCooked
-									)
-								) {
-									isCookedSingle.text = resources.getString(
-										R.string.single_recipe_fragment_isNotCooked
-									)
-								}
-
-								if (_bindingIngredientsList.size != recipe!!.ingredientsList.size) {
-									// clear layout of all ingredients
-									for (i in _bindingIngredientsList.indices) {
-										_bindingIngredientsList[i] = null
-									}
-									for (ingredient in recipe!!.ingredientsList) {
-										val bindingIngredients = ItemSingleIngredientBinding.inflate(layoutInflater)
-										_bindingIngredientsList.add(bindingIngredients)
-										bindingIngredients.apply {
-											nameIngredientItemSingle.text = ingredient.name
-											quantityIngredientItemSingle.text = ingredient.quantity
-											unitOfMeasureIngredientItemSingle.text = ingredient.unitOfMeasure.toString()
-											ingredientsContainerSingle.addView(root)
-										}
+								// isCooked
+								if (recipe!!.isCooked) {
+									if (isCookedSingle.text.toString() != resources.getString(R.string.single_recipe_fragment_isCooked)) {
+										isCookedSingle.text = resources.getString(R.string.single_recipe_fragment_isCooked)
+										isCookedPictureSingle.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.is_cooked))
 									}
 								} else {
-									for (i in _bindingIngredientsList.indices) {
-										_bindingIngredientsList[i]!!.apply {
-											val ingredient = recipe!!.ingredientsList[i]
-											if (nameIngredientItemSingle.text.toString() != ingredient.name) {
-												nameIngredientItemSingle.text = ingredient.name
-											}
+									if (isCookedSingle.text.toString() != resources.getString(R.string.single_recipe_fragment_isNotCooked)) {
+										isCookedSingle.text = resources.getString(R.string.single_recipe_fragment_isNotCooked)
+										isCookedPictureSingle.setImageDrawable(
+											AppCompatResources.getDrawable(
+												requireContext(), R.drawable.is_not_cooked
+											)
+										)
+									}
+								}
+
+								// isVeg
+								if (recipe!!.isVeg) {
+									if (isVegSingle.text.toString() != resources.getString(R.string.single_recipe_fragment_isVeg)) {
+										isVegSingle.text = resources.getString(R.string.single_recipe_fragment_isVeg)
+										isVegPictureSingle.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.is_veg))
+									}
+								} else {
+									if (isVegSingle.text.toString() != resources.getString(R.string.single_recipe_fragment_isNotVeg)) {
+										isVegSingle.text = resources.getString(R.string.single_recipe_fragment_isNotVeg)
+										isVegPictureSingle.setImageDrawable(
+											AppCompatResources.getDrawable(
+												requireContext(), R.drawable.is_not_veg
+											)
+										)
+									}
+								}
+
+								// ingredients
+								// for each ingredient on the State
+								for (i in recipe!!.ingredientsList.indices) {
+									val ingredient = recipe!!.ingredientsList[i]
+									var bindingIngredients = if (_bindingIngredientsList.lastIndex >= i) _bindingIngredientsList[i] else null
+									// if the ItemSingleIngredient doesn't exist yet, create it
+									if (bindingIngredients == null) {
+										bindingIngredients = ItemSingleIngredientBinding.inflate(layoutInflater)
+										ingredientsContainerSingle.addView(bindingIngredients.root)
+										_bindingIngredientsList.add(bindingIngredients)
+									}
+									bindingIngredients.apply {
+										if (nameIngredientItemSingle.text.toString() != ingredient.name) {
+											nameIngredientItemSingle.text = ingredient.name
+										}
+										// in the first box there's quantity or TO_TASTE
+										if (ingredient.unitOfMeasure != UnitOfMeasure.TO_TASTE) {
 											if (quantityIngredientItemSingle.text.toString() != ingredient.quantity) {
 												quantityIngredientItemSingle.text = ingredient.quantity
 											}
 											if (unitOfMeasureIngredientItemSingle.text != ingredient.unitOfMeasure.toString()) {
 												unitOfMeasureIngredientItemSingle.text = ingredient.unitOfMeasure.toString()
 											}
+										} else {
+											if (quantityIngredientItemSingle.text != UnitOfMeasure.TO_TASTE.toString()) {
+												quantityIngredientItemSingle.text = UnitOfMeasure.TO_TASTE.toString()
+											}
+											if (unitOfMeasureIngredientItemSingle.text != "") {
+												unitOfMeasureIngredientItemSingle.text = ""
+											}
 										}
 									}
 								}
+								// ingredients: remove excess elements
+								for (i in recipe!!.ingredientsList.lastIndex + 1.._bindingIngredientsList.lastIndex) {
+									ingredientsContainerSingle.removeView(_bindingIngredientsList[i]!!.root)
+									_bindingIngredientsList.removeAt(i)
+								}
+
+								// preparation
 								if (preparationSingle.text.toString() != recipe!!.preparation) {
 									preparationSingle.text = recipe!!.preparation
 								}
+
+								// photo
 								if (photoSingle.tag != recipe!!.pictureFileName) { // Update photo only when the name is different
 									val photoFile = recipe!!.pictureFileName?.let {
 										PictureUtils.getPicture(requireContext(), it)
 									}
 									if (photoFile?.exists() == true) {
 										photoSingle.doOnLayout { measuredView ->
-											val scaledBitmap = getScaledBitmap(
-												photoFile.path, measuredView.width, measuredView.height
-											)
+											val scaledBitmap = getScaledBitmap(photoFile.path, measuredView.width, measuredView.height)
 											photoSingle.setImageBitmap(scaledBitmap)
 											photoSingle.tag = recipe!!.pictureFileName
 										}
@@ -168,6 +185,10 @@ class SingleRecipeFragment : Fragment() {
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
+		for (i in _bindingIngredientsList.indices) {
+			_bindingIngredientsList[i] = null
+		}
+		_bindingIngredientsList.clear()
 	}
 
 	// APPBAR: MENU

@@ -37,22 +37,22 @@
 			android:id = "@+id/name_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:gravity = "center"
+			android:gravity = "center|center_vertical"
+			android:lineSpacingMultiplier = "0.8"
 			android:textAllCaps = "true"
 			android:textSize = "60sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline4_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
 			app:layout_constraintTop_toTopOf = "@+id/guideline3_single"
 			tools:text = "Name" />
 
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline4_single"
+		<androidx.constraintlayout.widget.Barrier
+			android:id = "@+id/barrier1_single"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "106dp"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "106dp" />
+			app:barrierDirection = "bottom"
+			app:constraint_referenced_ids = "name_single"
+			tools:layout_editor_absoluteY = "96dp" />
 
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline5_single"
@@ -72,7 +72,7 @@
 			android:id = "@+id/course_label_single"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "8dp"
+			android:layout_marginTop = "32dp"
 			android:layout_marginBottom = "8dp"
 			android:text = "@string/single_recipe_fragment_course_label"
 			android:textSize = "25sp"
@@ -80,14 +80,7 @@
 			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
 			app:layout_constraintHorizontal_bias = "1.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline4_single" />
-
-		<androidx.constraintlayout.widget.Barrier
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			app:barrierDirection = "top"
-			tools:layout_editor_absoluteX = "3dp"
-			tools:layout_editor_absoluteY = "102dp" />
+			app:layout_constraintTop_toTopOf = "@+id/barrier1_single" />
 
 		<TextView
 			android:id = "@+id/prepTime_label_single"
@@ -111,7 +104,7 @@
 			android:layout_marginBottom = "8dp"
 			android:text = "@string/single_recipe_fragment_portions_label"
 			android:textSize = "25sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline7_single"
+			app:layout_constraintBottom_toTopOf = "@+id/divider1_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
 			app:layout_constraintHorizontal_bias = "1.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
@@ -121,14 +114,14 @@
 			android:id = "@+id/course_single"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "8dp"
+			android:layout_marginTop = "32dp"
 			android:layout_marginBottom = "8dp"
 			android:textSize = "25sp"
 			app:layout_constraintBottom_toTopOf = "@+id/prepTime_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintHorizontal_bias = "0.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline4_single"
+			app:layout_constraintTop_toTopOf = "@+id/barrier1_single"
 			tools:text = "dessert" />
 
 		<TextView
@@ -150,57 +143,46 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:layout_marginTop = "8dp"
-			android:layout_marginBottom = "8dp"
 			android:textSize = "25sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline7_single"
+			app:layout_constraintBottom_toBottomOf = "@+id/portions_label_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintHorizontal_bias = "0.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
 			app:layout_constraintTop_toBottomOf = "@+id/prepTime_single"
 			tools:text = "1" />
 
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline7_single"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "240dp" />
-
 		<View
 			android:id = "@+id/divider1_single"
 			style = "@style/Divider_Horizontal"
 			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "8dp"
 			android:layout_marginEnd = "32dp"
+			android:layout_marginBottom = "8dp"
 			android:background = "@color/black"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline8_single"
+			app:layout_constraintBottom_toTopOf = "@+id/isCookedPicture_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline7_single" />
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline8_single"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "260dp" />
+			app:layout_constraintTop_toBottomOf = "@+id/portions_label_single" />
 
 		<ImageView
 			android:id = "@+id/isCookedPicture_single"
 			android:layout_width = "55dp"
 			android:layout_height = "55dp"
+			android:layout_marginTop = "8dp"
 			app:layout_constraintBottom_toTopOf = "@+id/isCooked_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline5_single"
 			app:layout_constraintHorizontal_bias = "0.80"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline8_single"
+			app:layout_constraintTop_toBottomOf = "@+id/divider1_single"
 			app:srcCompat = "@drawable/is_cooked" />
 
 		<TextView
 			android:id = "@+id/isCooked_single"
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
+			android:layout_marginBottom = "8dp"
 			android:textSize = "20sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline9_single"
+			app:layout_constraintBottom_toTopOf = "@+id/divider2_single"
 			app:layout_constraintEnd_toEndOf = "@+id/isCookedPicture_single"
 			app:layout_constraintStart_toStartOf = "@+id/isCookedPicture_single"
 			app:layout_constraintTop_toBottomOf = "@+id/isCookedPicture_single"
@@ -214,7 +196,7 @@
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintHorizontal_bias = "0.20"
 			app:layout_constraintStart_toStartOf = "@+id/guideline6_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline8_single"
+			app:layout_constraintTop_toTopOf = "@+id/isCookedPicture_single"
 			app:srcCompat = "@drawable/is_veg" />
 
 		<TextView
@@ -222,50 +204,37 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:textSize = "20sp"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline9_single"
+			app:layout_constraintBottom_toBottomOf = "@+id/isCooked_single"
 			app:layout_constraintEnd_toEndOf = "@+id/isVegPicture_single"
 			app:layout_constraintStart_toStartOf = "@+id/isVegPicture_single"
-			app:layout_constraintTop_toBottomOf = "@+id/isCookedPicture_single"
+			app:layout_constraintTop_toBottomOf = "@+id/isVegPicture_single"
 			tools:text = "is veg" />
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline9_single"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "360dp" />
 
 		<View
 			android:id = "@+id/divider2_single"
 			style = "@style/Divider_Horizontal"
 			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "8dp"
 			android:layout_marginEnd = "32dp"
 			android:background = "@color/black"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline10_single"
+			app:layout_constraintBottom_toTopOf = "@+id/ingredients_container_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline9_single" />
-
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline10_single"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "380dp" />
+			app:layout_constraintTop_toBottomOf = "@+id/isCooked_single" />
 
 		<LinearLayout
 			android:id = "@+id/ingredients_container_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
 			android:layout_marginStart = "60dp"
-			android:layout_marginTop = "24dp"
+			android:layout_marginTop = "32dp"
 			android:layout_marginEnd = "60dp"
 			android:layout_marginBottom = "8dp"
 			android:orientation = "vertical"
 			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline10_single" />
+			app:layout_constraintTop_toBottomOf = "@+id/divider2_single" />
 
 		<TextView
 			android:id = "@+id/preparation_single"
@@ -287,11 +256,11 @@
 
 		<ImageView
 			android:id = "@+id/photoSingle"
-			android:layout_width = "367dp"
-			android:layout_height = "298dp"
+			android:layout_width = "0dp"
+			android:layout_height = "500dp"
 			android:layout_marginTop = "64dp"
 			android:layout_marginBottom = "64dp"
-			android:background = "@color/black"
+			android:background = "#00000000"
 			android:cropToPadding = "true"
 			android:scaleType = "centerInside"
 			app:layout_constraintBottom_toBottomOf = "parent"
