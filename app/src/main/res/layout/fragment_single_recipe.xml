@@ -52,7 +52,7 @@
 			android:layout_height = "wrap_content"
 			android:layout_marginTop = "106dp"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "106dp"/>
+			app:layout_constraintGuide_begin = "106dp" />
 
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline5_single"
@@ -81,6 +81,13 @@
 			app:layout_constraintHorizontal_bias = "1.0"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
 			app:layout_constraintTop_toTopOf = "@+id/guideline4_single" />
+
+		<androidx.constraintlayout.widget.Barrier
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			app:barrierDirection = "top"
+			tools:layout_editor_absoluteX = "3dp"
+			tools:layout_editor_absoluteY = "102dp" />
 
 		<TextView
 			android:id = "@+id/prepTime_label_single"
@@ -250,9 +257,9 @@
 			android:id = "@+id/ingredients_container_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginStart = "64dp"
+			android:layout_marginStart = "60dp"
 			android:layout_marginTop = "24dp"
-			android:layout_marginEnd = "64dp"
+			android:layout_marginEnd = "60dp"
 			android:layout_marginBottom = "8dp"
 			android:orientation = "vertical"
 			app:layout_constraintBottom_toTopOf = "@+id/preparation_single"
@@ -264,7 +271,9 @@
 			android:id = "@+id/preparation_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
-			android:layout_marginTop = "8dp"
+			android:layout_marginStart = "32dp"
+			android:layout_marginTop = "24dp"
+			android:layout_marginEnd = "32dp"
 			android:autoLink = "all"
 			android:importantForAutofill = "no"
 			android:scrollbars = "vertical"
@@ -278,15 +287,16 @@
 
 		<ImageView
 			android:id = "@+id/photoSingle"
-			android:layout_width = "310dp"
-			android:layout_height = "402dp"
-			android:layout_marginTop = "32dp"
+			android:layout_width = "367dp"
+			android:layout_height = "298dp"
+			android:layout_marginTop = "64dp"
+			android:layout_marginBottom = "64dp"
 			android:background = "@color/black"
 			android:cropToPadding = "true"
 			android:scaleType = "centerInside"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
+			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
 			app:layout_constraintTop_toBottomOf = "@+id/preparation_single" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
