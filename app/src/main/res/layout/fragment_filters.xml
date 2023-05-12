@@ -58,7 +58,6 @@
 		android:textSize = "12sp"
 		app:layout_constraintBottom_toTopOf = "@+id/first_filter"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline2_filter"
-		app:layout_constraintHorizontal_bias = "0.0"
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toTopOf = "@+id/guideline1_filter" />
 
@@ -138,12 +137,11 @@
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_marginStart = "16dp"
-		android:layout_marginEnd = "16dp"
 		android:layout_marginBottom = "8dp"
 		android:checkedButton = "@id/unlimited_filter"
 		android:orientation = "vertical"
 		app:layout_constraintBottom_toTopOf = "@+id/divider4_filter"
-		app:layout_constraintEnd_toStartOf = "@+id/guideline3_filter"
+		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "@+id/guideline2_filter"
 		app:layout_constraintTop_toTopOf = "@+id/guideline1_filter">
 
@@ -207,9 +205,8 @@
 		android:text = "@string/filters_fragment_is_veg"
 		app:layout_constraintBottom_toTopOf = "@+id/is_not_veg_filter"
 		app:layout_constraintEnd_toEndOf = "@+id/is_not_veg_filter"
-		app:layout_constraintHorizontal_bias = "1.0"
 		app:layout_constraintStart_toStartOf = "@+id/is_not_veg_filter"
-		app:layout_constraintTop_toTopOf = "@+id/guideline1_filter"
+		app:layout_constraintTop_toBottomOf = "@+id/divider4_filter"
 		tools:ignore = "TextContrastCheck" />
 
 	<androidx.appcompat.widget.SwitchCompat
@@ -222,8 +219,7 @@
 		android:text = "@string/filters_fragment_is_not_veg"
 		app:layout_constraintBottom_toTopOf = "@+id/is_cooked_filter"
 		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintHorizontal_bias = "1.0"
-		app:layout_constraintStart_toStartOf = "@+id/guideline3_filter"
+		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toBottomOf = "@+id/is_veg_filter" />
 
 	<androidx.appcompat.widget.SwitchCompat
@@ -247,7 +243,7 @@
 		android:checked = "true"
 		android:minHeight = "48dp"
 		android:text = "@string/filters_fragment_is_not_cooked"
-		app:layout_constraintBottom_toTopOf = "@+id/divider4_filter"
+		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "@+id/is_cooked_filter"
 		app:layout_constraintStart_toStartOf = "@+id/is_cooked_filter"
 		app:layout_constraintTop_toBottomOf = "@+id/is_cooked_filter"
@@ -258,14 +254,7 @@
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
 		android:orientation = "vertical"
-		app:layout_constraintGuide_percent = "0.30" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id = "@+id/guideline3_filter"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:orientation = "vertical"
-		app:layout_constraintGuide_percent = "0.69" />
+		app:layout_constraintGuide_percent = "0.50" />
 
 	<View
 		android:id = "@+id/divider1_filter"
@@ -278,22 +267,10 @@
 		app:layout_constraintTop_toTopOf = "@+id/guideline1_filter" />
 
 	<View
-		android:id = "@+id/divider2_filter"
-		style = "@style/Divider_Vertical"
-		android:layout_marginTop = "16dp"
-		android:layout_marginBottom = "20dp"
-		app:layout_constraintBottom_toTopOf = "@+id/divider4_filter"
-		app:layout_constraintEnd_toStartOf = "@+id/guideline3_filter"
-		app:layout_constraintStart_toStartOf = "@+id/guideline3_filter"
-		app:layout_constraintTop_toTopOf = "@+id/guideline1_filter" />
-
-	<View
 		android:id = "@+id/divider3_filter"
 		style = "@style/Divider_Horizontal"
-		android:layout_marginStart = "20dp"
 		app:layout_constraintBottom_toTopOf = "@+id/is_cooked_filter"
 		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toStartOf = "@+id/guideline3_filter"
 		app:layout_constraintTop_toBottomOf = "@+id/is_not_veg_filter" />
 
 	<View

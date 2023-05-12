@@ -90,7 +90,6 @@ dependencies {
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
+    // Managing pictures format (JPG...)
     implementation 'androidx.exifinterface:exifinterface:1.3.6'
-
-    implementation 'com.google.android.material:material:1.8.0'
 }
