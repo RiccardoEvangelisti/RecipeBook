@@ -8,19 +8,17 @@
 
 	<ImageView
 		android:id = "@+id/circle_ingredient_item_single"
-		android:layout_width = "20dp"
-		android:layout_height = "20dp"
+		android:layout_width = "18dp"
+		android:layout_height = "18dp"
 		app:layout_constraintBottom_toBottomOf = "@+id/divider2_single"
 		app:layout_constraintEnd_toStartOf = "@+id/divider2_single"
 		app:layout_constraintStart_toStartOf = "parent"
-		app:layout_constraintTop_toTopOf = "@+id/divider2_single"
-		app:layout_constraintVertical_bias = "1.0"
+		app:layout_constraintTop_toTopOf = "@+id/name_ingredient_item_single"
 		app:srcCompat = "@drawable/circle" />
 
 	<View
 		android:id = "@+id/divider2_single"
 		style = "@style/Divider_Horizontal"
-		android:layout_marginStart = "5dp"
 		android:background = "@color/black"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"
@@ -31,6 +29,7 @@
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_marginStart = "5dp"
+		android:layout_marginTop = "7dp"
 		android:textSize = "24sp"
 		app:layout_constraintBottom_toTopOf = "@+id/divider2_single"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline2_ingredient_item_single"
