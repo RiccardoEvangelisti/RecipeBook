@@ -24,22 +24,18 @@
 		android:background = "@color/black"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"
-		app:layout_constraintStart_toEndOf = "@+id/circle_ingredient_item_single"
-		app:layout_constraintTop_toTopOf = "parent"
-		app:layout_constraintVertical_bias = "0.8" />
+		app:layout_constraintStart_toEndOf = "@+id/circle_ingredient_item_single" />
 
 	<TextView
 		android:id = "@+id/name_ingredient_item_single"
-		android:layout_width = "wrap_content"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_marginStart = "5dp"
 		android:textSize = "24sp"
 		app:layout_constraintBottom_toTopOf = "@+id/divider2_single"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline2_ingredient_item_single"
-		app:layout_constraintHorizontal_bias = "0.0"
 		app:layout_constraintStart_toEndOf = "@+id/circle_ingredient_item_single"
 		app:layout_constraintTop_toTopOf = "parent"
-		app:layout_constraintVertical_bias = "1.0"
 		tools:text = "Ingredient" />
 
 	<TextView
@@ -47,7 +43,7 @@
 		android:layout_width = "wrap_content"
 		android:layout_height = "0dp"
 		android:layout_marginEnd = "2dp"
-		android:gravity = "end"
+		android:gravity = "bottom|end"
 		android:textSize = "25sp"
 		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item_single"
 		app:layout_constraintEnd_toStartOf = "@+id/guideline1_ingredient_item_single"
@@ -63,7 +59,7 @@
 		android:layout_height = "0dp"
 		android:layout_marginStart = "2dp"
 		android:layout_marginEnd = "2dp"
-		android:gravity = "start"
+		android:gravity = "bottom|start"
 		android:textSize = "25sp"
 		app:layout_constraintBottom_toBottomOf = "@+id/name_ingredient_item_single"
 		app:layout_constraintEnd_toEndOf = "parent"
