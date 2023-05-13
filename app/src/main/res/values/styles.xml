@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="Divider_Vertical">
-		<item name="android:layout_width">1dp</item>
-		<item name="android:layout_height">0dp</item>
-		<item name="android:background">?android:attr/listDivider</item>
+
+	<style name = "Theme.RecipeBook.NoActionBar">
+		<item name = "windowActionBar">false</item>
+		<item name = "windowNoTitle">true</item>
 	</style>
 
-	<style name="Divider_Horizontal">
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_height">1dp</item>
-		<item name="android:background">?android:attr/listDivider</item>
+	<style name = "Divider_Vertical">
+		<item name = "android:layout_width">1dp</item>
+		<item name = "android:layout_height">0dp</item>
+		<item name = "android:background">?android:attr/listDivider</item>
 	</style>
 
-	<style name="DreamingFontStyle" parent="@android:style/TextAppearance.Small">
-		<item name="android:fontFamily">@font/dreaming_outloud_regular</item>
+	<style name = "Divider_Horizontal">
+		<item name = "android:layout_width">0dp</item>
+		<item name = "android:layout_height">1dp</item>
+		<item name = "android:background">?android:attr/listDivider</item>
+	</style>
+
+	<style name = "DreamingFontStyle" parent = "@android:style/TextAppearance.Small">
+		<item name = "android:fontFamily">@font/dreaming_outloud_regular</item>
 	</style>
 </resources>

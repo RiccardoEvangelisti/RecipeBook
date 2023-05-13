@@ -4,7 +4,7 @@
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
-	android:layout_height = "wrap_content">
+	android:layout_height = "match_parent">
 
 	<EditText
 		android:id = "@+id/string_filter"
@@ -183,7 +183,7 @@
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_marginStart = "16dp"
-		android:layout_marginEnd = "16dp"
+		android:layout_marginEnd = "8dp"
 		android:layout_marginBottom = "16dp"
 		android:background = "@drawable/dummy_background"
 		android:elevation = "8dp"
@@ -197,6 +197,10 @@
 			android:id = "@+id/isCookedPicture_filter"
 			android:layout_width = "55dp"
 			android:layout_height = "55dp"
+			android:layout_marginStart = "8dp"
+			android:layout_marginTop = "8dp"
+			android:layout_marginEnd = "8dp"
+			android:layout_marginBottom = "8dp"
 			app:layout_constraintBottom_toTopOf = "@+id/isCooked_filter"
 			app:layout_constraintEnd_toEndOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent"
@@ -205,12 +209,18 @@
 
 		<TextView
 			android:id = "@+id/isCooked_filter"
-			android:layout_width = "wrap_content"
+			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginStart = "8dp"
+			android:layout_marginEnd = "8dp"
+			android:layout_marginBottom = "8dp"
+			android:gravity = "center|center_vertical"
+			android:lineSpacingMultiplier = "0.8"
 			android:textSize = "24sp"
+			android:visibility = "gone"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "@+id/isCookedPicture_filter"
-			app:layout_constraintStart_toStartOf = "@+id/isCookedPicture_filter"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
 			app:layout_constraintTop_toBottomOf = "@+id/isCookedPicture_filter"
 			tools:text = "@string/filters_fragment_is_cooked" />
 
@@ -220,13 +230,12 @@
 		android:id = "@+id/isVegLayout_filter"
 		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
-		android:layout_marginStart = "16dp"
+		android:layout_marginStart = "8dp"
 		android:layout_marginEnd = "16dp"
-		android:layout_marginBottom = "16dp"
 		android:background = "@drawable/dummy_background"
 		android:elevation = "8dp"
 		android:padding = "4dp"
-		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintBottom_toBottomOf = "@+id/isCookedLayout_filter"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toEndOf = "@+id/isCookedLayout_filter"
 		app:layout_constraintTop_toTopOf = "@+id/isCookedLayout_filter">
@@ -235,6 +244,10 @@
 			android:id = "@+id/isVegPicture_filter"
 			android:layout_width = "55dp"
 			android:layout_height = "55dp"
+			android:layout_marginStart = "8dp"
+			android:layout_marginTop = "8dp"
+			android:layout_marginEnd = "8dp"
+			android:layout_marginBottom = "8dp"
 			app:layout_constraintBottom_toTopOf = "@+id/isVeg_filter"
 			app:layout_constraintEnd_toEndOf = "parent"
 			app:layout_constraintStart_toStartOf = "parent"
@@ -243,12 +256,18 @@
 
 		<TextView
 			android:id = "@+id/isVeg_filter"
-			android:layout_width = "wrap_content"
+			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginStart = "8dp"
+			android:layout_marginEnd = "8dp"
+			android:layout_marginBottom = "8dp"
+			android:gravity = "center|center_vertical"
+			android:lineSpacingMultiplier = "0.8"
 			android:textSize = "24sp"
+			android:visibility = "gone"
 			app:layout_constraintBottom_toBottomOf = "parent"
-			app:layout_constraintEnd_toEndOf = "@+id/isVegPicture_filter"
-			app:layout_constraintStart_toStartOf = "@+id/isVegPicture_filter"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
 			app:layout_constraintTop_toBottomOf = "@+id/isVegPicture_filter"
 			tools:text = "@string/filters_fragment_is_veg" />
 

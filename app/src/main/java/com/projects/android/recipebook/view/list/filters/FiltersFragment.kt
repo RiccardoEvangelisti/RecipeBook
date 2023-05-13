@@ -69,6 +69,7 @@ class FiltersFragment : Fragment() {
 				}
 
 				// ... -> isVeg -> isNotVeg -> Everithing -> ...
+				//TODO
 			}
 
 			stringFilter.setOnEditorActionListener { _, actionId, _ ->
@@ -114,6 +115,7 @@ class FiltersFragment : Fragment() {
 							else -> null
 						}
 
+						//TODO
 						/*if (!(isVegFilter.iconElementIconText.isChecked && isNotVegFilter.isChecked)) {
 							filter.isVeg = isVegFilter.isChecked
 						}
@@ -134,6 +136,8 @@ class FiltersFragment : Fragment() {
 					else -> false
 				}
 			}
+
+			//TODO binding with state to keep filters even after leaving the fragment (and less spaghetticode!!!)
 		}
 	}
 

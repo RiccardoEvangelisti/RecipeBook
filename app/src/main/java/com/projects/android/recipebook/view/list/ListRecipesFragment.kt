@@ -10,6 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +43,9 @@ class ListRecipesFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		// APPBAR: MENU
+		setupMenu()
+
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 				listRecipesViewModel.recipes.collect { recipes ->
@@ -62,5 +67,11 @@ class ListRecipesFragment : Fragment() {
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
+	}
+
+	// APPBAR: MENU
+	private fun setupMenu() {
+		val appBarConfiguration = AppBarConfiguration(findNavController().graph, binding.drawerLayoutList)
+		binding.toolbarList.setupWithNavController(findNavController(), appBarConfiguration)
 	}
 }

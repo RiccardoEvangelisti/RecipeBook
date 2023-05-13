@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
@@ -14,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentSingleRecipeBinding
 import com.projects.android.recipebook.databinding.ItemSingleIngredientBinding
@@ -193,7 +194,9 @@ class SingleRecipeFragment : Fragment() {
 
 	// APPBAR: MENU
 	private fun setupMenu() {
-		(requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+		val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+		binding.toolbarList.setupWithNavController(findNavController(), appBarConfiguration)
+		binding.toolbarList.addMenuProvider(object : MenuProvider {
 			override fun onPrepareMenu(menu: Menu) {
 				// Handle for example visibility of menu items
 			}

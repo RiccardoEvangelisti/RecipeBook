@@ -12,6 +12,23 @@
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent">
 
+		<com.google.android.material.appbar.AppBarLayout
+			android:id = "@+id/appBarLayout_single"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			app:layout_constraintBottom_toTopOf = "@+id/name_single"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent">
+
+			<androidx.appcompat.widget.Toolbar
+				android:id = "@+id/toolbar_list"
+				android:layout_width = "match_parent"
+				android:layout_height = "?attr/actionBarSize"
+				android:background = "?attr/colorPrimary" />
+
+		</com.google.android.material.appbar.AppBarLayout>
+
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline1_single"
 			android:layout_width = "wrap_content"
@@ -37,13 +54,14 @@
 			android:id = "@+id/name_single"
 			android:layout_width = "0dp"
 			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
 			android:gravity = "center|center_vertical"
 			android:lineSpacingMultiplier = "0.8"
 			android:textAllCaps = "true"
 			android:textSize = "60sp"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_single"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_single"
-			app:layout_constraintTop_toTopOf = "@+id/guideline3_single"
+			app:layout_constraintTop_toBottomOf = "@+id/appBarLayout_single"
 			tools:text = "Name" />
 
 		<androidx.constraintlayout.widget.Barrier

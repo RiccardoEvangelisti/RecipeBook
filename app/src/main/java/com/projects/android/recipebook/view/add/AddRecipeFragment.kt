@@ -15,7 +15,6 @@ import android.widget.AutoCompleteTextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -25,6 +24,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.projects.android.recipebook.R
 import com.projects.android.recipebook.databinding.FragmentAddRecipeBinding
 import com.projects.android.recipebook.databinding.ItemAddIngredientBinding
@@ -92,16 +93,24 @@ class AddRecipeFragment : Fragment() {
 
 		binding.apply {
 
+			binding.toolbarAdd.setNavigationOnClickListener {
+				AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
+					.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
+						addRecipeViewModel.state.value?.canceled = true
+						addRecipeViewModel.cancelInsertRecipe(requireContext())
+						findNavController().navigateUp()
+					}.setNegativeButton(android.R.string.cancel, null).show()
+			}
+
 			// Conditions for navigateUp
 			activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, true) {
-				if (addRecipeViewModel.checkRecipe(binding, _bindingIngredientsList)) {//if there are no errors
-					AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
-						.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
-							addRecipeViewModel.state.value?.canceled = true
-							addRecipeViewModel.cancelInsertRecipe(requireContext())
-							findNavController().navigateUp()
-						}.setNegativeButton(android.R.string.cancel, null).show()
-				}
+				AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
+					.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
+						addRecipeViewModel.state.value?.canceled = true
+						addRecipeViewModel.cancelInsertRecipe(requireContext())
+						findNavController().navigateUp()
+					}.setNegativeButton(android.R.string.cancel, null).show()
+
 			}
 
 			// ERRORS HANDLERS
@@ -417,7 +426,9 @@ class AddRecipeFragment : Fragment() {
 
 	// APPBAR: MENU
 	private fun setupMenu() {
-		(requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+		val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+		binding.toolbarAdd.setupWithNavController(findNavController(), appBarConfiguration)
+		binding.toolbarAdd.addMenuProvider(object : MenuProvider {
 			override fun onPrepareMenu(menu: Menu) {
 				// Handle for example visibility of menu items
 			}
@@ -428,19 +439,14 @@ class AddRecipeFragment : Fragment() {
 
 			override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 				return when (menuItem.itemId) {
-					R.id.cancel -> {
-						AlertDialog.Builder(requireContext()).setTitle("Confirm to Exit?").setIcon(R.drawable.ic_baseline_dangerous_24)
-							.setMessage("The Recipe will be discarded").setPositiveButton(android.R.string.ok) { _, _ ->
-								addRecipeViewModel.state.value?.canceled = true
-								addRecipeViewModel.cancelInsertRecipe(requireContext())
-								findNavController().navigateUp()
-							}.setNegativeButton(android.R.string.cancel, null).show()
-						true
-					}
 					R.id.save -> {
-						addRecipeViewModel.saveRecipe(requireContext())
-						findNavController().navigateUp()
-						true
+						if (addRecipeViewModel.checkRecipe(binding, _bindingIngredientsList)) {//if there are no errors
+							addRecipeViewModel.saveRecipe(requireContext())
+							findNavController().navigateUp()
+							true
+						} else {
+							false
+						}
 					}
 
 					else -> false

@@ -12,6 +12,23 @@
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content">
 
+		<com.google.android.material.appbar.AppBarLayout
+			android:id = "@+id/appBarLayout_add"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			app:layout_constraintBottom_toTopOf = "@+id/name_layout_add"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent">
+
+			<androidx.appcompat.widget.Toolbar
+				android:id = "@+id/toolbar_add"
+				android:layout_width = "match_parent"
+				android:layout_height = "?attr/actionBarSize"
+				android:background = "?attr/colorPrimary" />
+
+		</com.google.android.material.appbar.AppBarLayout>
+
 		<androidx.constraintlayout.widget.Guideline
 			android:id = "@+id/guideline1_add"
 			android:layout_width = "wrap_content"
@@ -35,11 +52,10 @@
 			android:layout_marginTop = "16dp"
 			android:background = "@android:color/transparent"
 			app:boxBackgroundColor = "@android:color/transparent"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline3_add"
 			app:layout_constraintEnd_toStartOf = "@+id/take_picture_add"
 			app:layout_constraintHorizontal_bias = "0.494"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
-			app:layout_constraintTop_toTopOf = "parent">
+			app:layout_constraintTop_toBottomOf = "@+id/appBarLayout_add">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id = "@+id/name_add"
@@ -67,13 +83,6 @@
 			app:layout_constraintStart_toEndOf = "@+id/name_layout_add"
 			app:layout_constraintTop_toTopOf = "@+id/name_layout_add" />
 
-		<androidx.constraintlayout.widget.Guideline
-			android:id = "@+id/guideline3_add"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "86dp" />
-
 		<ToggleButton
 			android:id = "@+id/is_veg_add"
 			android:layout_width = "wrap_content"
@@ -82,10 +91,10 @@
 			android:minHeight = "48dp"
 			android:textOff = "@string/add_recipe_fragment_is_veg"
 			android:textOn = "@string/add_recipe_fragment_is_veg"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
+			app:layout_constraintBottom_toBottomOf = "@+id/portions_layout_add"
 			app:layout_constraintEnd_toStartOf = "@+id/is_cooked_add"
 			app:layout_constraintStart_toEndOf = "@+id/portions_layout_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
+			app:layout_constraintTop_toTopOf = "@+id/portions_layout_add"
 			tools:ignore = "TextContrastCheck" />
 
 		<ToggleButton
@@ -96,10 +105,10 @@
 			android:minHeight = "48dp"
 			android:textOff = "@string/add_recipe_fragment_is_cooked"
 			android:textOn = "@string/add_recipe_fragment_is_cooked"
-			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
+			app:layout_constraintBottom_toBottomOf = "@+id/is_veg_add"
 			app:layout_constraintEnd_toStartOf = "@+id/guideline2_add"
 			app:layout_constraintStart_toEndOf = "@+id/is_veg_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline3_add"
+			app:layout_constraintTop_toTopOf = "@+id/is_veg_add"
 			tools:ignore = "TextContrastCheck" />
 
 		<androidx.constraintlayout.widget.Guideline
@@ -107,7 +116,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "182dp" />
+			app:layout_constraintGuide_begin = "233dp" />
 
 
 		<com.google.android.material.textfield.TextInputLayout
@@ -156,7 +165,7 @@
 			app:layout_constraintBottom_toTopOf = "@+id/guideline4_add"
 			app:layout_constraintEnd_toStartOf = "@+id/is_veg_add"
 			app:layout_constraintStart_toStartOf = "@+id/guideline1_add"
-			app:layout_constraintTop_toTopOf = "@+id/guideline3_add">
+			app:layout_constraintTop_toBottomOf = "@+id/name_layout_add">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id = "@+id/portions_add"
@@ -185,7 +194,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "250dp" />
+			app:layout_constraintGuide_begin = "330dp" />
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id = "@+id/unit_ingredient_add"
@@ -271,7 +280,7 @@
 			android:layout_width = "wrap_content"
 			android:layout_height = "wrap_content"
 			android:orientation = "horizontal"
-			app:layout_constraintGuide_begin = "345dp" />
+			app:layout_constraintGuide_begin = "429dp" />
 
 		<LinearLayout
 			android:id = "@+id/ingredients_container_add"
