@@ -26,29 +26,29 @@
 				app:layout_constraintGuide_begin = "20dp" />
 
 
-			<ImageButton
-				android:id = "@+id/expand_filters_list"
+			<androidx.constraintlayout.widget.Guideline
+				android:id = "@+id/guideline3_list"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
-				android:contentDescription = "@string/list_recipes_fragment_extend_filter_panel"
-				app:layout_constraintBottom_toTopOf = "@+id/recipes_recycler_view_list"
-				app:layout_constraintEnd_toStartOf = "@+id/guideline3_list"
-				app:layout_constraintStart_toStartOf = "@+id/guideline2_list"
-				app:layout_constraintTop_toTopOf = "parent"
-				app:srcCompat = "@drawable/ic_baseline_keyboard_arrow_up_24"
-				tools:ignore = "SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+				android:orientation = "vertical"
+				app:layout_constraintGuide_end = "10dp" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id = "@+id/guideline2_list"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:orientation = "vertical"
+				app:layout_constraintGuide_begin = "10dp" />
 
 			<androidx.recyclerview.widget.RecyclerView
 				android:id = "@+id/recipes_recycler_view_list"
 				android:layout_width = "0dp"
 				android:layout_height = "0dp"
-				android:layout_marginBottom = "16dp"
 				app:layout_constraintBottom_toBottomOf = "parent"
 				app:layout_constraintEnd_toStartOf = "@+id/guideline3_list"
-				app:layout_constraintHorizontal_bias = "0.0"
 				app:layout_constraintStart_toStartOf = "@+id/guideline2_list"
-				app:layout_constraintTop_toBottomOf = "@+id/expand_filters_list"
-				tools:listitem = "@layout/item_list_recipes" />
+				app:layout_constraintTop_toTopOf = "@+id/guideline1_list"
+				tools:listitem = "@layout/item_list_recipe" />
 
 			<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 				android:id = "@+id/add_recipe_FAB_list"
@@ -69,40 +69,31 @@
 				app:layout_constraintTop_toTopOf = "@+id/recipes_recycler_view_list"
 				app:layout_constraintVertical_bias = "0.975" />
 
-			<androidx.constraintlayout.widget.Guideline
-				android:id = "@+id/guideline2_list"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:orientation = "vertical"
-				app:layout_constraintGuide_begin = "10dp" />
-
-			<androidx.constraintlayout.widget.Guideline
-				android:id = "@+id/guideline3_list"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:orientation = "vertical"
-				app:layout_constraintGuide_end = "10dp" />
-
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
 	</androidx.core.widget.NestedScrollView>
 
 	<com.google.android.material.navigation.NavigationView
 		android:id = "@+id/navigationview_list"
-		android:layout_width = "wrap_content"
+		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
 		android:layout_gravity = "start"
 		android:fitsSystemWindows = "true">
 
-		<androidx.fragment.app.FragmentContainerView
-			android:id = "@+id/filters_layout_list"
-			android:name = "com.projects.android.recipebook.view.list.filters.FiltersFragment"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:layout_gravity = "center"
-			android:visibility = "visible"
-			tools:layout = "@layout/fragment_filters"
-			tools:visibility = "visible" />
+		<androidx.core.widget.NestedScrollView
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:fillViewport = "true">
+
+			<androidx.fragment.app.FragmentContainerView
+				android:id = "@+id/filters_layout_list"
+				android:name = "com.projects.android.recipebook.view.list.filters.FiltersFragment"
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent"
+				tools:layout = "@layout/fragment_filters" />
+
+		</androidx.core.widget.NestedScrollView>
+
 	</com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

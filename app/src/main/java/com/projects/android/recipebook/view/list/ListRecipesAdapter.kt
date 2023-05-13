@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.projects.android.recipebook.R
-import com.projects.android.recipebook.databinding.ItemListRecipesBinding
+import com.projects.android.recipebook.databinding.ItemListRecipeBinding
 import com.projects.android.recipebook.model.Recipe
 import com.projects.android.recipebook.model.enums.Course
 
@@ -15,7 +15,7 @@ class ListRecipesAdapter(private val recipes: List<Recipe>, private val context:
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolderRecipes {
 		val inflater = LayoutInflater.from(parent.context)
-		val binding = ItemListRecipesBinding.inflate(inflater, parent, false)
+		val binding = ItemListRecipeBinding.inflate(inflater, parent, false)
 		return ListHolderRecipes(binding, context)
 	}
 
@@ -29,7 +29,7 @@ class ListRecipesAdapter(private val recipes: List<Recipe>, private val context:
 	}
 }
 
-class ListHolderRecipes(private val binding: ItemListRecipesBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+class ListHolderRecipes(private val binding: ItemListRecipeBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
 	fun bind(recipe: Recipe, onRecipeClicked: (recipeID: Int) -> Unit) {
 
